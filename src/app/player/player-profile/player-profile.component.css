@@ -1,0 +1,42 @@
+ul.inputCheck{
+    list-style: none;
+    margin:0px;
+    padding:0px;
+}
+ul.inputCheck li{
+    display:block;
+}
+.data_module input[type="text"]{width:100%;}
+
+.fontSize12 .col-md-4, .fontSize12 .col-md-8{font-size:14px;}
+
+#submitDiv { text-align: center; }
+#submitDiv button { text-transform: uppercase; font-weight: bold; 
+    background: #70ad47; font-size: 16px; margin-top: 2%;}
+    
+.withdrawDiv { text-align: center; }
+.withdrawDiv button{text-transform: uppercase; font-weight: bold; font-size: 16px; margin-top: 2%; width: auto;}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: unset;
+  }
+
+  .my-dropdown{
+      margin-left: 6px;
+      height: 27px;
+      width: 60px;
+
+  }
+
+
+
+.mainPanel table thead tr th{background-color:#ededed; padding:5px; color:#000000; text-align:left; border:1px solid #dddddd;font-size:14px;}
+.mainPanel table tbody tr td{background-color:#ffffff; padding:5px; color:#000000; text-align:left; border:1px solid #dddddd;font-size:14px;}
+
+.lock {
+    margin-left: 30px;
+    height: 18px;
+    width: 15px;
+}

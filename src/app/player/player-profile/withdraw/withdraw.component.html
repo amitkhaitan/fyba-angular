@@ -1,0 +1,50 @@
+
+<ng-container *ngIf="details">
+<div class="modal-header padding10" style="background-color:red">
+  <h4 style="color:white" class="modal-title pull-left">Withdraw</h4>
+  <button type="button" class="close pull-right customClose" aria-label="Close" (click)="modalRef.hide()">
+
+    <span aria-hidden="true">&times;</span>
+
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <ngb-accordion>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <div class="HeadCollapse">
+            <h2 class="paidHead" style="font-size:16px !important"> Withdrawal Information</h2>
+          </div>
+
+        </ng-template>
+        <ng-template ngbPanelContent>
+          The FYBA issues refunds to players who withdraw from the league based on the date the withdrawal is requested.
+          Requests received during the Early Refund Request period will granted a refund of amounts paid minus a
+          non-refundable fee of $10.00 (players who have made a school or AAU team will not be charged the nonrefundable
+          fee). Requests received during the Late Refund request period will be granted a refund of amounts paid minus
+          the non-refundable fee and the uniform fee (total of $40). No refunds will be given after Dec. 31st . Players
+          wishing to withdraw from the league must do so through the league website. Withdrawal requests must be
+          received by the appropriate dates to qualify for a refund.
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+    <br/>
+    <label><b>Current Player Status:</b> {{details.Status}}</label>
+    <label><b>Registration Payment Method:</b>  {{details.PaymentMode}}</label>
+    <label><b>Refund Processing Date:</b>  </label>
+    <label><b>Refund Period:</b>  </label>
+    <label><b>Withdrawal Reason:</b>  </label>
+    <label><b>Withdrawal Explaination:</b></label>
+  </div>
+</div>
+<div style="text-align:center" class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="withdraw()">
+    WITHDRAW
+  </button>&nbsp;
+  <button type="button" class="btn btn-primary" (click)="cancel()">
+    CANCEL
+  </button>
+
+</div>
+</ng-container>

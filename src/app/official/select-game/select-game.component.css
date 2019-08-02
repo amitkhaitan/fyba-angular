@@ -1,0 +1,52 @@
+.modal-dialog{
+   top:50% !important;
+     left:50%;
+    transform:translateX(-50%) translateY(-50%) !important;
+    -ms-transform: translateX(-50%) translateY(-50%)  !important;
+    -webkit-transform: translateX(-50%) translateY(-50%)  !important;
+    -moz-transform: translateX(-50%) translateY(-50%)  !important;
+    -o-transform: translateX(-50%) translateY(-50%)  !important; 
+    margin:0px;
+    position: absolute;
+
+}
+.btnWordBreak{display:none;}
+
+.bgYellow{
+    background:#FFD700 !important;
+}
+
+.subGroupHead{
+    margin:0px; 
+    text-align:right;
+    color: red;
+    font-size:13px;
+}
+
+/* presentation styles */
+html {height: 100%}
+/*body { text-align:center; background: radial-gradient(circle, #fff 0%, #bbb 85%) no-repeat; background: -webkit-radial-gradient(circle, #fff 0%, #bbb 85%) no-repeat; height: 100%; display:table; width:100%}*/
+.block {display: table-cell; vertical-align:middle}
+h2, a { font-family: "Open Sans Light", "Open Sans", "Segoe UI", Helvetica, Arial; color: #888; font-weight: lighter;}
+.info {margin-top: 25px}
+.info a {font-size: 12px; color: #999}
+.info br + a {text-decoration:none}
+
+.matchInfo > div{text-decoration:underline;}
+.modal-body iframe{width:100%; max-width:100%;}
+.modal-sm{width: 100%;max-width: 600px;}
+.paddTopBottom10{padding:0px 10; margin-bottom:10px;}
+.modal-content{margin:0px 15px;}
+
+h1.mainDate{font-size:20px;margin-bottom: 0;margin-top: 20px;display: inline-block;width: 100%; position:relative;}
+/* .btn-success{
+    width:49%
+} */
+
+@media only screen and (max-width : 385px) {
+    .btnWordBreak{display:block;}
+
+}
+.link{
+    cursor: pointer;
+}

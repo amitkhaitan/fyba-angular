@@ -1,0 +1,13 @@
+body {
+    font-size: 13px !important ;
+    display: block;
+}
+.modal-body label{
+    display: block;
+    font-weight: 500;
+}
+
+
+/* label{
+    display: inline-block
+} */

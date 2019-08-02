@@ -1,0 +1,210 @@
+<div>
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            Selecting OK will add an icon to your app screen which can be used
+            to launch the application directly in the future
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-success">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+  <!-- *ngIf="browserName == 'ios' && !iosStandalone" -->
+  <div *ngIf="browserName == 'ios' && !iosStandalone" class="topheaderFixed">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-10 col-xs-6 text-left">
+          <label style="color:white;margin-bottom: 0;margin-top: 6px;" class="lb">App is not installed</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-10 col-xs-6 text-right">
+          <button style="padding: 2px 12px;" (click)="getApp(template)" class="btn btn-success pull-right">Get
+            App</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg_logo">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div class="logo_text">
+            <div *ngIf="dss.roundThumbnail == null" class="img_profile">
+              <img
+                src="https://us.123rf.com/450wm/pikepicture/pikepicture1612/pikepicture161200524/68824656-male-default-placeholder-avatar-profile-gray-picture-isolated-on-white-background-for-your-design-ve.jpg?ver=6"
+                alt="" />
+            </div>
+            <div *ngIf="dss.roundThumbnail != null" class="img_profile pull-left">
+              <img src="{{ dss.roundThumbnail }}" alt="" />
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <a alt="Logo Text">FYBA</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right paddRightNone">
+          <div class="logo_main">
+            <a href="javascript:void(0);"><img src="../../assets/images/fyba_logo_old.png" alt="FYBA Logo" /></a>
+          </div>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-left paddNone">
+          <div (click)="toggleMenu()" class="mobile_menu">
+            <!--<span></span> <span></span> <span></span>-->
+            <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+            <div [ngStyle]="{ display: toggle ? 'block' : 'none' }" class="mobile_menu_div">
+              <ul>
+
+                <li style="padding-bottom:0%">
+                  <p (click)="toggleText()" *ngIf="dss.textSize == 'Small'">
+                    Classic Layout
+                  </p>
+                  <p (click)="toggleText()" *ngIf="dss.textSize == 'Large'">
+                    Compact Layout
+                  </p>
+                </li>
+                <li (click)="changePassword()">Change Password</li>
+                <li (click)="logout()">Log Out</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <ul class="tab_main tabsMain"
+    *ngIf="(dss.isOfficial && dss.isPlayer && !dss.isCoach) || (dss.isOfficial && !dss.isPlayer && dss.isCoach) || (!dss.isOfficial && dss.isPlayer && dss.isCoach)">
+    <li *ngIf="dss.isPlayer" class="tab-link width50" data-tab="tabMain-1" routerLink="/player"
+      routerLinkActive="active">
+      <div class="bg_img_style player_img"></div><span>PLAYER</span>
+    </li>
+    <li *ngIf="dss.isCoach" class="tab-link width50" data-tab="tabMain-2" routerLink="/coach" routerLinkActive="active">
+      <div class="bg_img_style coach_img"></div><span>COACH</span>
+    </li>
+    <li *ngIf="dss.isOfficial" class="tab-link width50" data-tab="tabMain-3" routerLink="/official"
+      routerLinkActive="active">
+      <div class="bg_img_style official_img"></div><span>OFFICIAL</span>
+    </li>
+  </ul>
+
+  <ul class="tab_main tabsMain" *ngIf="dss.isOfficial && dss.isPlayer && dss.isCoach">
+    <li *ngIf="dss.isPlayer" class="tab-link width33" data-tab="tabMain-1" routerLink="/player"
+      routerLinkActive="active">
+      <div class="bg_img_style player_img"></div><span>PLAYER</span>
+    </li>
+    <li *ngIf="dss.isCoach" class="tab-link width33" data-tab="tabMain-2" routerLink="/coach" 
+    routerLinkActive="active">
+      <div class="bg_img_style coach_img"></div><span>COACH</span>
+    </li>
+    <li *ngIf="dss.isOfficial" class="tab-link width33" data-tab="tabMain-3" routerLink="/official"
+      routerLinkActive="active">
+      <div class="bg_img_style official_img"></div><span>OFFICIAL</span>
+    </li>
+  </ul>
+
+  <div class="clearfix"></div>
+
+  <!--<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<ul class="tab_main">
+					<li #playerActive><a href="javascript:void(0);" [routerLink]="['/player']"><div class="bg_img_style player_img"></div><span>PLAYER</span></a></li>
+					<li #coachActive><a href="javascript:void(0);" [routerLink]="['/coach']"><div class="bg_img_style coach_img"></div><span>COACH</span></a></li>
+					<li #officialActive class="active"><a href="javascript:void(0);" [routerLink]="['/official']"><div class="bg_img_style official_img"></div><span>OFFICIAL</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>-->
+
+  <div class="container official_header_img_paddNone">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div #imageClass><span *ngIf="dss.currentRoute=='official'" class="header_img_text">Officials</span></div>
+        <div #imageClass><span *ngIf="dss.currentRoute=='player'" class="header_img_text">Players</span></div>
+        <div #imageClass><span *ngIf="dss.currentRoute=='coach'" class="header_img_text">Coaches</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--##########loader###################-->
+<app-fybaloader *ngIf="toggleRequest"></app-fybaloader>
+<!--######################################-->
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">FYBA App</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="tapDiv ">
+            <div><img src="assets/images/add_home_icon.png" alt="Add to Home" /></div>
+            <p>
+              Install this webapp on your iPhone; tap &nbsp;<img src="assets/images/share_icon-2.png"
+                alt="Share Icon" />&nbsp; and then Add to Homescreen
+            </p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+      </ng-template>
+    <!-- <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="tapDiv ">
+            <div><img src="assets/images/add_home_icon.png" alt="Add to Home" /></div>
+            <p>
+              Install this webapp on your iPhone; tap &nbsp;<img src="assets/images/share_icon-2.png"
+                alt="Share Icon" />&nbsp; and then &nbsp;
+              Add to Homescreen
+            </p>
+          </div>
+        </div> -->
+
+
+
+
+
+<!-- <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-sm">
+    <div class="tapDiv ">
+      <div><img src="assets/images/add_home_icon.png" alt="Add to Home" /></div>
+      <p>
+        Install this webapp on your iPhone; tap &nbsp;<img src="assets/images/share_icon-2.png"
+          alt="Share Icon" />&nbsp; and then &nbsp;
+        Add to Homescreen
+      </p>
+    </div>
+  </div>
+</div> -->
