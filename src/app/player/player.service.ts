@@ -26,6 +26,7 @@ export class PlayerService {
   playerId;
   profileData = null;
   standingsData=null;
+  calenderData=null;
   backClick = false;
   recepient: string;
   emailFlag:boolean;
@@ -144,6 +145,20 @@ export class PlayerService {
     });
     var body = JSON.stringify(standlingsModel);
     return this.http.post(Constants.apiURL + '/api/Standings', body, this.postRequestOptions);
+
+  }
+
+  getplayerCalender():Observable<any>{
+    var calenderModel = new GetPlayer();
+    calenderModel.UserID = this.dss.userId;
+    calenderModel.SessionKey = this.dss.sessionKey;
+    calenderModel.RequestedData = JSON.stringify({
+      PlayerId: this.playerId,
+      LeagueId: this.dss.leagueId,
+      SeasonId: this.dss.seasonId
+    });
+    var body = JSON.stringify(calenderModel);
+    return this.http.post(Constants.apiURL + '/api/PlayerCalendar', body, this.postRequestOptions);
 
   }
 

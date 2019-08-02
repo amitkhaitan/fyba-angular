@@ -15,11 +15,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr *ngFor="let prac of practices">
+          <td>{{prac.Date}}</td>
+          <td>{{prac.Time}}</td>
+          <td>{{prac.Location}}</td>
+          <td>{{prac.Snacks}}</td>
         </tr>
       </tbody>
     </table>
