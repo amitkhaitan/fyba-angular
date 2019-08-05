@@ -230,16 +230,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>7/3/19 8:09 PM</td>
-                      <td>New Registration</td>
-                      <td></td>
+                    <tr *ngFor="let transcHist of transactionHistory">
+                      <td>{{transcHist.Date}}</td>
+                      <td>{{transcHist.Action}}</td>
+                      <td>{{transcHist.Value}}</td>
                     </tr>
-                    <tr>
-                      <td>7/8/19 10:14 AM</td>
-                      <td>Status Change</td>
-                      <td>Admitted</td>
-                    </tr>
+                    
                   </tbody>
                 </table>
               </div>

@@ -89,6 +89,10 @@ export class PlayerProfileComponent implements OnInit {
     return this.profileSection.Value.registrationStatus;
   }
 
+  get transactionHistory() {
+    return this.profileSection.Value.transactionHistory;
+  }
+
   get apparel() {
     return this.profileSection.Value.apparel;
   }
