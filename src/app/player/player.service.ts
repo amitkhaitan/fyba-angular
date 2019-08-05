@@ -67,7 +67,7 @@ export class PlayerService {
       });
       var body = JSON.stringify(getPlayerModel);
       //console.log(body);
-      return this.http.post(Constants.apiURL + '/api/TeamInfo', body, this.postRequestOptions);
+      return this.http.post(Constants.apiURL + '/api/PlayerTeamInfo', body, this.postRequestOptions);
     }
   }
 

@@ -35,11 +35,11 @@ export class PlayerCalendarComponent implements OnInit {
     }
 
   }
-  async getplayerCalender(){
-    await  this.playerService.getplayerCalender().subscribe((res) => {    
-        this.dataRequest = false;      
+  getplayerCalender(){
+    this.playerService.getplayerCalender().subscribe((res) => {              
         var response = JSON.parse(res["_body"]); 
-        //console.log(response);          
+        //console.log(response); 
+        this.dataRequest = false;          
         if(response.Status==true) {      
             this.playerService.calenderData =response.Value; 
             this.practices=this.playerService.calenderData.practices;
@@ -48,7 +48,7 @@ export class PlayerCalendarComponent implements OnInit {
         }else{
           this.modalRef = this.modalService.show(ErrorModalComponent);
           this.modalRef.content.closeBtnName = 'Close';
-        }         
+        }        
       }, (err) => {
         this.initialFetchError = true;
         this.errorMsg = err;

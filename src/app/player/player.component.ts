@@ -66,7 +66,8 @@ export class PlayerComponent implements OnInit {
       
       this.playerService.getPlayerProfile().subscribe(
         (res)=>{
-          this.playerService.profileData = JSON.parse(res["_body"]);           
+          this.playerService.profileData = JSON.parse(res["_body"]);   
+          console.log(this.playerService.profileData);        
           this.dss.DivisionId = this.playerService.profileData.Value.playerInfo.DivisionId;
           this.dataRequest = false;
           this.router.navigate(["/player/profile"]);

@@ -66,8 +66,9 @@ export class PlayerProfileComponent implements OnInit {
           homePhone: new FormControl(this.parentInfo[i]["Parent_HomePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           mobilePhone: new FormControl(this.parentInfo[i]["Parent_MobilePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           // workPhone:new FormControl(this.parentInfo[i]["Parent_WorkPhone"],[ Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/),Validators.minLength(7),Validators.maxLength(14)]),
-          textingoption: null,
-          Volunteeredposition: null
+          textingoption:null,
+          VolunteerCheckIn:this.parentInfo[i]["VolunteerCheckIn"],
+          Parent_VolunteerPosition: this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"]
         })
       )
     }
@@ -103,21 +104,13 @@ export class PlayerProfileComponent implements OnInit {
 
   ngOnInit() {
     this.fetchingData = true;
-    //console.log(this.playerService.profileData);
-
-    //console.log("Player Id in profile:" + this.playerService.playerId);
-
-    // console.log(this.profileForm);
-
     this.interval = setInterval(() => {
       this.timesRun += 1;
-      //console.log(this.playerService.profileData);
       if (this.playerService.profileData) {
         this.profileForm = this.fb.group({
           ParentInfo: this.initProfileDetailsArray()
         });
         clearInterval(this.interval);
-        //console.log(this.profileForm.value);
         this.fetchingData = false;
       }
     }, 2000);
@@ -152,7 +145,6 @@ export class PlayerProfileComponent implements OnInit {
   validEmail: boolean;
 
   onChange(newValue) {
-    //console.log(newValue);
     const validEmailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (validEmailRegEx.test(newValue)) {
       this.validEmail = true;
@@ -185,18 +177,13 @@ export class PlayerProfileComponent implements OnInit {
 
   onSubmit() {
     this.fetchingData = true;
-    //console.log(this.profileForm.value);
-    // for(var i=0; i<this.profileForm.controls['ParentInfo'].length; ++i){
-    //   console.log(i);
-    // }
     var rd = "[";
     (<FormArray>this.profileForm.get('ParentInfo')).controls.forEach((group) => {
-      //console.log(group.value);
       rd += JSON.stringify({
         UserId: group.value.userId,
         Parent_HomePhone: group.value.homePhone,
         Parent_MobilePhone: group.value.mobilePhone,
-        Parent_WorkPhone: group.value.workPhone,
+        //Parent_WorkPhone: group.value.workPhone,
         Parent_Email: group.value.email
       }) + ","
     });
@@ -207,18 +194,13 @@ export class PlayerProfileComponent implements OnInit {
     this.playerService.saveProfileData(rd)
       .subscribe((res) => {
         res = JSON.parse(res["_body"]);
-
         this.fetchingData = false;
-        this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });
-
-        //console.log(JSON.parse(res["_body"]));
-      }
-      );
+        this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
+      });
   }
 
   modalRed: BsModalRef;
   withdraw(playerId: number, status: JSON) {
-    //console.log(status);
     this.modalRef = this.modalService.show(WithdrawComponent);
     this.modalRef.content.playerId = playerId;
     this.modalRef.content.details = status;
