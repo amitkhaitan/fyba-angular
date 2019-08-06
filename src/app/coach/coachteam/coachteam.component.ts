@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,NavigationExtras } from '@angular/router';
-import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { DataSharingService } from './../../data-sharing.service';
+import { CoachService }  from './../coach.service';
+import { Router } from '@angular/router';
+import { CoachProfileResponse } from './../models/profileResponse.model';
+import { FormBuilder,FormArray,FormControl, FormGroup } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CoachTeam } from '../models/blastemail.model';
+
 
 @Component({
   selector: 'app-coachteam',
@@ -11,10 +15,66 @@ import { CoachTeam } from '../models/blastemail.model';
   styleUrls: ['./coachteam.component.css']
 })
 export class CoachteamComponent{
-  CoachTeaminfo:CoachTeam=null;
-  constructor(public router: Router,public config: NgbAccordionConfig,private modalService: BsModalService) { }
+  modalRef: BsModalRef;
+
+  /**variable declaration start */
+
+    dataRequest: boolean;
+    showHealthCondition:boolean;
+    teamleadership:boolean;
+    initialFetchError = null;
+    errorMsg: string;
+    TeamName:string;
+    TeamLeaders:Array<string>;
+    TeamRoster:Array<string>;
+    HealthConditions:Array<string>;
+    
+  /**variable declaration end */
+
+  constructor(public router: Router,
+    public config: NgbAccordionConfig,
+    private modalService: BsModalService,
+    private coachService: CoachService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.dataRequest=true;
+    this.showHealthCondition=true;
+    this.teamleadership=true;
+    this.coachTeamInfo();
+  }
+
+  coachTeamInfo(){
+    this.coachService.getcoachTeamInfoData().subscribe((res) => {   
+      this.dataRequest = false;   
+      var response = res; 
+      console.log(response);    
+      if (response.Status==true) {      
+        this.coachService.teamInfoData =response.Value; 
+        this.TeamName=this.coachService.teamInfoData.TeamName;
+        if(this.coachService.teamInfoData.TeamLeaders.length>0){
+          this.TeamLeaders=this.coachService.teamInfoData.TeamLeaders;
+        }else{
+          this.showHealthCondition=false;
+        }
+        this.TeamRoster=this.coachService.teamInfoData.TeamRoster;
+        if(this.coachService.teamInfoData.HealthConditions.length>0){
+          this.HealthConditions=this.coachService.teamInfoData.HealthConditions; 
+        }else{
+          this.showHealthCondition=false;
+        }
+       
+      } else {
+        this.modalRef = this.modalService.show(ErrorModalComponent);
+        this.modalRef.content.closeBtnName = 'Close';
+      }         
+    }, (err) => {
+      this.initialFetchError = true;
+      this.errorMsg = err;
+      this.modalRef = this.modalService.show(ErrorModalComponent);
+      this.modalRef.content.closeBtnName = 'Close';
+      this.modalRef.content.errorMsg = err;
+    });
   }
 
   sendEmail(type){

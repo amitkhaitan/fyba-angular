@@ -39,25 +39,20 @@ export class CoachProfileComponent implements OnInit {
     }
     
 
-  ngOnInit() {
-   
- 
-    this.dataRequest=true;
-    
+  ngOnInit() { 
+    this.dataRequest=true;    
     this.coachService.getCoach()
     .subscribe(
       (res)=>{        
         this.profileData = res;
         console.log(res);      
         this.generateDetailsForm();
-        this.generatePracticePreferenceForm();
-        
-        
+        this.generatePracticePreferenceForm();        
         this.dataRequest = false;
       },
       (error)=>{
         this.dataRequest = false;
-        console.log(error);       
+        //console.log(error);       
       }
     )
   }
@@ -73,8 +68,7 @@ export class CoachProfileComponent implements OnInit {
     this.personalDetailsForm = await this.fb.group({
       coachName:this.profileData.Value.CoachName,
       email: this.profileData.Value.Email,
-      shirtSize: new FormControl({value:this.initShirtSize(), disabled:true}),
-      
+      shirtSize: new FormControl({value:this.initShirtSize(), disabled:true}),      
       snacksField: ''
     })
 
@@ -97,12 +91,12 @@ export class CoachProfileComponent implements OnInit {
   
 
   toggle(){
-    console.log(this.personalDetailsForm.controls["shirtSize"].disabled);
+    //console.log(this.personalDetailsForm.controls["shirtSize"].disabled);
     if(this.personalDetailsForm.controls["shirtSize"].disabled)
     {
       // debugger;
       this.personalDetailsForm.controls["shirtSize"].enable();
-      console.log(this.personalDetailsForm.controls["shirtSize"].disabled);
+      //console.log(this.personalDetailsForm.controls["shirtSize"].disabled);
       
     }
     else
@@ -130,7 +124,7 @@ export class CoachProfileComponent implements OnInit {
     })
 
     var x = await setInterval(() => {
-      console.log(this.preferenceForm.value);
+      //console.log(this.preferenceForm.value);
       clearInterval(x);
     }, 1000);    
     
@@ -196,15 +190,11 @@ export class CoachProfileComponent implements OnInit {
 
   preferenceChange(e: any, locationId:number){
     if(e.currentTarget.checked){
-      this.locationPreference.push(locationId);
-      
-    }
-    else{
+      this.locationPreference.push(locationId);      
+    }else{
       this.locationPreference = this.locationPreference.filter(item =>  item !== locationId);
     }
-
-    console.log(this.locationPreference);
-
+    //console.log(this.locationPreference);
   }
 
   onSubmit(){
@@ -220,8 +210,7 @@ export class CoachProfileComponent implements OnInit {
         let selectedControl = group.get('Selected') as FormControl;    
        
         if (dayIdControl.value == id) {
-          console.log("Disable" + dayIdControl.value);
-          
+          //console.log("Disable" + dayIdControl.value);          
           selectedControl.setValue(false);
           selectedControl.disable();
           group.updateValueAndValidity();
@@ -251,10 +240,9 @@ export class CoachProfileComponent implements OnInit {
       
       (<FormArray>this.preferenceForm.get('dayOfTheWeekPreference')).controls.forEach((group) => {
         let dayIdControl = group.get('DayId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
+        let selectedControl = group.get('Selected') as FormControl;           
         if (dayIdControl.value == id) {
-          console.log("Disable" + dayIdControl.value);
+         // console.log("Disable" + dayIdControl.value);
           selectedControl.setValue(false);
           selectedControl.disable();
           group.disable();        
@@ -274,7 +262,7 @@ export class CoachProfileComponent implements OnInit {
     //   });
     // }
 
-    console.log("Form Valid?"+this.preferenceForm.valid);
+    //console.log("Form Valid?"+this.preferenceForm.valid);
 
   }
 
@@ -292,7 +280,7 @@ export class CoachProfileComponent implements OnInit {
         let selectedControl = group.get('Selected') as FormControl;    
        
         if (timeIdControl.value == id) {
-          console.log("Disable" + timeIdControl.value);
+          //console.log("Disable" + timeIdControl.value);
           selectedControl.setValue(false);
           selectedControl.disable();
           group.disable();        
@@ -304,15 +292,12 @@ export class CoachProfileComponent implements OnInit {
   
   timeYouCantHavePracticeChange(e:any, id:number){
     if(e.currentTarget.checked){
-      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');
-
-      
+      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');      
       (<FormArray>this.preferenceForm.get('timeOfTheDayPreference')).controls.forEach((group) => {
         let timeIdControl = group.get('TimeId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
+        let selectedControl = group.get('Selected') as FormControl;           
         if (timeIdControl.value == id) {
-          console.log("Disable" + timeIdControl.value);
+          //console.log("Disable" + timeIdControl.value);
           selectedControl.setValue(false);
           selectedControl.disable();
           group.disable();        
@@ -320,13 +305,6 @@ export class CoachProfileComponent implements OnInit {
          
       });
     }
-
-    
-
   }
-
-  
-
-
 
 }

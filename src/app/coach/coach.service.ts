@@ -21,6 +21,8 @@ export class CoachService {
   serviceError:boolean;
   reportRequest:boolean;
   initialJson: string;
+  calenderData=null;
+  teamInfoData=null;
   finalFilter = new FinalFilter();
   IncidentReports: IncidentReports[] = [];
   NewIncidents: IncidentReports[] = [];
@@ -54,7 +56,6 @@ export class CoachService {
     })
 
     var body = JSON.stringify(getCoachModel);
-    console.log(body);
     return this.http.post(Constants.apiURL+'/api/CoachDetails', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
     
@@ -77,9 +78,7 @@ export class CoachService {
       SeasonId: this.dss.seasonId,
       LeagueId: this.dss.leagueId
     });
-
     var body = JSON.stringify(emailModel);
-    console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
@@ -93,8 +92,8 @@ export class CoachService {
   postReportTitle: string;
   postReportMsg: string;
   postReportStatus: boolean;
+
   postReportData(gameListObj: any):Observable<any> {
-    console.log(gameListObj);
     var trailingUrl;
     if (gameListObj.OfficiatingPositionId == 3) {
       trailingUrl = '/api/savereportgames';
@@ -106,10 +105,7 @@ export class CoachService {
     this.finalFilter.RequestedData = JSON.stringify(gameListObj);
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
-    console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
-
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
       method: RequestMethod.Post,
@@ -121,13 +117,48 @@ export class CoachService {
 
   timeoutError: boolean;
   private handleError(error: any) {
-    console.log(error);
     if (error instanceof TimeoutError) {
       this.timeoutError = true;
     }
     this.serviceError = true;
     this.reportRequest = false;
-    console.log('A Server Error has occured!', error);
   }
 
+  getcoachCalenderData(): Observable<any>{
+    var getCoachCalenderModel = new CoachProfileRequest();
+    getCoachCalenderModel.UserID = this.dss.userId;
+    getCoachCalenderModel.SessionKey = this.dss.sessionKey;
+    getCoachCalenderModel.RequestedData = JSON.stringify({
+      LeagueId: this.dss.leagueId,
+      SeasonId: this.dss.seasonId,
+      VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
+      VolunteerId:this.dss.VolunteerId
+
+    })
+    
+    var body = JSON.stringify(getCoachCalenderModel);
+    return this.http.post(Constants.apiURL+'/api/CoachCalendar', body, this.postRequestOptions)
+    .pipe(map((res)=>res.json()))
+    
+  }
+
+  getcoachTeamInfoData(): Observable<any>{
+    var getCoachTeamInfoModel = new CoachProfileRequest();
+    getCoachTeamInfoModel.UserID = this.dss.userId;
+    getCoachTeamInfoModel.SessionKey = this.dss.sessionKey;
+    getCoachTeamInfoModel.RequestedData = JSON.stringify({
+      LeagueId: this.dss.leagueId,
+      SeasonId: this.dss.seasonId,
+      VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
+      VolunteerId:this.dss.VolunteerId
+
+    })    
+    var body = JSON.stringify(getCoachTeamInfoModel);
+    console.log(body);
+    return this.http.post(Constants.apiURL+'/api/CoachTeamInfo', body, this.postRequestOptions)
+    .pipe(map((res)=>res.json()))
+    
+  }
+
+  
 }
