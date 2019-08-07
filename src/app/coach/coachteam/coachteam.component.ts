@@ -21,7 +21,8 @@ export class CoachteamComponent{
 
     dataRequest: boolean;
     showHealthCondition:boolean;
-    teamleadership:boolean;
+    showteamleadership:boolean;
+    showTeamRoaster:boolean;
     initialFetchError = null;
     errorMsg: string;
     TeamName:string;
@@ -40,7 +41,8 @@ export class CoachteamComponent{
   ngOnInit() {
     this.dataRequest=true;
     this.showHealthCondition=true;
-    this.teamleadership=true;
+    this.showteamleadership=true;
+    this.showTeamRoaster=true;
     this.coachTeamInfo();
   }
 
@@ -52,18 +54,22 @@ export class CoachteamComponent{
       if (response.Status==true) {      
         this.coachService.teamInfoData =response.Value; 
         this.TeamName=this.coachService.teamInfoData.TeamName;
-        if(this.coachService.teamInfoData.TeamLeaders.length>0){
-          this.TeamLeaders=this.coachService.teamInfoData.TeamLeaders;
-        }else{
-          this.showHealthCondition=false;
-        }
         this.TeamRoster=this.coachService.teamInfoData.TeamRoster;
-        if(this.coachService.teamInfoData.HealthConditions.length>0){
-          this.HealthConditions=this.coachService.teamInfoData.HealthConditions; 
-        }else{
-          this.showHealthCondition=false;
-        }
-       
+          if(this.coachService.teamInfoData.TeamLeaders.length>0){
+                this.TeamLeaders=this.coachService.teamInfoData.TeamLeaders;
+          }else{
+                this.showteamleadership=false;
+          } 
+          if(this.coachService.teamInfoData.TeamRoster.length>0){
+                this.TeamRoster=this.coachService.teamInfoData.TeamRoster;
+          }else{
+                this.showTeamRoaster=false;
+          }        
+          if(this.coachService.teamInfoData.HealthConditions.length>0){
+                this.HealthConditions=this.coachService.teamInfoData.HealthConditions; 
+          }else{
+                this.showHealthCondition=false;
+          }       
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';

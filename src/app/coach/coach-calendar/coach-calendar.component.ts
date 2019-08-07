@@ -18,6 +18,9 @@ export class CoachCalendarComponent implements OnInit {
   /**variable declaration start */
 
     dataRequest: boolean;
+    showpractices:boolean;
+    showgames:boolean;
+    showother:boolean;
     initialFetchError = null;
     errorMsg: string;
     games:any;
@@ -34,6 +37,9 @@ export class CoachCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.dataRequest=true;
+    this.showpractices=true;
+    this.showgames=true;
+    this.showother=true;
     this.coachCalender();
 
   }
@@ -43,10 +49,22 @@ export class CoachCalendarComponent implements OnInit {
       var response = res; 
       console.log(response);    
       if (response.Status==true) {      
-        this.coachService.calenderData =response.Value; 
-        this.practices=this.coachService.calenderData.practices;
-        this.games=this.coachService.calenderData.games;
-        this.other=this.coachService.calenderData.other;    
+        this.coachService.calenderData =response.Value;
+          if(this.coachService.calenderData.practices.length>0){
+            this.practices=this.coachService.calenderData.practices;
+          }else{
+            this.showpractices=false;
+          }
+          if(this.coachService.calenderData.games.length>0){
+            this.games=this.coachService.calenderData.games;
+          }else{
+            this.showgames=false;
+          }  
+          if(this.coachService.calenderData.other.length>0){
+            this.other=this.coachService.calenderData.other;
+          }else{
+            this.showother=false;
+          }  
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';

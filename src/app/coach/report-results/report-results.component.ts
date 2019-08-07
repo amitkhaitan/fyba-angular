@@ -7,7 +7,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
-import { DataSharingService } from 'src/app/data-sharing.service';
+import { DataSharingService } from './../../data-sharing.service';
 import { APIGamePost } from './../models/coachReport.model';
 import { SavedataPopupComponent } from 'src/app/official/report-game/savedata-popup/savedata-popup.component';
 //import { SavedataPopupComponent } from './savedata-popup/savedata-popup.component';
@@ -42,7 +42,7 @@ export class ReportResultsComponent{
       (res)=>{
         console.log(res);
         this.coachReportData = JSON.parse(res["_body"]);
-        console.log(this.coachReportData)
+        console.log(this.coachReportData);
       }
     );
   }

@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="teamleadership; else elseBlock">
+        <ng-container *ngIf="showteamleadership; else elseBlock">
         <tr  *ngFor="let tl of TeamLeaders">
           <td>{{tl.VolunteerPosition}}</td>
           <td>{{tl.VolunteerName}}</td>
@@ -66,7 +66,7 @@
       <button type="button" class="btn blastbtn btn-sm marginTop10 marginBottom10"(click)="sendEmail('blast_text')">SEND BLAST TEXT</button>
     </div>
     <div class="table-responsive borderNone">
-      <table id ="player_other" class="marginTop10" cellspacing="0" cellpadding="0" border="0" width="100%">
+      <table id ="player_other" class="marginTop10 paddNoneTable" cellspacing="0" cellpadding="0" border="0" width="100%">
         <thead>
           <tr>
             <th>#</th>
@@ -77,18 +77,38 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td></td>
-            <td class="coachemail"><u></u></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="coachemail"><u></u></td>
-            <td></td>
-          </tr>            
+            <ng-container *ngIf="showTeamRoaster; else elseBlockteamRoaster">
+                <tr *ngFor="let teamr of TeamRoster">
+                    <td>{{teamr.JerseyNumber}}</td>
+                    <td>{{teamr.PlayerName}}</td>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr *ngFor="let pr of teamr.Parents">
+                          <td>{{pr.ParentName}}</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <tr *ngFor="let pr of teamr.Parents">
+                              <td class="coachemail"><u>{{pr.ParentEmail}}</u></td>
+                          </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                          <tr *ngFor="let pr of teamr.Parents">
+                            <td>{{pr.ParentMobilePhone}}</td>
+                          </tr>
+                        </table>
+                    </td>
+                  </tr>   
+            </ng-container>
+            <ng-template #elseBlockteamRoaster>
+                <tr>
+                  <td colspan="4">No data found</td>             
+                </tr> 
+            </ng-template>             
         </tbody>
       </table>
       </div>

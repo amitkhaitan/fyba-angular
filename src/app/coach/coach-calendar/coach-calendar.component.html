@@ -16,12 +16,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let prac of practices" class="{{prac.DateCss}}">
-          <td>{{prac.Date}}</td>
-          <td>{{prac.Time}}</td>
-          <td>{{prac.Location}}</td>
-          <td>{{prac.Snacks}}</td>
-        </tr>
+          <ng-container *ngIf="showpractices; else elseBlockpractices"> 
+              <tr *ngFor="let prac of practices" class="{{prac.DateCss}}">
+                  <td>{{prac.Date}}</td>
+                  <td>{{prac.Time}}</td>
+                  <td>{{prac.Location}}</td>
+                  <td>{{prac.Snacks}}</td>
+              </tr>
+          </ng-container>
+          <ng-template #elseBlockpractices>
+              <tr>
+                <td colspan="4">No data found</td>             
+              </tr> 
+          </ng-template>      
+        
       </tbody>
     </table>
     </div>
@@ -45,18 +53,25 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let game of games" class="{{game.DateCss}}" > 
-              <td>{{game.Date}}</td>
-              <td>{{game.Time}}</td>
-              <td>{{game.Location}}</td>
-              <td>{{game.Home_Score}} <img class="report_status"
-                *ngIf="game.Home_win==1"
-                src="assets/images/tick.png"></td>
-              <td>{{game.Visitor_Score}} <img class="report_status"
-                *ngIf="game.Visitor_win==1"
-                src="assets/images/tick.png"></td>
-              <td>{{game.Snacks}}</td>
-            </tr>         
+            <ng-container *ngIf="showgames; else elseBlockgames">
+                <tr *ngFor="let game of games" class="{{game.DateCss}}" > 
+                    <td>{{game.Date}}</td>
+                    <td>{{game.Time}}</td>
+                    <td>{{game.Location}}</td>
+                    <td>{{game.Home_Score}} <img class="report_status"
+                      *ngIf="game.Home_win==1"
+                      src="assets/images/tick.png"></td>
+                    <td>{{game.Visitor_Score}} <img class="report_status"
+                      *ngIf="game.Visitor_win==1"
+                      src="assets/images/tick.png"></td>
+                    <td>{{game.Snacks}}</td>
+                </tr>  
+            </ng-container>
+            <ng-template #elseBlockgames>
+                <tr>
+                  <td colspan="4">No data found</td>             
+                </tr> 
+            </ng-template>           
         </tbody>
       </table>
       </div>      
@@ -76,12 +91,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let otr of other">
-              <td>{{otr.Event}}</td>
-              <td>{{otr.Date}}</td>
-              <td>{{otr.Time}}</td>
-              <td>{{otr.Location}}</td>
-            </tr>
+            <ng-container *ngIf="showother; else elseBlockother">
+              <tr *ngFor="let otr of other">
+                  <td>{{otr.Event}}</td>
+                  <td>{{otr.Date}}</td>
+                  <td>{{otr.Time}}</td>
+                  <td>{{otr.Location}}</td>
+              </tr>
+            </ng-container>
+            <ng-template #elseBlockother>
+                <tr>
+                  <td colspan="4">No data found</td>             
+                </tr> 
+            </ng-template>     
           </tbody>
         </table>
         </div>
