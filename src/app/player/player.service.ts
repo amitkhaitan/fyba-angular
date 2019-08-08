@@ -56,7 +56,7 @@ export class PlayerService {
   getTeamInfo(): Observable<any> {
     //console.log(this.playerId);
     var getPlayerModel = new GetPlayer();
-    getPlayerModel.UserID = 11199;
+    getPlayerModel.UserID = this.dss.userId;
     getPlayerModel.SessionKey = this.dss.sessionKey;
     if (this.playerId != undefined) {
       getPlayerModel.RequestedData = JSON.stringify({
