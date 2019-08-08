@@ -481,7 +481,7 @@ export class OfficialService {
       headers: headerOptions
     });
     return this.http
-      .post(Constants.apiURL + '/api/loadreportgames', body, requestOptions)
+      .post(Constants.apiURL + '/api/OfficialReportGames', body, requestOptions)
       .pipe(
         timeout(60000),
         map((data: Response) => {
