@@ -7,14 +7,7 @@ import { IProfileSection } from './classes/profile/IProfile.model';
 import { IncidentReports } from './classes/reportgame/Incident.model';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {
-  Http,
-  Response,
-  Headers,
-  RequestOptions,
-  RequestMethod,
-  ResponseContentType
-} from '@angular/http';
+import {Http,Response,Headers,RequestOptions,RequestMethod,ResponseContentType} from '@angular/http';
 import { Observable, throwError, TimeoutError } from 'rxjs';
 import { SignUpRequestedData } from './classes/selectgame/signUp_rd.model';
 import { IntialFilter } from './classes/selectgame/initialFilter.model';
@@ -473,7 +466,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    //console.log(body);
 
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
@@ -532,7 +525,7 @@ export class OfficialService {
   postReportMsg: string;
   postReportStatus: boolean;
   postReportData(gameListObj: any) {
-    console.log(gameListObj);
+    //console.log(gameListObj);
     var trailingUrl;
     if (gameListObj.OfficiatingPositionId == 3) {
       trailingUrl = '/api/savereportgames';
@@ -544,9 +537,9 @@ export class OfficialService {
     this.finalFilter.RequestedData = JSON.stringify(gameListObj);
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
-    console.log(this.finalFilter);
+    //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    //console.log(JSON.stringify(this.finalFilter));
 
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
@@ -562,7 +555,7 @@ export class OfficialService {
       )
       .toPromise()
       .then((x) => {
-        console.log(x);
+        //console.log(x);
         this.reportRequest = false;
         if (x['Status']) {
           this.postReportMsg = x['Message'].PopupMessage;
@@ -599,7 +592,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    //console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/GetPaid', body, this.postRequestOptions).pipe(
       timeout(60000),
@@ -620,7 +613,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    //console.log(JSON.stringify(this.finalFilter));
 
     return this.http
       .post(Constants.apiURL + '/api/OfficiatingProfile', body, this.postRequestOptions)
@@ -641,9 +634,9 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
 
-    console.log(this.finalFilter);
+    //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    //console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/ftp', body, this.postRequestOptions).pipe(
       map((res) => <any>res.json()),
@@ -669,9 +662,9 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
 
-    console.log(this.finalFilter);
+    //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    //console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/ftp', body, requestOptions).pipe(
       map((res) => <any>res.json()),
@@ -685,7 +678,7 @@ export class OfficialService {
 
   public downloadPdf(url: string): any {
     let newUrl = url;
-    console.log(newUrl);
+    //console.log(newUrl);
     const headers = new Headers({
       'Content-Type': 'application/pdf'
     });
@@ -706,7 +699,7 @@ export class OfficialService {
   pdfFileName: string;
   public downloadPdfReportGames(url: string): any {
     let newUrl = url;
-    console.log(newUrl);
+    //console.log(newUrl);
     const headers = new Headers({
       'Content-Type': 'application/pdf'
     });
@@ -718,7 +711,7 @@ export class OfficialService {
       })
       .pipe(
         map((res) => {
-          console.log(res);
+          //console.log(res);
           // const contentDisposition = res.headers.get('content-disposition') || '';
           // const matches = /filename=([^;]+)/ig.exec(contentDisposition);
           // const fileName = (matches[1] || 'untitled').trim();
@@ -734,7 +727,7 @@ export class OfficialService {
   private handleError1(error: HttpErrorResponse) {
     // TODO: seems we cannot use messageService from here...
     let errMsg = error.message ? error.message : 'Server error';
-    console.error(errMsg);
+    //console.error(errMsg);
     if (error.status === 401) {
       window.location.href = '/';
     }
@@ -744,13 +737,13 @@ export class OfficialService {
   serviceError: boolean;
   timeoutError: boolean;
   private handleError(error: any) {
-    console.log(error);
+    //console.log(error);
     if (error instanceof TimeoutError) {
       this.timeoutError = true;
     }
     this.serviceError = true;
     this.fetchSelectGames = false;
     this.reportRequest = false;
-    console.log('A Server Error has occured!', error);
+    //console.log('A Server Error has occured!', error);
   }
 }
