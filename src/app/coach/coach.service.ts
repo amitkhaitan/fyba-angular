@@ -62,8 +62,17 @@ export class CoachService {
   }
 
   getReportResultData(): Observable<any> {
-    return this.http.get('assets/test.json')
-      .pipe(map((res) => res))
+    var getCoachReportData = new CoachProfileRequest();
+      getCoachReportData.UserID = this.dss.userId;
+      getCoachReportData.SessionKey = this.dss.sessionKey;
+      getCoachReportData.RequestedData = JSON.stringify({
+          SeasonId: this.dss.seasonId,
+          VolunteerSeasonalId: this.dss.VolunteerSeasonalId
+      })
+      var body = JSON.stringify(getCoachReportData);
+    return this.http.post(Constants.apiURL+'/api/CoachReportGames', body, this.postRequestOptions)
+    .pipe(map((res)=>res.json()))
+   
   }
 
   sendEmail(subject,emailBody): Observable<any> {

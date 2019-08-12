@@ -287,16 +287,13 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                       <strong>Jersey # Request (1st choice):</strong>
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5" #Apparel1>
-                      <select class="my-dropdown" name="my-dropdown" disabled>
-                        <!-- *ngFor="let dummy of ' '.repeat(10).split(''), let x = index" role="menuitem" -->
-                        <option [ngValue]="number" value="{{apparel.RequestedJersey1}}">{{apparel.RequestedJersey1}}
-                        </option>
-                        <option *ngFor="let number of numbers" [ngValue]="number" value="{{apparel.RequestedJersey1}}" >
+                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                      <select class="my-dropdown" name="my-dropdown" [disabled]="disableRequestjersy1">                      
+                        <option *ngFor="let number of numbers" [ngValue]="number" value="{{apparel.RequestedJersey1}}"  >
                           {{number}}</option>
 
                       </select>
-                      <img class="lock" [src]="currentSrc" alt="lock" (click)="toggle()" />
+                      <img class="lock" [src]="currentSrc1" alt="lock"  />
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -305,16 +302,14 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                       <strong>Jersey # Request (2nd choice):</strong>
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5" #Apparel2>
-                      <select class="my-dropdown" name="my-dropdown" disabled>
-                        <option [ngValue]="number" value="{{apparel.RequestedJersey1}}" >{{apparel.RequestedJersey2}}
-                        </option>
+                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                      <select class="my-dropdown" name="my-dropdown" [disabled]="disableRequestjersy2">                      
                         <option *ngFor="let number of numbers" [ngValue]="number" value="{{apparel.RequestedJersey1}}">
                           {{number}}</option>
 
                       </select>
 
-                      <img class="lock" [src]="currentSrc" alt="lock" (click)="toggle()" />
+                      <img class="lock" [src]="currentSrc2" alt="lock" />
 
                     </div>
                     <div class="clearfix"></div>

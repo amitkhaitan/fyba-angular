@@ -35,25 +35,42 @@ export class ReportResultsComponent{
   }
 
   newRequest: boolean = null;
+  dataRequest:boolean;
   modalRef: BsModalRef;
   initialJson: string;
+  errorMsg: string;
+  initialFetchError = null;
+ 
+  
   ngOnInit() {
-    this.coachService.getReportResultData().subscribe(
+    this.dataRequest=true;
+    this.CoachReportGameData();    
+  }
+
+  async CoachReportGameData(){
+    await this.coachService.getReportResultData().subscribe(
       (res)=>{
-        console.log(res);
-        this.coachReportData = JSON.parse(res["_body"]);
-        console.log(this.coachReportData);
-      }
-    );
+        var response=res;
+            this.dataRequest=false;
+         if(response.Status==true){
+            this.coachReportData = response.Value;
+        } else {
+            this.modalRef = this.modalService.show(ErrorModalComponent);
+            this.modalRef.content.closeBtnName = 'Close';
+        }         
+      }, (err) => {
+            this.initialFetchError = true;
+            this.errorMsg = err;
+            this.modalRef = this.modalService.show(ErrorModalComponent);
+            this.modalRef.content.closeBtnName = 'Close';
+            this.modalRef.content.errorMsg = err;
+      });
   }
 
  /* - On clicking save button, a message is shown to the user. 
   We hide the message if the user clicks on a new panel - */
   incidentCount = 0;
   panelChange($event: NgbPanelChangeEvent) {
-    console.log($event);
-    console.log(this.coachService.dataChanged);
-
     if (this.coachService.dataChanged == true) {
       $event.preventDefault();
       const initialState = {
@@ -67,10 +84,7 @@ export class ReportResultsComponent{
       );
 
       newPanelModal.content.saveStatus.subscribe(($e) => {
-        console.log('Should it be saved?' + $e);
-        console.log(this.coachReportData['Value']);
-        if ($e == false) {
-          console.log('Should it be saved?' + $e);
+        if ($e == false) {  
           this.coachService.IncidentReports = [];
           this.coachService.NewIncidents = [];
           this.coachService.ModifiedIncidents = [];

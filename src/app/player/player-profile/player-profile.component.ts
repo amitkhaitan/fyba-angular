@@ -33,7 +33,12 @@ export class PlayerProfileComponent implements OnInit {
   numbers = [];
   img1: string;
   img2: string;
-  currentSrc: string;
+  currentSrc1: string;
+  currentSrc2: string;
+  disableRequestjersy1:boolean;
+  disableRequestjersy2:boolean;
+
+
 
 
   constructor(public playerService: PlayerService,
@@ -43,8 +48,9 @@ export class PlayerProfileComponent implements OnInit {
     private snackbar: MatSnackBar) {
     config.closeOthers = true;
     this.img1 = "./assets/images/lock.png",
-      this.img2 = "./assets/images/unlock.png"
-    this.currentSrc = this.img1;
+    this.img2 = "./assets/images/unlock.png"
+    this.currentSrc1 = this.img1;
+    this.currentSrc2 = this.img1;
 
     for (var i = 0; i <= 100; i++) {
       this.numbers[i] = i;
@@ -53,7 +59,6 @@ export class PlayerProfileComponent implements OnInit {
   }
 
   initProfileDetailsArray() {
-    //console.log(this.parentInfo);
     const formArr = new FormArray([]);
 
     for (var i in this.parentInfo) {
@@ -108,15 +113,36 @@ export class PlayerProfileComponent implements OnInit {
 
   ngOnInit() {
     this.fetchingData = true;
+    this.disableRequestjersy1=true;
+    this.disableRequestjersy2=true;
     this.interval = setInterval(() => {
       this.timesRun += 1;
       if (this.playerService.profileData) {
         this.profileForm = this.fb.group({
           ParentInfo: this.initProfileDetailsArray()
         });
+        if (this.playerService.profileData.Value.apparel) {
+          if(this.playerService.profileData.Value.apparel.RequestedJersey1Lock==true){
+            this.currentSrc1 = this.img1;
+            this.disableRequestjersy1=true;
+          }else{
+            this.currentSrc1 = this.img2;
+            this.disableRequestjersy1=false;
+          }
+          if(this.playerService.profileData.Value.apparel.RequestedJersey2Lock==true){
+            this.currentSrc2 = this.img1;
+            this.disableRequestjersy2=true;
+          }else{
+            this.currentSrc2 = this.img2;
+            this.disableRequestjersy2=false;
+          }
+
+      }
         clearInterval(this.interval);
         this.fetchingData = false;
       }
+      
+
     }, 2000);
 
     //this.fetchingData=true;
@@ -158,24 +184,24 @@ export class PlayerProfileComponent implements OnInit {
 
   }
 
-  toggle() {
+  // toggle() {
 
-    if (this.Apparel1.nativeElement.firstElementChild.disabled) {
-      this.Apparel1.nativeElement.firstElementChild.disabled = false;
-    }
-    else {
-      this.Apparel1.nativeElement.firstElementChild.disabled = true;
-    }
+  //   if (this.Apparel1.nativeElement.firstElementChild.disabled) {
+  //     this.Apparel1.nativeElement.firstElementChild.disabled = false;
+  //   }
+  //   else {
+  //     this.Apparel1.nativeElement.firstElementChild.disabled = true;
+  //   }
     
-    if (this.Apparel2.nativeElement.firstElementChild.disabled) {
-      this.Apparel2.nativeElement.firstElementChild.disabled = false;
-    }
-    else {
-      this.Apparel2.nativeElement.firstElementChild.disabled = true;
-    }
+  //   if (this.Apparel2.nativeElement.firstElementChild.disabled) {
+  //     this.Apparel2.nativeElement.firstElementChild.disabled = false;
+  //   }
+  //   else {
+  //     this.Apparel2.nativeElement.firstElementChild.disabled = true;
+  //   }
 
-    this.currentSrc = (this.currentSrc == this.img1) ? this.img2 : this.img1;
-  }
+  //   this.currentSrc = (this.currentSrc == this.img1) ? this.img2 : this.img1;
+  // }
 
 
 

@@ -27,7 +27,7 @@ import { CoachService } from '../../coach.service';
 export class CoachGamelistFormComponent implements OnInit {
   @Input() gameData: IndividualGame;
   @Input() gameIndex: number;
-  isScorekeeper: boolean;
+  isCoach: boolean;
   form: FormGroup;
   dataChanged: boolean = false;
   incidentCount: number = 0;
@@ -58,7 +58,7 @@ export class CoachGamelistFormComponent implements OnInit {
     this.finalVisitingScore = parseInt(this.gameData.VisitingTeamScore);
     this.form = this.populateGameList(this.gameData);
     if (this.gameData.OfficiatingPositionId == '3') {
-      this.isScorekeeper = true;
+      this.isCoach = true;
       this.form.enable();
       this.homePON = this.gameData.TotalHomePON;
       this.visitingPON = this.gameData.TotalVisitingPON;
@@ -72,7 +72,7 @@ export class CoachGamelistFormComponent implements OnInit {
       }
       //this.setInitialPON();
     } else {
-      this.isScorekeeper = false;
+      this.isCoach = false;
       this.form.disable();
     }
 
@@ -375,7 +375,7 @@ export class CoachGamelistFormComponent implements OnInit {
 
         //console.log(control.value);
         if (!notPresentControl.value && this.homePON < 3) {
-          console.log(group.value);
+          //console.log(group.value);
           group.enable();
           nameControl.disable();
         }
@@ -476,7 +476,7 @@ export class CoachGamelistFormComponent implements OnInit {
         }
 
         if (playerNoteControl.value) {
-          console.log(playerNoteControl.value);
+         //console.log(playerNoteControl.value);
           playerNoteControl.enable();
         }
       });
@@ -504,7 +504,7 @@ export class CoachGamelistFormComponent implements OnInit {
     }
 
     if (this.visitingPON >= 3) {
-      console.log('Visiting Player Note is equal to three');
+      //console.log('Visiting Player Note is equal to three');
       const initialState = {
         popupTitle: 'Error',
         popupMsg:
@@ -533,7 +533,7 @@ export class CoachGamelistFormComponent implements OnInit {
         }
 
         if (playerNoteControl.value) {
-          console.log(playerNoteControl.value);
+          //console.log(playerNoteControl.value);
           playerNoteControl.enable();
         }
       });
@@ -553,7 +553,6 @@ export class CoachGamelistFormComponent implements OnInit {
   }
 
   async addImage(imageInput: any) {
-    console.log(imageInput);
     await this.makeImageByteArray(imageInput);
   }
 
@@ -595,7 +594,7 @@ export class CoachGamelistFormComponent implements OnInit {
   /* - Image implementation ends - */
 
   deleteImage(index) {
-    console.log(index);
+    //console.log(index);
     (<FormArray>this.form.controls['ScoreSheetImages']).removeAt(index);
 
     this.TempScoreSheets.splice(index, 1);
@@ -639,7 +638,7 @@ export class CoachGamelistFormComponent implements OnInit {
       this.coachService.dataChanged = true;
     });
 
-    console.log(this.bsModalRef.content.gameId);
+    //console.log(this.bsModalRef.content.gameId);
   }
 
   showIncident(incidentIndex) {
@@ -722,7 +721,7 @@ export class CoachGamelistFormComponent implements OnInit {
   }
 
   deleteTempIncident(newIncidentIndex) {
-    console.log(this.coachService.NewIncidents);
+    //console.log(this.coachService.NewIncidents);
     //(<FormArray> this.form.controls['IncidentReports']).removeAt(newIncidentIndex);
 
     for (var i = 0; i < this.coachService.IncidentReports.length; ++i) {
@@ -738,7 +737,7 @@ export class CoachGamelistFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
+    //console.log(this.form);
     // await this.prepareScoresforSubmission();
     // await this.prepareScoreSheetsforSubmission();
     // await this.prepareDeletedScoreSheetsforSubmission();
@@ -755,7 +754,7 @@ export class CoachGamelistFormComponent implements OnInit {
             this.prepareDeletedScoreSheetsforSubmission().then(() => {
               this.prepareDeletedIncidents().then(() => {
                 this.prepareFinalData().then(() => {
-                  console.log(this.APIGamePost);
+                  //console.log(this.APIGamePost);
                   this.coachService.postReportData(this.APIGamePost)
                   .subscribe(
                     (res)=>{
@@ -786,7 +785,7 @@ export class CoachGamelistFormComponent implements OnInit {
                 this.prepareDeletedScoreSheetsforSubmission().then(() => {
                   this.prepareDeletedIncidents().then(() => {
                     this.prepareFinalData().then(() => {
-                      console.log(this.APIGamePost);
+                      //console.log(this.APIGamePost);
                       this.coachService.postReportData(this.APIGamePost)
                       .subscribe(
                         (res)=>{
@@ -806,8 +805,8 @@ export class CoachGamelistFormComponent implements OnInit {
             });
           });
         } else {
-          console.log('Home Score' + this.finalHomeScore);
-          console.log('Form home Score' + this.form.get('HomeTeamScore').value);
+          //console.log('Home Score' + this.finalHomeScore);
+          //console.log('Form home Score' + this.form.get('HomeTeamScore').value);
 
           if (this.finalHomeScore != this.form.get('HomeTeamScore').value) {
             const initialState = {
@@ -825,8 +824,8 @@ export class CoachGamelistFormComponent implements OnInit {
           }
 
           if (this.finalVisitingScore != this.form.get('VisitingTeamScore').value) {
-            console.log('Visiting Score' + this.finalVisitingScore);
-            console.log('Form visiting Score' + this.form.get('VisitingTeamScore').value);
+           // console.log('Visiting Score' + this.finalVisitingScore);
+            //console.log('Form visiting Score' + this.form.get('VisitingTeamScore').value);
             const initialState = {
               popupTitle: 'Error',
               popupMsg:
@@ -1002,8 +1001,8 @@ export class CoachGamelistFormComponent implements OnInit {
     this.APIGamePost.IsHomeForfeit = this.form.get('IsHomeForfeit').value;
     this.APIGamePost.IsVisitorForfeit = this.form.get('IsVisitorForfeit').value;
 
-    console.log(this.APIGamePost.IsHomeForfeit);
-    console.log(this.APIGamePost.IsVisitorForfeit);
+    //console.log(this.APIGamePost.IsHomeForfeit);
+    //console.log(this.APIGamePost.IsVisitorForfeit);
 
     this.APIGamePost.Location = this.gameData.Location;
     this.APIGamePost.Division = this.gameData.Division;

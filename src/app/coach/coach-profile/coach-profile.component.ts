@@ -45,7 +45,7 @@ export class CoachProfileComponent implements OnInit {
     .subscribe(
       (res)=>{        
         this.profileData = res;
-        console.log(res);      
+        //console.log(res);      
         this.generateDetailsForm();
         this.generatePracticePreferenceForm();        
         this.dataRequest = false;
@@ -73,7 +73,7 @@ export class CoachProfileComponent implements OnInit {
     })
 
     var x = await setInterval(() => {
-      console.log(this.personalDetailsForm.value);
+      //console.log(this.personalDetailsForm.value);
       clearInterval(x);
     }, 1000);    
     

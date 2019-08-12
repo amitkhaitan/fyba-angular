@@ -1,8 +1,8 @@
 <div class="container paddingBottom50" *ngIf="coachReportData!=null">
     <div *ngIf="
-       (coachReportData.Value != null &&
-       coachReportData.Value.length > 0) ||
-       coachReportData.Value.GameList.length;
+       (coachReportData!= null &&
+       coachReportData.length > 0) ||
+       coachReportData.GameList.length;
        else noRecordDiv
        " class="row">
        <div class="col-lg-12">
@@ -10,7 +10,7 @@
           <div class="data_module">
              <ngb-accordion #acc="ngbAccordion" (panelChange)="panelChange($event)">
                 <ngb-panel *ngFor="
-                let item of coachReportData.Value.GameList;
+                let item of coachReportData.GameList;
                 let gameListIndex = index" id={{gameListIndex}}>
                    <ng-template ngbPanelTitle>
                       <div class="{{ item.GameReported }} HeadCollapse">
@@ -20,10 +20,10 @@
                                <div>
                                   {{ item.GameName }}
                                   <img class="report_status"
-                                     *ngIf="item.IsScoreFilled && item.OfficiatingPositionId == 3"
+                                     *ngIf="item.IsScoreFilled"
                                      src="assets/images/tick.png">
                                   <img class="report_status"
-                                     *ngIf="!item.IsScoreFilled && item.OfficiatingPositionId == 3"
+                                     *ngIf="!item.IsScoreFilled"
                                      src="assets/images/error.png">
                                </div>
                                <div class="customSpan">
@@ -33,7 +33,7 @@
                                   </span>
                                   <span> Game ID: {{item.GameId}}</span>
                                   <span class="asCoach">{{ item.PositionText }}
-                                     <span class="earnMore">{{ item.IncentiveText }}</span>
+                                     <!-- <span class="earnMore">{{ item.IncentiveText }}</span> -->
                                   </span>
                                </div>
                             </div>
@@ -59,7 +59,7 @@
  
  
  <!--Loader-->
- <!-- <app-fybaloader *ngIf="officialService.reportRequest"></app-fybaloader> -->
+ <app-fybaloader *ngIf="dataRequest"></app-fybaloader>
  <!--Loader-->
  
  <!-- <div *ngIf="dss.initialFetchError" #serverError>
@@ -71,3 +71,5 @@
  </div> -->
  <notifier-container>
  </notifier-container>
+
+ 
