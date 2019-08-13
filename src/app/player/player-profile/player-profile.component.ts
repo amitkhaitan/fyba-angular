@@ -30,13 +30,15 @@ export class PlayerProfileComponent implements OnInit {
 
   dropdownList = [];
   dropdownSettings = {};
-  numbers = [];
+  numbers1 = [];
+  numbers2 = [];
   img1: string;
   img2: string;
   currentSrc1: string;
   currentSrc2: string;
   disableRequestjersy1:boolean;
   disableRequestjersy2:boolean;
+  settings = {};
 
 
 
@@ -52,8 +54,9 @@ export class PlayerProfileComponent implements OnInit {
     this.currentSrc1 = this.img1;
     this.currentSrc2 = this.img1;
 
-    for (var i = 0; i <= 100; i++) {
-      this.numbers[i] = i;
+    for (var i = 1; i <= 100; i++) {
+      this.numbers1[i] = i;
+      this.numbers2[i] = i;
     }
 
   }
@@ -70,8 +73,7 @@ export class PlayerProfileComponent implements OnInit {
           email: new FormControl(this.parentInfo[i]["Parent_Email"], [Validators.email, Validators.required]),
           homePhone: new FormControl(this.parentInfo[i]["Parent_HomePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           mobilePhone: new FormControl(this.parentInfo[i]["Parent_MobilePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
-          // workPhone:new FormControl(this.parentInfo[i]["Parent_WorkPhone"],[ Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/),Validators.minLength(7),Validators.maxLength(14)]),
-          textingoption:null,
+          textingoption:[this.parentInfo[i]["textingOption"]],
           VolunteerCheckIn:this.parentInfo[i]["VolunteerCheckIn"],
           Parent_VolunteerPosition: this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"]
         })
@@ -112,6 +114,10 @@ export class PlayerProfileComponent implements OnInit {
   modalRef: BsModalRef;
 
   ngOnInit() {
+    this.settings = {
+      text: 'Select....',
+      classes: 'myclass custom-class'
+    };
     this.fetchingData = true;
     this.disableRequestjersy1=true;
     this.disableRequestjersy2=true;
@@ -125,16 +131,28 @@ export class PlayerProfileComponent implements OnInit {
           if(this.playerService.profileData.Value.apparel.RequestedJersey1Lock==true){
             this.currentSrc1 = this.img1;
             this.disableRequestjersy1=true;
+            if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
+              this.numbers1[0] = 'N/A';
+            }
           }else{
             this.currentSrc1 = this.img2;
             this.disableRequestjersy1=false;
+            if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
+              this.numbers1[0] = 'Select..';
+            }
           }
           if(this.playerService.profileData.Value.apparel.RequestedJersey2Lock==true){
             this.currentSrc2 = this.img1;
             this.disableRequestjersy2=true;
+            if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
+              this.numbers2[0] = 'N/A';
+            }
           }else{
             this.currentSrc2 = this.img2;
             this.disableRequestjersy2=false;
+            if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
+              this.numbers2[0] = 'Select..';
+            }
           }
 
       }
@@ -155,20 +173,14 @@ export class PlayerProfileComponent implements OnInit {
     //     this.fetchingData=false;
     //   }
     // )
-    this.dropdownList = [
-      { "id": 1, "itemName": "Email" },
-      { "id": 2, "itemName": "Home Phone" },
-      { "id": 3, "itemName": "Mobile Phone" },
-    ];
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      text: "Select Texting",
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      enableSearchFilter: true,
-      classes: "myclass custom-class"
-    };
+    // this.dropdownList = [
+    //   { "id": 1, "itemName": "Email" },
+    //   { "id": 2, "itemName": "Home Phone" },
+    //   { "id": 3, "itemName": "Mobile Phone" },
+    // ];
+
+    
   }
 
 
