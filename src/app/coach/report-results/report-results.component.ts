@@ -51,6 +51,7 @@ export class ReportResultsComponent{
     await this.coachService.getReportResultData().subscribe(
       (res)=>{
         var response=res;
+          console.log(response);
             this.dataRequest=false;
          if(response.Status==true){
             this.coachReportData = response.Value;

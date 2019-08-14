@@ -90,8 +90,7 @@
                                 <strong>Texting Option:</strong>
                               </div>
                               <div class="col-md-8 col-sm-8 col-xs-8 paddTop4 paddLeft5">
-                                <angular2-multiselect [data]="dropdownList" formControlName="textingoption"
-                                  [settings]="settings">
+                                <angular2-multiselect [data]="textingoption" [settings]="settings" [(ngModel)]="selectedItems" formControlName="textingoption">
                                 </angular2-multiselect>
                               </div>
                               <div class="clearfix"></div>
@@ -256,7 +255,11 @@
                       <strong>Short Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      {{apparel.ShortSize}}
+                      <select class="my-dropdown width130" name="my-dropdown" [disabled]="disableRequestjersy2">                 
+                        <option *ngFor="let ShirtSize of ShirtSizeValue" [ngValue]="ShirtSize.id" [selected]="apparel.ShortSizeId == ShirtSize.id">
+                          {{ShirtSize.itemName}}</option>                         
+                      </select>
+                      <img class="lock" [src]="currentSrc2" alt="lock" />
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -266,7 +269,11 @@
                       <strong>Jersey Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      {{apparel.JerseySize}}
+                      <select class="my-dropdown width130" name="my-dropdown" [disabled]="disableRequestjersy2">                 
+                        <option *ngFor="let ShirtSize of ShirtSizeValue" [ngValue]="ShirtSize.id" [selected]="apparel.JerseySizeId == ShirtSize.id">
+                          {{ShirtSize.itemName}}</option>                         
+                      </select>
+                      <img class="lock" [src]="currentSrc2" alt="lock" />
                     </div>
                     <div class="clearfix"></div>
                   </div>

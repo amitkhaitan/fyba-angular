@@ -45,14 +45,14 @@ export class CoachProfileComponent implements OnInit {
     .subscribe(
       (res)=>{        
         this.profileData = res;
-        //console.log(res);      
+        console.log(res);      
         this.generateDetailsForm();
         this.generatePracticePreferenceForm();        
         this.dataRequest = false;
       },
       (error)=>{
         this.dataRequest = false;
-        //console.log(error);       
+        console.log(error);       
       }
     )
   }

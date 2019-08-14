@@ -36,9 +36,14 @@ export class PlayerProfileComponent implements OnInit {
   img2: string;
   currentSrc1: string;
   currentSrc2: string;
+  shortsizeSrc: string;
+  jersysizeSrc: string;
   disableRequestjersy1:boolean;
   disableRequestjersy2:boolean;
+  disableRequestshortsize:boolean;
+  disableRequestjersysize:boolean;
   settings = {};
+  selectedItems = [];
 
 
 
@@ -73,7 +78,7 @@ export class PlayerProfileComponent implements OnInit {
           email: new FormControl(this.parentInfo[i]["Parent_Email"], [Validators.email, Validators.required]),
           homePhone: new FormControl(this.parentInfo[i]["Parent_HomePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           mobilePhone: new FormControl(this.parentInfo[i]["Parent_MobilePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
-          textingoption:[this.parentInfo[i]["textingOption"]],
+          textingoption:[],
           VolunteerCheckIn:this.parentInfo[i]["VolunteerCheckIn"],
           Parent_VolunteerPosition: this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"]
         })
@@ -107,6 +112,13 @@ export class PlayerProfileComponent implements OnInit {
   get playerInfo() {
     return this.profileSection.Value.playerInfo;
   }
+  
+  get textingoption(){
+    return this.profileSection.Value.textingOption;
+  }
+  get ShirtSizeValue(){
+    return this.profileSection.Value.ShirtSizeValue;
+  }
 
   subscription;
   timesRun;
@@ -118,6 +130,8 @@ export class PlayerProfileComponent implements OnInit {
       text: 'Select....',
       classes: 'myclass custom-class'
     };
+    this.selectedItems=[{id: 1, itemName: "Urgent notices"},{id: 2, itemName: "Game reminders"}];
+   
     this.fetchingData = true;
     this.disableRequestjersy1=true;
     this.disableRequestjersy2=true;
@@ -153,6 +167,21 @@ export class PlayerProfileComponent implements OnInit {
             if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
               this.numbers2[0] = 'Select..';
             }
+          }
+
+          if(this.playerService.profileData.Value.apparel.ShortSizeLock==true){
+            this.shortsizeSrc=this.img1;
+            this.disableRequestshortsize=true;
+          }else{
+            this.shortsizeSrc=this.img2;
+            this.disableRequestshortsize=false;
+          }
+          if(this.playerService.profileData.Value.apparel.JerseySizeLock==true){
+            this.jersysizeSrc=this.img1;
+            this.disableRequestjersysize=true;
+          }else{
+            this.jersysizeSrc=this.img2;
+            this.disableRequestjersysize=false;
           }
 
       }
