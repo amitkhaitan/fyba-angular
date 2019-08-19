@@ -12,7 +12,7 @@
             placeholder="Subject" />
           <ckeditor [editor]="Editor" formControlName="body" (ready)="onReady($event)"></ckeditor>
           <div style="text-align:center; width: 100%" class="center-block;">
-            <button type="submit" class="btn btn-success btnMargin btn-responsive">SEND {{blasttext}}</button>&nbsp;&nbsp;
+            <button type="submit" [disabled]="true" class="btn btn-success btnMargin btn-responsive">SEND {{blasttext}}</button>&nbsp;&nbsp;
             <button type="button" (click)="cancel()" class="btn btn-danger btnMargin btn-responsive">CANCEL</button>
           </div>
         </div>

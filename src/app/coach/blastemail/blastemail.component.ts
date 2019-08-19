@@ -31,7 +31,7 @@ export class BlastemailComponent {
     private router: Router,private route:ActivatedRoute,
     private CoachService: CoachService) {
     this.emailForm = this.fb.group({
-      recepient: this.fb.control(this.CoachService.recepient),
+      recepient: this.fb.control(this.CoachService.recepientemail),
       from: this.fb.control(this.CoachService.from),
       subject:'',
       body: this.fb.control([]),

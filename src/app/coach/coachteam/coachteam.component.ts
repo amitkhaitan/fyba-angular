@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from './../../data-sharing.service';
 import { CoachService }  from './../coach.service';
 import { Router } from '@angular/router';
-import { CoachProfileResponse } from './../models/profileResponse.model';
+import { CoachTeamSection } from './../models/coachteam.model';
 import { FormBuilder,FormArray,FormControl, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
@@ -16,7 +16,7 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CoachteamComponent{
   modalRef: BsModalRef;
-
+  profileData: CoachTeamSection = null;
   /**variable declaration start */
 
     dataRequest: boolean;

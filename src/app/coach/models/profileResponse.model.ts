@@ -34,6 +34,15 @@ export interface Value{
     TimeYouCannotHavePracticeValues: Array<TimeYouCannotHavePracticeValues>;
     TimeOfDayPreferenceValues: Array<TimeOfDayPreferenceValues>;
     ShirtSizeValue: Array<ShirtSizeValue>;
+    ShirtSizeLock:boolean;
+    LocationRankValuesLock:boolean;
+    LocationPreferenceValuesLock:boolean;
+    DayOfTheWeekRankValuesLock:boolean;
+    DayOfTheWeekPreferenceValuesLock:boolean;
+    DaysYouCannotHavePracticeValuesLock:boolean;
+    TimeOfDayPreferenceValuesLock:boolean;
+    TimeOfDayRankValuesLock:boolean;
+    TimeYouCannotHavePracticeValuesLock:boolean;
     
 }
 

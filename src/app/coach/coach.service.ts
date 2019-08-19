@@ -28,7 +28,8 @@ export class CoachService {
   NewIncidents: IncidentReports[] = [];
   ModifiedIncidents: IncidentReports[] = [];
 
-  recepient: string='Kyle Larson (rflarson@yahoo.com , tami@thelarsons.net)';
+  recepientemailId: string;
+  recepientemail:string='Kyle Larson (rflarson@yahoo.com , tami@thelarsons.net)';
   from:string='Bob Larson (rflarson@yahoo.com)';
   constructor(private http: Http, 
     private dss: DataSharingService,
@@ -80,7 +81,7 @@ export class CoachService {
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToEmailIds:this.recepient,
+      ToEmailIds:this.recepientemailId,
       FromEmailId: this.dss.email,
       Subject: subject,
       Body: emailBody,
