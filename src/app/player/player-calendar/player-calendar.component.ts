@@ -16,6 +16,9 @@ export class PlayerCalendarComponent implements OnInit {
   /**variable declaration start */
 
     dataRequest: boolean;
+    showpractices:boolean;
+    showgames:boolean;
+    showother:boolean;
     initialFetchError = null;
     errorMsg: string;
     games:any;
@@ -32,22 +35,40 @@ export class PlayerCalendarComponent implements OnInit {
     this.dataRequest=true;
     if(this.dss.DivisionId){
       this.getplayerCalender();
+      this.showpractices=true;
+      this.showgames=true;
+      this.showother=true;
     }
 
   }
   getplayerCalender(){
     this.playerService.getplayerCalender().subscribe((res) => {              
         var response = JSON.parse(res["_body"]); 
-        //console.log(response); 
+        console.log(response); 
         this.dataRequest = false;          
-        if(response.Status==true) {      
-            this.playerService.calenderData =response.Value; 
+        if(response.Status==true) { 
+          this.playerService.calenderData =response.Value;
+          if(this.playerService.calenderData.practices.length>0){
             this.practices=this.playerService.calenderData.practices;
+          }else{
+            this.showpractices=false;
+          }
+          if(this.playerService.calenderData.games.length>0){
             this.games=this.playerService.calenderData.games;
-            this.other=this.playerService.calenderData.other;            
+          }else{
+            this.showgames=false;
+          }  
+          if(this.playerService.calenderData.other.length>0){
+            this.other=this.playerService.calenderData.other;
+          }else{
+            this.showother=false;
+          }               
         }else{
           this.modalRef = this.modalService.show(ErrorModalComponent);
           this.modalRef.content.closeBtnName = 'Close';
+          this.showpractices=false;
+          this.showgames=false;
+          this.showother=false;
         }        
       }, (err) => {
         this.initialFetchError = true;
@@ -55,6 +76,9 @@ export class PlayerCalendarComponent implements OnInit {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';
         this.modalRef.content.errorMsg = err;
+        this.showpractices=false;
+        this.showgames=false;
+        this.showother=false;
       });
   }
 

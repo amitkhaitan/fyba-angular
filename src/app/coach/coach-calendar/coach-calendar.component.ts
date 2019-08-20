@@ -68,6 +68,9 @@ export class CoachCalendarComponent implements OnInit {
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';
+        this.showpractices=false;
+        this.showgames=false;
+        this.showother=false;
       }         
     }, (err) => {
       this.initialFetchError = true;
@@ -75,6 +78,9 @@ export class CoachCalendarComponent implements OnInit {
       this.modalRef = this.modalService.show(ErrorModalComponent);
       this.modalRef.content.closeBtnName = 'Close';
       this.modalRef.content.errorMsg = err;
+      this.showpractices=false;
+      this.showgames=false;
+      this.showother=false;
     });
   }
 }

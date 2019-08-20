@@ -1,3 +1,5 @@
+.mailIcon{height:11px; position:relative; top:-1px;}
+.smsIcon{height:12px; position:relative; top:-1px;}
 .blueBGHead{background-color:#1e31ae; padding:5px; color:#ffffff; font-size:16px; font-weight:bold; margin-top: -20px;}
 .mainPanel table thead tr th{background-color:#ededed; padding:5px; color:#000000; text-align:left; border:1px solid #ffffff;font-size:14px; border-bottom:2px solid #ffffff;}
 .mainPanel table tbody tr td{background-color:#cdd4ea; padding:5px; color:#000000; text-align:left; border:1px solid #ffffff;font-size:14px;}
@@ -5,6 +7,6 @@
 .paddNoneTable tr > td:nth-child(3), .paddNoneTable tr > td:nth-child(4), .paddNoneTable tr > td:nth-child(5){padding:0px !important;}
 .mainPanel table tbody tr td tr:nth-child(2) td{border-top:1px solid #ffffff;}
 .blastCentre{text-align: center}
-.blastbtn{background-color: #4472c4; color:#ffffff}
+.blastbtn{background-color: #1e31ae; color:#ffffff; padding: 10px 15px; border-radius: 10px;}
 .coachemail{color:#4472c4 !important}
 .blueBGHead_health{background-color:red; padding:5px; color:#ffffff; font-size:16px; font-weight:bold}

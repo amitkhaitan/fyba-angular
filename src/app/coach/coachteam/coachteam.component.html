@@ -62,8 +62,8 @@
   <div class="mainPanel marginTop30">
       <h4 class="blueBGHead">TEAM ROSTER</h4>
       <div class="marginTop10 blastCentre">
-      <button type="button" class="btn blastbtn btn-sm marginTop10 marginBottom10" (click)="sendEmail('blast_email')" >SEND BLAST EMAIL</button>&nbsp;
-      <button type="button" class="btn blastbtn btn-sm marginTop10 marginBottom10"(click)="sendEmail('blast_text')">SEND BLAST TEXT</button>
+          <button type="button" [disabled]="sendBlastDisable" class="btn blastbtn btn-sm marginTop10 marginBottom10" (click)="sendEmail('blast_email')" ><img class="mailIcon" [src]="Emailsrc" alt="mail" /> SEND BLAST EMAIL</button>&nbsp;
+          <button type="button" [disabled]="sendBlastDisable" class="btn blastbtn btn-sm marginTop10 marginBottom10"(click)="sendEmail('blast_text')"> <img class="smsIcon" [src]="Smssrc" alt="sms" /> SEND BLAST TEXT</button>
     </div>
     <div class="table-responsive borderNone marginTop10">
       <table id ="player_other" class="paddNoneTable" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -106,7 +106,7 @@
             </ng-container>
             <ng-template #elseBlockteamRoaster>
                 <tr>
-                  <td colspan="4">No data found</td>             
+                  <td colspan="5">No data found</td>             
                 </tr> 
             </ng-template>             
         </tbody>

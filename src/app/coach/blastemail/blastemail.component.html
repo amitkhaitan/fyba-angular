@@ -1,18 +1,43 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="composeHeading"><strong>Send Blast {{blasttext}}</strong></h2>
-      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-        <div id="composeEmailDiv" class="form-group">
-          <input class="form-control" formControlName="recepient" style="margin-bottom: 2%;" type="email"
-            placeholder="To" />
-            <input *ngIf="blastemailtype" class="form-control" formControlName="from" style="margin-bottom: 2%;" type="text"
-            placeholder="From"  />
-          <input *ngIf="blastemailtype" class="form-control" formControlName="subject" style="margin-bottom: 2%;" type="text"
-            placeholder="Subject" />
-          <ckeditor [editor]="Editor" formControlName="body" (ready)="onReady($event)"></ckeditor>
+      <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /> <strong> Send Blast {{blasttext |titlecase}}</strong></h2>
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div id="composeEmailDiv">
+          <div class="form-group">
+              <label class="col-sm-1 control-label">To:</label>
+              <div class="col-sm-11">
+                <textarea class="form-control" formControlName="recepient" placeholder="To"></textarea>
+              </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="form-group" *ngIf="blastemailtype">
+              <label class="col-sm-1 control-label">From:</label>
+              <div class="col-sm-11">
+                  <label  class="form-control">{{blastemailfrom}}</label>
+              </div>
+          </div>
+          <div class="form-group"  *ngIf="blastemailtype">
+              <label class="col-sm-1 control-label">Subject:</label>
+              <div class="col-sm-11">
+                  <input class="form-control" formControlName="subject"  type="text" placeholder="Subject" />
+              </div>
+          </div>
+          <div class="form-group"  *ngIf="blastemailtype">
+              <label class="col-sm-1 control-label">Email:</label>
+              <div class="col-sm-11">
+                  <ckeditor [editor]="Editor" formControlName="body" (ready)="onReady($event)"></ckeditor>
+              </div>
+          </div>
+          <div class="form-group"  *ngIf="!blastemailtype">
+              <label class="col-sm-1 control-label">Text:</label>
+              <div class="col-sm-11">
+                  <textarea *ngIf="!blastemailtype" class="form-control" formControlName="body" maxlength="140"  placeholder="Text"></textarea>
+              </div>
+          </div>
+          <input class="form-control" formControlName="blasttype"  type="hidden"  />
           <div style="text-align:center; width: 100%" class="center-block;">
-            <button type="submit" [disabled]="true" class="btn btn-success btnMargin btn-responsive">SEND {{blasttext}}</button>&nbsp;&nbsp;
+            <button type="submit"  class="btn btn-success btnMargin btn-responsive">SEND {{blasttext}}</button>&nbsp;&nbsp;
             <button type="button" (click)="cancel()" class="btn btn-danger btnMargin btn-responsive">CANCEL</button>
           </div>
         </div>
@@ -21,4 +46,4 @@
   </div>
 </div>
 
-<app-fybaloader *ngIf="request"></app-fybaloader>
+<app-fybaloader *ngIf="loader"></app-fybaloader>

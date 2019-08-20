@@ -23,9 +23,12 @@ export class CoachteamComponent{
     showHealthCondition:boolean;
     showteamleadership:boolean;
     showTeamRoaster:boolean;
+    sendBlastDisable:boolean;
     initialFetchError = null;
     errorMsg: string;
     TeamName:string;
+    Emailsrc:string;
+    Smssrc:string;
     TeamLeaders:Array<string>;
     TeamRoster:Array<string>;
     HealthConditions:Array<string>;
@@ -43,10 +46,14 @@ export class CoachteamComponent{
     this.showHealthCondition=true;
     this.showteamleadership=true;
     this.showTeamRoaster=true;
+    this.Emailsrc="./assets/images/mail-icon.png";
+    this.Smssrc="./assets/images/sms-icon.png";
     this.coachTeamInfo();
+    //this.getallemail();
+
   }
 
-  coachTeamInfo(){
+coachTeamInfo(){
     this.coachService.getcoachTeamInfoData().subscribe((res) => {   
       this.dataRequest = false;   
       var response = res; 
@@ -62,7 +69,9 @@ export class CoachteamComponent{
           } 
           if(this.coachService.teamInfoData.TeamRoster.length>0){
                 this.TeamRoster=this.coachService.teamInfoData.TeamRoster;
+                
           }else{
+                this.sendBlastDisable=true;
                 this.showTeamRoaster=false;
           }        
           if(this.coachService.teamInfoData.HealthConditions.length>0){
@@ -73,6 +82,10 @@ export class CoachteamComponent{
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';
+        this.showteamleadership=false;
+        this.showTeamRoaster=false;
+        this.showHealthCondition=false;
+        this.sendBlastDisable=true;
       }         
     }, (err) => {
       this.initialFetchError = true;
@@ -84,8 +97,32 @@ export class CoachteamComponent{
   }
 
   sendEmail(type){
-        this.router.navigate(["/coach/blastemail",{blasttype:type}]);
+      this.getallemail();
+      //console.log( this.coachService.recepientemail);
+      //console.log(this.coachService.recepientemailId);
+      //console.log(this.coachService.recepientmobileno);
+       this.router.navigate(["/coach/blastemail",{blasttype:type}]);
     
+  }
+
+async getallemail(){
+  this.coachService.recepientemail='';
+  this.coachService.recepientemailId='';
+  this.coachService.recepientmobileno='';
+    if(this.TeamRoster!=null){
+      if (this.TeamRoster.length>0){
+        for (let i = 0; i < this.TeamRoster.length;i++) {
+          var playerparents=this.TeamRoster[i]['Parents'];
+           if(playerparents.length>0){
+             for(let j=0; j<playerparents.length;j++){             
+                this.coachService.recepientemail += playerparents[j]['ParentEmail'] + ',';
+                this.coachService.recepientemailId += playerparents[j]['ParentId'] + ',';
+                this.coachService.recepientmobileno += playerparents[j]['ParentMobilePhone'] + ',';
+             }
+           }
+        }
+      }
+    }    
   }
    
 }

@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators'
 import { IncidentReports } from './models/coachReport.model';
 import { CookieService } from 'ngx-cookie-service';
 import { FinalFilter } from '../official/classes/selectgame/finalFilter.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class CoachService {
   serviceError:boolean;
   reportRequest:boolean;
   initialJson: string;
+  emailFlag:boolean;
   calenderData=null;
   teamInfoData=null;
   finalFilter = new FinalFilter();
@@ -29,8 +31,10 @@ export class CoachService {
   ModifiedIncidents: IncidentReports[] = [];
 
   recepientemailId: string;
-  recepientemail:string='Kyle Larson (rflarson@yahoo.com , tami@thelarsons.net)';
-  from:string='Bob Larson (rflarson@yahoo.com)';
+  recepientemail:string;
+  recepientmobileno:string;
+  from:string;
+  public indicator = new Subject<boolean>();
   constructor(private http: Http, 
     private dss: DataSharingService,
     private cookieService: CookieService) { 
@@ -81,7 +85,7 @@ export class CoachService {
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToEmailIds:this.recepientemailId,
+      ToEmailIds:this.recepientemail,
       FromEmailId: this.dss.email,
       Subject: subject,
       Body: emailBody,
@@ -89,6 +93,23 @@ export class CoachService {
       LeagueId: this.dss.leagueId
     });
     var body = JSON.stringify(emailModel);
+      //console.log(body);
+    return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
+  }
+
+  sendText(emailBody): Observable<any> {
+    var emailModel = new IEmail();
+    emailModel.UserID = this.dss.userId;
+    emailModel.SessionKey = this.dss.sessionKey;
+    emailModel.RequestedData = JSON.stringify({
+      ToEmailIds:this.recepientemailId,
+      FromEmailId: this.dss.email,
+      Body: emailBody,
+      SeasonId: this.dss.seasonId,
+      LeagueId: this.dss.leagueId
+    });
+    var body = JSON.stringify(emailModel);
+    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
