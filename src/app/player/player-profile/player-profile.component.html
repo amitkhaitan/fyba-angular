@@ -90,7 +90,7 @@
                                 <strong>Texting Option:</strong>
                               </div>
                               <div class="col-md-8 col-sm-8 col-xs-8 paddTop4 paddLeft5">
-                                <angular2-multiselect [data]="textingoption" [settings]="settings" [(ngModel)]="selectedItems" formControlName="textingoption">
+                                <angular2-multiselect [data]="textingoption" [settings]="settings" formControlName="textingoption">
                                 </angular2-multiselect>
                               </div>
                               <div class="clearfix"></div>
@@ -325,10 +325,9 @@
 
         </ngb-accordion>
         <div id="submitDiv" style="text-align:center">
-          <!-- <button (click)="onSubmit()" [disabled]="profileForm.invalid || !profileForm.touched"
-            class="btn btn-success">Save</button> -->
-            <button (click)="onSubmit()" [disabled]="true"
+          <button (click)="onSubmit()" [disabled]="profileForm.invalid || !profileForm.touched"
             class="btn btn-success">Save</button>
+           
         </div>
       </div>
     </div>

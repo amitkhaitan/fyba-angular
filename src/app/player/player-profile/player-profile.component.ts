@@ -44,7 +44,12 @@ export class PlayerProfileComponent implements OnInit {
   disableRequestjersysize:boolean;
   settings = {};
   selectedItems = [];
-
+  subscription;
+  timesRun;
+  interval;
+  modalRef: BsModalRef;
+  playerDetails={};
+  
 
 
 
@@ -68,7 +73,6 @@ export class PlayerProfileComponent implements OnInit {
 
   initProfileDetailsArray() {
     const formArr = new FormArray([]);
-
     for (var i in this.parentInfo) {
       formArr.push(
         this.fb.group({
@@ -78,13 +82,31 @@ export class PlayerProfileComponent implements OnInit {
           email: new FormControl(this.parentInfo[i]["Parent_Email"], [Validators.email, Validators.required]),
           homePhone: new FormControl(this.parentInfo[i]["Parent_HomePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           mobilePhone: new FormControl(this.parentInfo[i]["Parent_MobilePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
-          textingoption:[],
+          textingoption: new FormControl(this.textingoptionArray(this.parentInfo[i]["textingOption"])),
           VolunteerCheckIn:this.parentInfo[i]["VolunteerCheckIn"],
           Parent_VolunteerPosition: this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"]
         })
       )
     }
+    //console.log(formArr);
     return formArr;
+  }
+
+  textingoptionArray(parentvalue:any){    
+    if(parentvalue!=null){
+      let y;
+      let option=[];
+      y = parentvalue.split(',');
+      for (let i = 0; i < y.length; i++) {
+        this.textingoption.forEach((element) => {
+          if (element.id == y[i]) {         
+            option.push(element);            
+          }
+        });
+      }
+      return option;  
+    }
+
   }
 
 
@@ -120,17 +142,17 @@ export class PlayerProfileComponent implements OnInit {
     return this.profileSection.Value.ShirtSizeValue;
   }
 
-  subscription;
-  timesRun;
-  interval;
-  modalRef: BsModalRef;
+  
 
   ngOnInit() {
     this.settings = {
       text: 'Select....',
       classes: 'myclass custom-class'
     };
-    this.selectedItems=[{id: 1, itemName: "Urgent notices"},{id: 2, itemName: "Game reminders"}];
+    this.playerDetails={
+      parentInfo:'',
+      apparel:'',
+    };
    
     this.fetchingData = true;
     this.disableRequestjersy1=true;
@@ -203,12 +225,6 @@ export class PlayerProfileComponent implements OnInit {
     //   }
     // )
 
-    // this.dropdownList = [
-    //   { "id": 1, "itemName": "Email" },
-    //   { "id": 2, "itemName": "Home Phone" },
-    //   { "id": 3, "itemName": "Mobile Phone" },
-    // ];
-
     
   }
 
@@ -225,27 +241,6 @@ export class PlayerProfileComponent implements OnInit {
 
   }
 
-  // toggle() {
-
-  //   if (this.Apparel1.nativeElement.firstElementChild.disabled) {
-  //     this.Apparel1.nativeElement.firstElementChild.disabled = false;
-  //   }
-  //   else {
-  //     this.Apparel1.nativeElement.firstElementChild.disabled = true;
-  //   }
-    
-  //   if (this.Apparel2.nativeElement.firstElementChild.disabled) {
-  //     this.Apparel2.nativeElement.firstElementChild.disabled = false;
-  //   }
-  //   else {
-  //     this.Apparel2.nativeElement.firstElementChild.disabled = true;
-  //   }
-
-  //   this.currentSrc = (this.currentSrc == this.img1) ? this.img2 : this.img1;
-  // }
-
-
-
   onSubmit() {
     this.fetchingData = true;
     var rd = "[";
@@ -254,20 +249,37 @@ export class PlayerProfileComponent implements OnInit {
         UserId: group.value.userId,
         Parent_HomePhone: group.value.homePhone,
         Parent_MobilePhone: group.value.mobilePhone,
-        //Parent_WorkPhone: group.value.workPhone,
-        Parent_Email: group.value.email
+        textingOption:this.submittextingoption(group.value.textingoption),
+        Parent_Email: group.value.email,
+        Parent_Name:group.value.parentName,
+        Parent_Relationship:group.value.relationship,
+        VolunteerCheckIn:group.value.VolunteerCheckIn,
+        Parent_VolunteerPosition:group.value.Parent_VolunteerPosition
       }) + ","
     });
     rd = rd.substring(0, rd.length - 1);
     rd += "]"
 
-    //console.log(JSON.stringify(rd));
+    console.log(JSON.stringify(rd));
+    return false;
     this.playerService.saveProfileData(rd)
       .subscribe((res) => {
         res = JSON.parse(res["_body"]);
         this.fetchingData = false;
         this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
       });
+  }
+  
+  submittextingoption(submittexting:any){
+    var option='';
+    if (submittexting != null) {
+      for (let i = 0; i < submittexting.length; ++i) {
+        {
+          option += submittexting[i].id + ',';
+        }
+      }
+      return option; 
+    }
   }
 
   modalRed: BsModalRef;

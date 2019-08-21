@@ -111,8 +111,8 @@ export class PlayerService {
     saveProfileModel.SessionKey = this.dss.sessionKey;
     saveProfileModel.RequestedData = requestedData;
     var body = JSON.stringify(saveProfileModel);
-    //console.log(body);
-    return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave', body, this.postRequestOptions);
+    console.log(body);
+    return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave',body, this.postRequestOptions);
   }
 
   withdrawPlayer(playerId):Observable<any>{

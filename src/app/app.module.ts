@@ -88,7 +88,6 @@ import { CoachGamelistFormComponent } from './coach/report-results/coach-gamelis
     StringSplit,
     ReportFormComponent,
     GamelistFormComponent,
-    //PlayerDataComponent,
     PlayerProfileComponent,
     TeamComponent,
     ComposeEmailComponent,
