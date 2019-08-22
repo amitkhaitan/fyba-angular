@@ -255,7 +255,7 @@
                       <strong>Short Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown width130" name="my-dropdown" [disabled]="disableRequestjersy2">                 
+                      <select class="my-dropdown width130" formControlName="ShortSizeId" >                 
                         <option *ngFor="let ShirtSize of ShirtSizeValue" [ngValue]="ShirtSize.id" [selected]="apparel.ShortSizeId == ShirtSize.id">
                           {{ShirtSize.itemName}}</option>                         
                       </select>
@@ -269,7 +269,7 @@
                       <strong>Jersey Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown width130" name="my-dropdown" [disabled]="disableRequestjersy2">                 
+                      <select class="my-dropdown width130"  formControlName="JerseySizeId">                 
                         <option *ngFor="let ShirtSize of ShirtSizeValue" [ngValue]="ShirtSize.id" [selected]="apparel.JerseySizeId == ShirtSize.id">
                           {{ShirtSize.itemName}}</option>                         
                       </select>
@@ -294,7 +294,7 @@
                       <strong>Jersey # Request (1st choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" name="my-dropdown" [disabled]="disableRequestjersy1">       
+                      <select class="my-dropdown" formControlName="RequestedJersey1">       
                         <option *ngFor="let number of numbers1" [ngValue]="number"  [selected]="apparel.RequestedJersey1 == number">
                           {{number}}</option>
                       </select>
@@ -308,7 +308,7 @@
                       <strong>Jersey # Request (2nd choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" name="my-dropdown" [disabled]="disableRequestjersy2">                 
+                      <select class="my-dropdown" formControlName="RequestedJersey2" >                 
                         <option *ngFor="let number of numbers2" [ngValue]="number" [selected]="apparel.RequestedJersey2 == number">
                           {{number}}</option>
                       </select>

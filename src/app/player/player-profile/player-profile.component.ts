@@ -38,20 +38,12 @@ export class PlayerProfileComponent implements OnInit {
   currentSrc2: string;
   shortsizeSrc: string;
   jersysizeSrc: string;
-  disableRequestjersy1:boolean;
-  disableRequestjersy2:boolean;
-  disableRequestshortsize:boolean;
-  disableRequestjersysize:boolean;
   settings = {};
   selectedItems = [];
   subscription;
   timesRun;
   interval;
   modalRef: BsModalRef;
-  playerDetails={};
-  
-
-
 
   constructor(public playerService: PlayerService,
     public router: Router, private fb: FormBuilder,
@@ -83,12 +75,11 @@ export class PlayerProfileComponent implements OnInit {
           homePhone: new FormControl(this.parentInfo[i]["Parent_HomePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           mobilePhone: new FormControl(this.parentInfo[i]["Parent_MobilePhone"], [Validators.pattern(/^[- +()]*[0-9][- +()0-9]*$/), Validators.minLength(7), Validators.maxLength(14)]),
           textingoption: new FormControl(this.textingoptionArray(this.parentInfo[i]["textingOption"])),
-          VolunteerCheckIn:this.parentInfo[i]["VolunteerCheckIn"],
-          Parent_VolunteerPosition: this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"]
+          VolunteerCheckIn:new FormControl(this.parentInfo[i]["VolunteerCheckIn"]),
+          Parent_VolunteerPosition: new FormControl(this.parentInfo[i]["volunteerPosition"]["Parent_VolunteerPosition"])
         })
       )
     }
-    //console.log(formArr);
     return formArr;
   }
 
@@ -148,84 +139,63 @@ export class PlayerProfileComponent implements OnInit {
     this.settings = {
       text: 'Select....',
       classes: 'myclass custom-class'
-    };
-    this.playerDetails={
-      parentInfo:'',
-      apparel:'',
-    };
-   
+    };   
     this.fetchingData = true;
-    this.disableRequestjersy1=true;
-    this.disableRequestjersy2=true;
     this.interval = setInterval(() => {
       this.timesRun += 1;
-      if (this.playerService.profileData) {
-        this.profileForm = this.fb.group({
-          ParentInfo: this.initProfileDetailsArray()
-        });
+      if (this.playerService.profileData) {        
         if (this.playerService.profileData.Value.apparel) {
           if(this.playerService.profileData.Value.apparel.RequestedJersey1Lock==true){
             this.currentSrc1 = this.img1;
-            this.disableRequestjersy1=true;
             if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
-              this.numbers1[0] = 'N/A';
+              //this.numbers1[0] = 'N/A';
             }
           }else{
             this.currentSrc1 = this.img2;
-            this.disableRequestjersy1=false;
             if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
-              this.numbers1[0] = 'Select..';
+             // this.numbers1[0] = 'Select..';
             }
           }
           if(this.playerService.profileData.Value.apparel.RequestedJersey2Lock==true){
             this.currentSrc2 = this.img1;
-            this.disableRequestjersy2=true;
             if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
-              this.numbers2[0] = 'N/A';
+              //this.numbers2[0] = 'N/A';
             }
           }else{
             this.currentSrc2 = this.img2;
-            this.disableRequestjersy2=false;
             if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
-              this.numbers2[0] = 'Select..';
+              //this.numbers2[0] = 'Select..';
             }
           }
 
           if(this.playerService.profileData.Value.apparel.ShortSizeLock==true){
             this.shortsizeSrc=this.img1;
-            this.disableRequestshortsize=true;
           }else{
             this.shortsizeSrc=this.img2;
-            this.disableRequestshortsize=false;
           }
           if(this.playerService.profileData.Value.apparel.JerseySizeLock==true){
             this.jersysizeSrc=this.img1;
-            this.disableRequestjersysize=true;
           }else{
             this.jersysizeSrc=this.img2;
-            this.disableRequestjersysize=false;
+            
           }
+
+          this.profileForm = this.fb.group({
+            ParentInfo: this.initProfileDetailsArray(),        
+            AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
+            JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:this.apparel.JerseySizeLock}),
+            RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:this.apparel.RequestedJersey1Lock}),
+            RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:this.apparel.RequestedJersey2Lock}),
+            ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock})             
+          });
 
       }
         clearInterval(this.interval);
         this.fetchingData = false;
       }
       
-
     }, 2000);
-
-    //this.fetchingData=true;
-
-    // this.playerService.getPlayerProfile()
-    // .subscribe(
-    //   (res)=>{
-    //     this.profileSection=JSON.parse(res["_body"]);
-    //     console.log(this.profileSection);
-    //     this.fetchingData=false;
-    //   }
-    // )
-
-    
+  
   }
 
 
@@ -240,29 +210,33 @@ export class PlayerProfileComponent implements OnInit {
     }
 
   }
-
+   
+  getparentinfo(){
+    var player_parent = [];
+    (<FormArray>this.profileForm.get('ParentInfo')).controls.forEach((group) => {
+        var rd = {
+          UserId : group.value.userId,
+          Parent_HomePhone : group.value.homePhone,
+          Parent_MobilePhone : group.value.mobilePhone,
+          textingOption : this.submittextingoption(group.value.textingoption),
+          Parent_Email : group.value.email,
+          Parent_Name : group.value.parentName,
+          Parent_Relationship : group.value.relationship,
+          VolunteerCheckIn : group.value.VolunteerCheckIn,
+          Parent_VolunteerPosition : group.value.Parent_VolunteerPosition
+        };
+        player_parent.push(rd);      
+    });
+    return player_parent;
+  }
   onSubmit() {
     this.fetchingData = true;
-    var rd = "[";
-    (<FormArray>this.profileForm.get('ParentInfo')).controls.forEach((group) => {
-      rd += JSON.stringify({
-        UserId: group.value.userId,
-        Parent_HomePhone: group.value.homePhone,
-        Parent_MobilePhone: group.value.mobilePhone,
-        textingOption:this.submittextingoption(group.value.textingoption),
-        Parent_Email: group.value.email,
-        Parent_Name:group.value.parentName,
-        Parent_Relationship:group.value.relationship,
-        VolunteerCheckIn:group.value.VolunteerCheckIn,
-        Parent_VolunteerPosition:group.value.Parent_VolunteerPosition
-      }) + ","
-    });
-    rd = rd.substring(0, rd.length - 1);
-    rd += "]"
-
-    console.log(JSON.stringify(rd));
-    return false;
-    this.playerService.saveProfileData(rd)
+     var playerDetails={
+      parentInfo:this.getparentinfo(),
+      apparel:''
+    };
+   
+    this.playerService.saveProfileData(playerDetails)
       .subscribe((res) => {
         res = JSON.parse(res["_body"]);
         this.fetchingData = false;
@@ -294,7 +268,9 @@ export class PlayerProfileComponent implements OnInit {
     // this.modalRef.content.route = "/player/team";
   }
 
+  // changeShirtSize(){
 
+  // }
 
 
 }
