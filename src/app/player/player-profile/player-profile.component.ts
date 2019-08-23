@@ -188,7 +188,15 @@ export class PlayerProfileComponent implements OnInit {
             RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:this.apparel.RequestedJersey2Lock}),
             ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock})             
           });
-
+          
+          // this.profileForm = this.fb.group({
+          //   ParentInfo: this.initProfileDetailsArray(),        
+          //   AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
+          //   JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:false}),
+          //   RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:false}),
+          //   RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:false}),
+          //   ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:false})             
+          // });
       }
         clearInterval(this.interval);
         this.fetchingData = false;
@@ -229,16 +237,27 @@ export class PlayerProfileComponent implements OnInit {
     });
     return player_parent;
   }
+
+  getapparelinfo(){
+    var rd = {
+      ShortSizeId:this.profileForm.value.ShortSizeId,
+      JerseySizeId :this.profileForm.value.JerseySizeId,
+      RequestedJersey1:this.profileForm.value.RequestedJersey1,
+      RequestedJersey2:this.profileForm.value.RequestedJersey2     
+    };
+    return rd;
+  }
+
   onSubmit() {
     this.fetchingData = true;
      var playerDetails={
       parentInfo:this.getparentinfo(),
-      apparel:''
+      apparel:this.getapparelinfo()
     };
-   
     this.playerService.saveProfileData(playerDetails)
       .subscribe((res) => {
         res = JSON.parse(res["_body"]);
+        console.log(res);
         this.fetchingData = false;
         this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
       });
@@ -262,16 +281,48 @@ export class PlayerProfileComponent implements OnInit {
     this.modalRef.content.playerId = playerId;
     this.modalRef.content.details = status;
 
-    // this.modalRef.content.status = responseBody.Status;
-    // this.modalRef.content.popupTitle = responseBody.Message.PopupHeading;
+    //this.modalRef.content.status = responseBody.Status;
+    //this.modalRef.content.popupTitle = responseBody.Message.PopupHeading;
     // this.modalRef.content.popupMsg = responseBody.Message.PopupMessage;
     // this.modalRef.content.route = "/player/team";
   }
 
-  // changeShirtSize(){
+  changeShortSize(event:any) {
+    this.ShortSizeId.setValue(event.target.value, {
+    onlySelf: true
+    })
+  }  
+  changeJersySize(event:any) {
+    this.JersySize.setValue(event.target.value, {
+      onlySelf: true
+    })
+  }
 
-  // }
+  changeRequestedJersey1(event:any) {
+    this.RequestedJersey1.setValue(event.target.value, {
+      onlySelf: true
+    })
+  }
+  changeRequestedJersey2(event:any) {
+    this.RequestedJersey2.setValue(event.target.value, {
+      onlySelf: true
+    })
+  }
 
+  get ShortSizeId() {
+    return this.profileForm.get('ShortSizeId');
+  }
+  get JersySize() {
+    return this.profileForm.get('JerseySizeId');
+  }
 
+  get RequestedJersey1() {
+    return this.profileForm.get('RequestedJersey1');
+  }
+
+  get RequestedJersey2() {
+    return this.profileForm.get('RequestedJersey2');
+  }
+ 
 }
 

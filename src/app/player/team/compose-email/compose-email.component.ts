@@ -41,23 +41,18 @@ export class ComposeEmailComponent implements OnInit {
   onSubmit() {
     this.request = true;
     var responseBody;
-    console.log(this.emailForm.get('body').value);
     this.playerService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value)
       .subscribe(
         (res) => {
           this.request = false;
-          console.log(res);
           responseBody = JSON.parse(res["_body"]);
-          console.log(responseBody);
           this.playerService.emailFlag = false;
           this.modalRef = this.modalService.show(RequestStatusPopupComponent);
           this.modalRef.content.status = responseBody.Status;
           this.modalRef.content.popupTitle = responseBody.Message.PopupHeading;
           this.modalRef.content.popupMsg = responseBody.Message.PopupMessage;
           this.playerService.indicator.next(true);
-          this.modalRef.content.route = "/player/team";
-          
-          
+          this.modalRef.content.route = "/player/team";          
         }
       )
   }

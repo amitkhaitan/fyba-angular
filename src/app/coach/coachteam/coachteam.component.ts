@@ -99,7 +99,7 @@ coachTeamInfo(){
   sendEmail(type){
       this.getallemail();
       //console.log( this.coachService.recepientemail);
-      //console.log(this.coachService.recepientemailId);
+      //console.log(this.coachService.recipentparentId);
       //console.log(this.coachService.recepientmobileno);
        this.router.navigate(["/coach/blastemail",{blasttype:type}]);
     
@@ -109,6 +109,7 @@ async getallemail(){
   this.coachService.recepientemail='';
   this.coachService.recepientemailId='';
   this.coachService.recepientmobileno='';
+  this.coachService.recipentparentId='';
     if(this.TeamRoster!=null){
       if (this.TeamRoster.length>0){
         for (let i = 0; i < this.TeamRoster.length;i++) {
@@ -116,7 +117,7 @@ async getallemail(){
            if(playerparents.length>0){
              for(let j=0; j<playerparents.length;j++){             
                 this.coachService.recepientemail += playerparents[j]['ParentEmail'] + ',';
-                this.coachService.recepientemailId += playerparents[j]['ParentId'] + ',';
+                this.coachService.recipentparentId += playerparents[j]['ParentId'] + ',';
                 this.coachService.recepientmobileno += playerparents[j]['ParentMobilePhone'] + ',';
              }
            }

@@ -140,8 +140,8 @@ export class BlastemailComponent {
   }
   
   cancel() {
-    //this.CoachService.emailFlag = false;
-    //this.CoachService.indicator.next(true);
+    this.CoachService.emailFlag = false;
+    this.CoachService.indicator.next(true);
     this.router.navigate(["coach/teaminfo"]);
   }
 

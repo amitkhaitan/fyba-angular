@@ -33,6 +33,7 @@ export class CoachService {
   recepientemailId: string;
   recepientemail:string;
   recepientmobileno:string;
+  recipentparentId:string;
   from:string;
   public indicator = new Subject<boolean>();
   constructor(private http: Http, 
@@ -102,14 +103,15 @@ export class CoachService {
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToEmailIds:this.recepientemailId,
-      FromEmailId: this.dss.email,
-      Body: emailBody,
+      ToPhoneNumbers:this.recepientmobileno,
+      BodyText: emailBody,
+      PageType:'Coach',
       SeasonId: this.dss.seasonId,
-      LeagueId: this.dss.leagueId
+      LeagueId: this.dss.leagueId,
+      ParentsUserIds:this.recipentparentId
     });
     var body = JSON.stringify(emailModel);
-    //console.log(body);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 

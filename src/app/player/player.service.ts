@@ -101,7 +101,6 @@ export class PlayerService {
     });
 
     var body = JSON.stringify(emailModel);
-    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
@@ -109,7 +108,7 @@ export class PlayerService {
     var saveProfileModel = new GetPlayer();
     saveProfileModel.UserID = this.dss.userId;
     saveProfileModel.SessionKey = this.dss.sessionKey;
-    saveProfileModel.RequestedData = requestedData;
+    saveProfileModel.RequestedData = JSON.stringify(requestedData);
     var body = JSON.stringify(saveProfileModel);
     console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave',body, this.postRequestOptions);
