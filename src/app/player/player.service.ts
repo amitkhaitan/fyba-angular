@@ -124,7 +124,6 @@ export class PlayerService {
       LeagueId: this.dss.leagueId
     })
     var body = JSON.stringify(withdrawModel);
-    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerWithdraw', body, this.postRequestOptions);
   }
 

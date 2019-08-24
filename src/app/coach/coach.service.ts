@@ -111,8 +111,8 @@ export class CoachService {
       ParentsUserIds:this.recipentparentId
     });
     var body = JSON.stringify(emailModel);
-    console.log(body);
-    return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
+    //console.log(body);
+    return this.http.post(Constants.apiURL + '/api/SendText', body, this.postRequestOptions);
   }
 
   public getPdfUrl(url: string): any {

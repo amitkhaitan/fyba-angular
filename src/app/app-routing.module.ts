@@ -79,10 +79,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'player',
-    component: PlayerComponent,
-    canActivate: [AuthGuard],
-    canDeactivate: [DeactivateGuard],
+    path: 'player',component: PlayerComponent,canActivate: [AuthGuard],
     children: [
       {
         path: 'calendar', 
@@ -92,10 +89,7 @@ const routes: Routes = [
         path: 'team',
         component: TeamComponent,
         canDeactivate: [DeactivateGuard],
-        // children: [{
-        //   path: 'compose-email',
-        //   component: ComposeEmailComponent
-        // }]
+        
       },
       {
         path: 'standings',
@@ -105,7 +99,6 @@ const routes: Routes = [
       {
         path: 'profile',
         component: PlayerProfileComponent,
-        canDeactivate: [DeactivateGuard]
       },
       {
         path: 'compose-email', 

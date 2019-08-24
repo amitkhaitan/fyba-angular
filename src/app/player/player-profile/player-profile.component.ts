@@ -188,15 +188,7 @@ export class PlayerProfileComponent implements OnInit {
             RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:this.apparel.RequestedJersey2Lock}),
             ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock})             
           });
-          
-          // this.profileForm = this.fb.group({
-          //   ParentInfo: this.initProfileDetailsArray(),        
-          //   AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
-          //   JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:false}),
-          //   RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:false}),
-          //   RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:false}),
-          //   ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:false})             
-          // });
+                   
       }
         clearInterval(this.interval);
         this.fetchingData = false;
@@ -280,11 +272,6 @@ export class PlayerProfileComponent implements OnInit {
     this.modalRef = this.modalService.show(WithdrawComponent);
     this.modalRef.content.playerId = playerId;
     this.modalRef.content.details = status;
-
-    //this.modalRef.content.status = responseBody.Status;
-    //this.modalRef.content.popupTitle = responseBody.Message.PopupHeading;
-    // this.modalRef.content.popupMsg = responseBody.Message.PopupMessage;
-    // this.modalRef.content.route = "/player/team";
   }
 
   changeShortSize(event:any) {
