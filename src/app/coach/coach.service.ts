@@ -127,12 +127,6 @@ export class CoachService {
   postReportStatus: boolean;
 
   postReportData(gameListObj: any):Observable<any> {
-    var trailingUrl;
-    if (gameListObj.OfficiatingPositionId == 3) {
-      trailingUrl = '/api/savereportgames';
-    } else {
-      trailingUrl = '/api/SaveReportGamesNonScoreKeeper';
-    }
     this.reportRequest = true;
     this.postReportMsg = null;
     this.finalFilter.RequestedData = JSON.stringify(gameListObj);
@@ -144,8 +138,8 @@ export class CoachService {
       method: RequestMethod.Post,
       headers: headerOptions
     });
-    return this.http
-      .post(Constants.apiURL + trailingUrl, body, requestOptions)
+    console.log(body);
+    return this.http.post(Constants.apiURL + '/api/CoachReportGamesSave', body, requestOptions)
   }
 
   timeoutError: boolean;

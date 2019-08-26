@@ -51,32 +51,26 @@ export class CoachGamelistFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.officialService.dataChanged = false;
     console.log(this.gameData);
     this.incidentCount = this.gameData.IncidentReports.length;
     this.finalHomeScore = parseInt(this.gameData.HomeTeamScore);
     this.finalVisitingScore = parseInt(this.gameData.VisitingTeamScore);
     this.form = this.populateGameList(this.gameData);
-    if (this.gameData.OfficiatingPositionId == '3') {
+    
       this.isCoach = true;
       this.form.enable();
       this.homePON = this.gameData.TotalHomePON;
       this.visitingPON = this.gameData.TotalVisitingPON;
       this.disablePointsAndPON();
-      if (this.homePON >= 3 || this.visitingPON >= 3) this.disablePONCheckboxes();
-
+      if (this.homePON >= 3 || this.visitingPON >= 3){
+        this.disablePONCheckboxes();    
+      } 
       if (this.gameData.IsHomeForfeit || this.gameData.IsVisitorForfeit) {
         this.form.disable();
         this.form.controls['IsHomeForfeit'].enable();
         this.form.controls['IsVisitorForfeit'].enable();
       }
-      //this.setInitialPON();
-    } else {
-      this.isCoach = false;
-      this.form.disable();
-    }
-
-    //console.log(this.form.value);
+      
   }
 
   ngAfterViewChecked() {
@@ -336,7 +330,6 @@ export class CoachGamelistFormComponent implements OnInit {
 
   toggleHomeNotPresent($event: any, index) {
     if ($event.currentTarget.checked) {
-      //(<FormArray>this.form.controls['HomeTeamPlayerScores']).at(index).disable();
       (<FormArray>this.form.get('HomeTeamPlayerScores')).controls.forEach((group) => {
         let control = group.get('NotPresent') as FormControl;
         let playerNoteControl = group.get('PlayerNote') as FormControl;
@@ -789,6 +782,7 @@ export class CoachGamelistFormComponent implements OnInit {
                       this.coachService.postReportData(this.APIGamePost)
                       .subscribe(
                         (res)=>{
+                          console.log(res);
                           if (this.coachService.postReportMsg) {
                             this.showModal();
                           }

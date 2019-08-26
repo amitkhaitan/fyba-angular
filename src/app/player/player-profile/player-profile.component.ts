@@ -8,6 +8,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
 import { DataSharingService } from './../../data-sharing.service';
 import { MatSnackBar } from '@angular/material';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
+import { throttleTime } from 'rxjs/operators';
 //import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 // import { format } from 'path';
 // import { Observable, of, interval, Subscription, timer, pipe } from 'rxjs';
@@ -186,7 +187,14 @@ export class PlayerProfileComponent implements OnInit {
             JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:this.apparel.JerseySizeLock}),
             RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:this.apparel.RequestedJersey1Lock}),
             RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:this.apparel.RequestedJersey2Lock}),
-            ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock})             
+            ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock}),
+            AssignedJerseyLock: this.apparel.AssignedJerseyLock,
+            JerseySizeLock:this.apparel.JerseySizeLock,
+            RequestedJersey1Lock:this.apparel.RequestedJersey1Lock,
+            RequestedJersey2Lock:this.apparel.RequestedJersey2Lock,
+            ShortSizeLock:this.apparel.ShortSizeLock,
+
+
           });
                    
       }
@@ -223,11 +231,30 @@ export class PlayerProfileComponent implements OnInit {
           Parent_Name : group.value.parentName,
           Parent_Relationship : group.value.relationship,
           VolunteerCheckIn : group.value.VolunteerCheckIn,
-          Parent_VolunteerPosition : group.value.Parent_VolunteerPosition
+          volunteerPosition :this.parentvolpos(group.value.Parent_VolunteerPosition)
         };
         player_parent.push(rd);      
     });
     return player_parent;
+  }
+
+  submittextingoption(submittexting:any){
+    var option='';
+    if (submittexting != null) {
+      for (let i = 0; i < submittexting.length; ++i) {
+        {
+          option += submittexting[i].id + ',';
+        }
+      }
+      return option; 
+    }
+  }
+
+  parentvolpos(parentvolposition:any){
+    var VolunteerPosition={
+      Parent_VolunteerPosition:parentvolposition
+    }
+    return VolunteerPosition;
   }
 
   getapparelinfo(){
@@ -243,8 +270,13 @@ export class PlayerProfileComponent implements OnInit {
   onSubmit() {
     this.fetchingData = true;
      var playerDetails={
+      ShirtSizeValue:this.ShirtSizeValue, 
+      apparel:this.getapparelinfo(),
       parentInfo:this.getparentinfo(),
-      apparel:this.getapparelinfo()
+      playerInfo:this.parentInfo,
+      registrationStatus:this.registrationStatus,
+      textingOption:this.textingoption,
+      transactionHistory:this.transactionHistory      
     };
     this.playerService.saveProfileData(playerDetails)
       .subscribe((res) => {
@@ -255,17 +287,7 @@ export class PlayerProfileComponent implements OnInit {
       });
   }
   
-  submittextingoption(submittexting:any){
-    var option='';
-    if (submittexting != null) {
-      for (let i = 0; i < submittexting.length; ++i) {
-        {
-          option += submittexting[i].id + ',';
-        }
-      }
-      return option; 
-    }
-  }
+  
 
   modalRed: BsModalRef;
   withdraw(playerId: number, status: JSON) {
