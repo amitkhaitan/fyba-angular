@@ -45,7 +45,6 @@ import { SavedataPopupComponent } from './official/report-game/savedata-popup/sa
 import { interval } from 'rxjs';
 import { ReportFormComponent } from './official/report-game/report-form/report-form.component';
 import { GamelistFormComponent } from './official/report-game/gamelist-form/gamelist-form.component';
-//import { PlayerDataComponent } from './player/player-data/player-data.component';
 import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
 import { TeamComponent } from './player/team/team.component';
 import { ComposeEmailComponent } from './player/team/compose-email/compose-email.component';
@@ -60,6 +59,10 @@ import { PlayerCalendarComponent } from './player/player-calendar/player-calenda
 import { CoachteamComponent } from './coach/coachteam/coachteam.component';
 import { BlastemailComponent } from './coach/blastemail/blastemail.component';
 import { CoachGamelistFormComponent } from './coach/report-results/coach-gamelist-form/coach-gamelist-form.component';
+import { ShowCoachIncidentComponent } from './coach/report-results/show-coach-incident/show-coach-incident.component';
+import { ShowCoachNewIncidentComponent } from './coach/report-results/show-coach-new-incident/show-coach-new-incident.component';
+import { NewCoachIncidentComponent } from './coach/report-results/new-coach-incident/new-coach-incident.component';
+
 
 @NgModule({
   declarations: [
@@ -100,7 +103,11 @@ import { CoachGamelistFormComponent } from './coach/report-results/coach-gamelis
     PlayerCalendarComponent,
     CoachteamComponent,
     BlastemailComponent,
-    CoachGamelistFormComponent
+    CoachGamelistFormComponent,
+    ShowCoachIncidentComponent,
+    ShowCoachNewIncidentComponent,
+    NewCoachIncidentComponent
+
   ],
   imports: [
     HttpModule,
@@ -133,7 +140,10 @@ import { CoachGamelistFormComponent } from './coach/report-results/coach-gamelis
     ShowNewIncidentComponent,
     SavedataPopupComponent,
     RequestStatusPopupComponent,
-    WithdrawComponent
+    WithdrawComponent,
+    ShowCoachIncidentComponent,
+    ShowCoachNewIncidentComponent,
+    NewCoachIncidentComponent
   ],
   providers: [
     //MessageService,

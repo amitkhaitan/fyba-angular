@@ -1,7 +1,7 @@
 export class APIGamePost {
     public Roleid: string;
     public SeasonId: string;
-    public OfficialSeasonId: string;
+    public CoachSeasonId: string;
     public OfficiatingPositionId: string;
     public IsHomeForfeit:boolean;
     public IsVisitorForfeit:boolean;
@@ -28,7 +28,7 @@ export class APIGamePost {
   
     constructor() {
       this.SeasonId = "";
-      this.OfficialSeasonId = "";
+      this.CoachSeasonId = "";
       (this.Roleid = ""),
         (this.GameId = ""),
         (this.GameId = ""),
@@ -47,15 +47,36 @@ export class APIGamePost {
     public IncidentType : number;
     public IncidentValue: number;
     public Notes: string;
+   
   
     constructor() {
+     
       this.IncidentId = null;
       this.GameId = null;
       this.IncidentType = null;
       this.IncidentValue = null;
       this.Notes = '';
     }
+
+    static create(event: {
+      IncidentId: number;
+      GameId: number;
+      IncidentType: number;
+      IncidentValue: number;
+      Notes: string;
+    }) {
+      return {
+          IncidentId: event.IncidentId,
+          GameId: event.GameId,
+          IncidentType: event.IncidentType,
+          IncidentValue: event.IncidentValue,
+          Notes: event.Notes
+      };
+    }
   }
+
+  
+
   
   export class DeleteIncidentReport {
     public IncidentId: number;
@@ -72,6 +93,7 @@ export class APIGamePost {
       this.Notes = '';
     }
   }
+  
   export class HomeTeamPlayerScores {
     public GameId: string;
     public PlayerName?: string;

@@ -9,9 +9,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { APIPlayerScorePost } from '../../models/APIPlayerScorePost.model';
 import { IncidentReports } from './../../models/coachReport.model';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { NewIncidentComponent } from './../../../official/report-game/new-incident/new-incident.component';
-import { ShowIncidentComponent } from './../../../official/report-game/show-incident/show-incident.component';
-import { ShowNewIncidentComponent } from './../../../official/report-game/show-new-incident/show-new-incident.component';
+
+import {ShowCoachIncidentComponent} from './../show-coach-incident/show-coach-incident.component';
+import {ShowCoachNewIncidentComponent} from './../show-coach-new-incident/show-coach-new-incident.component';
+import {NewCoachIncidentComponent} from './../new-coach-incident/new-coach-incident.component';
+
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ValidationModalComponent } from './../../../official/report-game/validation-modal/validation-modal.component';
 import { ErrorModalComponent } from './../../../common/error-modal/error-modal.component';
@@ -19,6 +21,7 @@ import { SuccessPopupComponent } from './../../../official/report-game/success-p
 import { PlatformLocation } from '@angular/common';
 import { DataSharingService } from './../../../data-sharing.service';
 import { CoachService } from '../../coach.service';
+
 @Component({
   selector: 'app-coach-gamelist-form',
   templateUrl: './coach-gamelist-form.component.html',
@@ -35,6 +38,8 @@ export class CoachGamelistFormComponent implements OnInit {
   visitingPON: number = 0;
   finalHomeScore: number = 0;
   finalVisitingScore: number = 0;
+  initialFetchError = null;
+  errorMsg: string;
 
   constructor(
     public fb: FormBuilder,
@@ -180,8 +185,7 @@ export class CoachGamelistFormComponent implements OnInit {
     const gameList = this.fb.group({
       Roleid: this.cookieService.get('roleId'),
       SeasonId: this.cookieService.get('seasonId'),
-      OfficialSeasonId: GameList.OfficialSeasonId,
-      OfficiatingPositionId: GameList.OfficialSeasonId,
+      CoachSeasonId: GameList.CoachSeasonId,
       IsHomeForfeit: GameList.IsHomeForfeit,
       IsVisitorForfeit: GameList.IsVisitorForfeit,
       GameId: GameList.GameId,
@@ -199,11 +203,9 @@ export class CoachGamelistFormComponent implements OnInit {
       LeagueId: this.cookieService.get('leagueId'),
       HomeTeamPlayerScores: this.patchPlayerScores(GameList.HomeTeamPlayerScores),
       VisitingTeamPlayerScores: this.patchPlayerScores(GameList.VisitingTeamPlayerScores),
-      //ScoreSheetImages: this.patchScoreSheets(GameList.ScoreSheetImages),
       ScoreSheetImages: this.fb.array([]),
       DeletedScoreSheetImages: this.fb.array([]),
       IncidentReports: this.fb.array([]),
-      //IncidentReports:this.patchIncidentReports(GameList.IncidentReports),
       DeleteIncidentReport: this.fb.array([])
     });
 
@@ -623,7 +625,7 @@ export class CoachGamelistFormComponent implements OnInit {
         this.gameData.IncidentReports.length + this.coachService.IncidentReports.length + 1
     };
     this.bsModalRef = this.modalService.show(
-      NewIncidentComponent,
+      NewCoachIncidentComponent,
       Object.assign({}, { class: 'customModalWidth90', initialState })
     );
 
@@ -646,7 +648,7 @@ export class CoachGamelistFormComponent implements OnInit {
     };
 
     this.bsModalRef = this.modalService.show(
-      ShowIncidentComponent,
+      ShowCoachIncidentComponent,
       Object.assign({}, { class: 'customModalWidth90', initialState })
     );
 
@@ -736,7 +738,7 @@ export class CoachGamelistFormComponent implements OnInit {
     // await this.prepareDeletedScoreSheetsforSubmission();
     // await this.prepareDeletedIncidents();
     // await this.prepareFinalData();
-
+    this.downloadRequest=true;
     if (
       this.form.get('IsVisitorForfeit').value == true ||
       this.form.get('IsHomeForfeit').value == true
@@ -751,13 +753,18 @@ export class CoachGamelistFormComponent implements OnInit {
                   this.coachService.postReportData(this.APIGamePost)
                   .subscribe(
                     (res)=>{
-                      if (this.coachService.postReportMsg) {
-                        this.showModal();
-                      }
-                      if (this.coachService.serviceError) {
-                        this.bsModalRef = this.modalService.show(ErrorModalComponent);
-                        this.bsModalRef.content.closeBtnName = 'Close';
-                      }
+                      this.downloadRequest=false;
+                      var responseBody = JSON.parse(res["_body"]);          
+                      if(responseBody.status){
+                        this.bsModalRef = this.modalService.show(SuccessPopupComponent);
+                        this.bsModalRef.content.status = responseBody.Status;
+                        this.bsModalRef.content.popupTitle = responseBody.Message.PopupHeading;
+                        this.bsModalRef.content.popupMsg = responseBody.Message.PopupMessage;
+                        this.coachService.indicator.next(true);
+                        this.bsModalRef.content.route = "/coach/reportresults";        
+                      }else{
+                        this.ValidationPopupMethod(responseBody.Message.PopupHeading,responseBody.Message.PopupMessage);
+                      }                    
                     }
                   )
                 });
@@ -778,18 +785,22 @@ export class CoachGamelistFormComponent implements OnInit {
                 this.prepareDeletedScoreSheetsforSubmission().then(() => {
                   this.prepareDeletedIncidents().then(() => {
                     this.prepareFinalData().then(() => {
-                      //console.log(this.APIGamePost);
                       this.coachService.postReportData(this.APIGamePost)
                       .subscribe(
-                        (res)=>{
-                          console.log(res);
-                          if (this.coachService.postReportMsg) {
-                            this.showModal();
-                          }
-                          if (this.coachService.serviceError) {
-                            this.bsModalRef = this.modalService.show(ErrorModalComponent);
-                            this.bsModalRef.content.closeBtnName = 'Close';
-                          }
+                        (res)=>{    
+                          this.downloadRequest=false;  
+                          var responseBody = JSON.parse(res["_body"]);
+                          console.log(responseBody);
+                          if(responseBody.status){
+                            this.bsModalRef = this.modalService.show(SuccessPopupComponent);
+                            this.bsModalRef.content.status = responseBody.Status;
+                            this.bsModalRef.content.popupTitle = responseBody.Message.PopupHeading;
+                            this.bsModalRef.content.popupMsg = responseBody.Message.PopupMessage;
+                            this.coachService.indicator.next(true);
+                            this.bsModalRef.content.route = "/coach/reportresults";        
+                          }else{                    
+                            this.ValidationPopupMethod(responseBody.Message.PopupHeading,responseBody.Message.PopupMessage);
+                          }                          
                         }
                       )
                     });
@@ -798,10 +809,7 @@ export class CoachGamelistFormComponent implements OnInit {
               });
             });
           });
-        } else {
-          //console.log('Home Score' + this.finalHomeScore);
-          //console.log('Form home Score' + this.form.get('HomeTeamScore').value);
-
+        } else {         
           if (this.finalHomeScore != this.form.get('HomeTeamScore').value) {
             const initialState = {
               popupTitle: 'Error',
@@ -860,6 +868,18 @@ export class CoachGamelistFormComponent implements OnInit {
       }
     }
   }
+  
+  ValidationPopupMethod(popheading:any,popupmsg:any){
+    const initialState = {
+      popupTitle:popheading,
+      popupMsg: popupmsg
+    };
+    this.bsModalRef = this.modalService.show(
+      ValidationModalComponent,
+      Object.assign({}, { class: 'customModalWidth75', initialState })
+    );
+  }
+
 
   HomeTeamPlayerScores: APIPlayerScorePost[] = [];
   VisitingTeamPlayerScores: APIPlayerScorePost[] = [];
@@ -880,7 +900,7 @@ export class CoachGamelistFormComponent implements OnInit {
     };
 
     this.bsModalRef = this.modalService.show(
-      ShowNewIncidentComponent,
+      ShowCoachNewIncidentComponent,
       Object.assign({}, { class: 'customModalWidth90', initialState })
     );
 
@@ -989,7 +1009,7 @@ export class CoachGamelistFormComponent implements OnInit {
   async prepareFinalData() {
     this.APIGamePost.Roleid = this.cookieService.get('roleId');
     this.APIGamePost.SeasonId = this.cookieService.get('seasonId');
-    this.APIGamePost.OfficialSeasonId = this.gameData.OfficialSeasonId;
+    this.APIGamePost.CoachSeasonId = this.gameData.CoachSeasonId;
     this.APIGamePost.OfficiatingPositionId = this.gameData.OfficiatingPositionId;
 
     this.APIGamePost.IsHomeForfeit = this.form.get('IsHomeForfeit').value;
@@ -1123,45 +1143,57 @@ export class CoachGamelistFormComponent implements OnInit {
     this.downloadRequest = true;
     var downLoadUrl;
     this.coachService.getPdfUrl(url).subscribe((res) => {
-      console.log(res);
-      console.log(res['_body']);
       var x = JSON.parse(res['_body']);
+      if (x.Status==true) { 
       downLoadUrl = x['Value'].AbsoluteUrl;
       this.downloadRequest = false;
       window.location.href = downLoadUrl;
+      }else{
+        this.bsModalRef = this.modalService.show(ErrorModalComponent);
+        this.bsModalRef.content.closeBtnName = 'Close';
+      }
+    },(err) => {
+      this.initialFetchError = true;
+      this.errorMsg = err;
+      this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.bsModalRef.content.closeBtnName = 'Close';
+      this.bsModalRef.content.errorMsg = err;
+      
     });
   }
 
-  nonScorekeeperSubmit(form) {
-    console.log(form);
-    if (this.gameData.OfficiatingPositionId != '3') {
-      console.log(this.gameData.OfficiatingPositionId);
-      this.prepareScoresforSubmission().then(() => {
-        this.prepareScoreSheetsforSubmission().then(() => {
-          this.prepareDeletedScoreSheetsforSubmission().then(() => {
-            this.prepareDeletedScoreSheetsforSubmission().then(() => {
-              this.prepareDeletedIncidents().then(() => {
-                this.prepareFinalData().then(() => {
-                  console.log(this.APIGamePost);
-                  this.coachService.postReportData(this.APIGamePost)
-                  .subscribe(
-                    (res)=>{
-                      if (this.coachService.postReportMsg) {
-                        this.showModal();
-                      }
-                      if (this.coachService.serviceError) {
-                        this.bsModalRef = this.modalService.show(ErrorModalComponent);
-                        this.bsModalRef.content.closeBtnName = 'Close';
-                      }
-                    }
-                  )
-                });
-              });
-            });
-          });
-        });
-      });
-    }
-  }
+  // nonScorekeeperSubmit(form) {
+  //   console.log(form);
+  //   if (this.gameData.OfficiatingPositionId != '3') {
+  //     console.log(this.gameData.OfficiatingPositionId);
+  //     this.prepareScoresforSubmission().then(() => {
+  //       this.prepareScoreSheetsforSubmission().then(() => {
+  //         this.prepareDeletedScoreSheetsforSubmission().then(() => {
+  //           this.prepareDeletedScoreSheetsforSubmission().then(() => {
+  //             this.prepareDeletedIncidents().then(() => {
+  //               this.prepareFinalData().then(() => {
+  //                 //console.log(this.APIGamePost);
+  //                 this.coachService.postReportData(this.APIGamePost)
+  //                 .subscribe(
+  //                   (res)=>{
+  //                     var response = res; 
+  //                     console.log(response);
+  //                     if (this.coachService.postReportMsg) {
+  //                       this.showModal();
+  //                     }
+  //                     if (this.coachService.serviceError) {
+  //                       this.bsModalRef = this.modalService.show(ErrorModalComponent);
+  //                       this.bsModalRef.content.closeBtnName = 'Close';
+  //                     }
+  //                   }
+  //                 )
+  //               });
+  //             });
+  //           });
+  //         });
+  //       });
+  //     });
+  //   }
+  // }
 }
 

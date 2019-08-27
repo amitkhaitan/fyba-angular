@@ -259,10 +259,16 @@ export class PlayerProfileComponent implements OnInit {
 
   getapparelinfo(){
     var rd = {
-      ShortSizeId:this.profileForm.value.ShortSizeId,
-      JerseySizeId :this.profileForm.value.JerseySizeId,
-      RequestedJersey1:this.profileForm.value.RequestedJersey1,
-      RequestedJersey2:this.profileForm.value.RequestedJersey2     
+      ShortSizeId:this.profileForm.get('ShortSizeId').value,
+      JerseySizeId :this.profileForm.get('JerseySizeId').value,
+      RequestedJersey1:this.profileForm.get('RequestedJersey1').value,
+      RequestedJersey2:this.profileForm.get('RequestedJersey2').value,
+      AssignedJerseyLock:this.profileForm.get('AssignedJerseyLock').value,
+      JerseySizeLock:this.profileForm.get('JerseySizeLock').value,
+      RequestedJersey1Lock:this.profileForm.get('RequestedJersey1Lock').value,
+      RequestedJersey2Lock:this.profileForm.get('RequestedJersey2Lock').value,
+      ShortSizeLock:this.profileForm.get('ShortSizeLock').value,
+  
     };
     return rd;
   }
@@ -273,11 +279,12 @@ export class PlayerProfileComponent implements OnInit {
       ShirtSizeValue:this.ShirtSizeValue, 
       apparel:this.getapparelinfo(),
       parentInfo:this.getparentinfo(),
-      playerInfo:this.parentInfo,
+      playerInfo:this.profileSection.Value.playerInfo,
       registrationStatus:this.registrationStatus,
       textingOption:this.textingoption,
       transactionHistory:this.transactionHistory      
     };
+   
     this.playerService.saveProfileData(playerDetails)
       .subscribe((res) => {
         res = JSON.parse(res["_body"]);

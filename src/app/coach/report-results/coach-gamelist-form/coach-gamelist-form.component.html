@@ -206,25 +206,14 @@
                   aria-hidden="true"></span>
               </li>
             </ng-container>
-
-            <!-- <ng-container formArrayName="ScoreSheetImages" >
-              <li *ngFor="let child of form.controls.ScoreSheetImages.controls; let i=index">
-                <ng-container [formGroupName]="i">
-                <img src={{child.NewImageByteCode}} />
-                <span (click)="deleteImage(i)" 
-                class="glyphicon glyphicon-remove-circle"
-                  aria-hidden="true"></span>
-                </ng-container>
-              </li>
-            </ng-container> -->
           </ul>
-          <ul *ngIf="gameData.OfficiatingPositionId == '3'" class="addList IncidentListClass">
+          <!-- <ul class="addList IncidentListClass">
             <li class="Incidentclass uploadDiv">
               <input #imageInput type="file" multiple accept="image/*" (change)="addImage(imageInput)" />
               <span class="addHeading">
                 UPLOAD<br />SCORE<br class="breakAll" />SHEET</span>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>

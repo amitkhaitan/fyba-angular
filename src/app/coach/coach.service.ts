@@ -76,6 +76,7 @@ export class CoachService {
           VolunteerSeasonalId: this.dss.VolunteerSeasonalId
       })
       var body = JSON.stringify(getCoachReportData);
+      console.log(body);
     return this.http.post(Constants.apiURL+'/api/CoachReportGames', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
    
@@ -138,7 +139,7 @@ export class CoachService {
       method: RequestMethod.Post,
       headers: headerOptions
     });
-    console.log(body);
+    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/CoachReportGamesSave', body, requestOptions)
   }
 

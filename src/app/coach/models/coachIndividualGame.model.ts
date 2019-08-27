@@ -1,7 +1,7 @@
 export class IndividualGame {
     public Roleid: string;
     public SeasonId: string;
-    public OfficialSeasonId: string;
+    public CoachSeasonId: string;
     public OfficiatingPositionId: string;
     public IsHomeForfeit:boolean;
     public IsVisitorForfeit:boolean;
@@ -31,7 +31,7 @@ export class IndividualGame {
   
     constructor() {
       this.SeasonId = "";
-      this.OfficialSeasonId = "";
+      this.CoachSeasonId = "";
       (this.Roleid = ""),
         (this.GameId = ""),
         (this.GameId = ""),

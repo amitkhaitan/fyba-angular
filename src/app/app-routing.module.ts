@@ -10,8 +10,6 @@ import { CoachComponent } from './coach/coach.component';
 import { PlayerComponent } from './player/player.component';
 import { AuthGuard } from './auth.guard';
 import { DeactivateGuard } from './deactivate-guard';
-//import { PreventLoggedInAccess } from './preventLogin.guard';
-//import { PlayerDataComponent } from '././player/player-data/player-data.component';
 import { FybaloaderComponent } from './common/fybaloader/fybaloader.component';
 import { LogoutComponent } from './common/logout/logout.component';
 import { ChangepasswordComponent } from './common/changepassword/changepassword.component';
