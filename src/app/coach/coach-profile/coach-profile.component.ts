@@ -6,7 +6,10 @@ import { CoachProfileResponse } from './../models/profileResponse.model';
 import { FormBuilder,FormArray,FormControl, FormGroup } from '@angular/forms';
 import { ArrayValidators } from './checkbox.validator';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatSnackBar } from '@angular/material';
+import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-coach-profile',
@@ -67,22 +70,28 @@ export class CoachProfileComponent implements OnInit {
   disableTimeNotPrac:boolean;
   TimeNotPracclass:string;
   /****************/
+  bsModalRef: BsModalRef;
+  errormsg:string;
+  selecteddayOfTheWeekRank:number;
+  selectedtimeOfTheDayRank:number;
+  countpatchDaysYouCantHavePractice:number;
+  countpatchTimeYouCantHavePractice:number;
+  selectedDaysNotPractices:string;
+  selectedTimeNotPractices:string;
 
   constructor(private dss: DataSharingService, 
     private coachService: CoachService,
     private config: NgbAccordionConfig,
     private router: Router,
-    private fb: FormBuilder) {   
+    private fb: FormBuilder,
+    private snackbar: MatSnackBar, 
+    private modalService: BsModalService) {   
       config.closeOthers=true;
       this.img1="./assets/images/lock.png",
       this.img2="./assets/images/unlock.png"
-      this.currentSrc = this.img1;
-    
-       
-      
+      this.currentSrc = this.img1;      
     }
     
-
   ngOnInit() {
     this.dataRequest=true;    
     this.coachService.getCoach()
@@ -172,15 +181,16 @@ export class CoachProfileComponent implements OnInit {
             this.TimeNotPracSrc=this.img2;
             this.disableTimeNotPrac=false;
             this.TimeNotPracclass='';
-          }  
+          }
+        this.countpatchDaysYouCantHavePractice=0;
+        this.countpatchTimeYouCantHavePractice=0;    
         this.generateDetailsForm();
         this.generatePracticePreferenceForm();
-        
+        //console.log(this.preferenceForm.value);
         this.dataRequest = false;
       },
       (error)=>{
-        this.dataRequest = false;
-        //console.log(error);       
+        this.dataRequest = false;   
       }
     )
   }
@@ -196,7 +206,7 @@ export class CoachProfileComponent implements OnInit {
     this.personalDetailsForm = await this.fb.group({
       coachName:this.profileData.Value.CoachName,
       email: this.profileData.Value.Email,
-      shirtSize: new FormControl({value:this.initShirtSize(), disabled:this.disableShirtSize}),      
+      shirtSize: new FormControl({value:this.initShirtSize(),disabled:this.disableShirtSize }),   
       snacksField: ''
     })
     var x = await setInterval(() => {
@@ -209,7 +219,7 @@ export class CoachProfileComponent implements OnInit {
   initShirtSize(){
     for(var i=0; i<this.profileData.Value.ShirtSizeValue.length; ++i){   
        if(this.profileData.Value.ShirtSizeValue[i].Selected)
-       return this.profileData.Value.ShirtSizeValue[i].Size;
+       return this.profileData.Value.ShirtSizeValue[i].SizeId;
       }
 
   }
@@ -217,26 +227,61 @@ export class CoachProfileComponent implements OnInit {
   async generatePracticePreferenceForm(){
     this.preferenceForm = await this.fb.group({
       locationPreference: this.patchLocationPreference(),
-      locationRank: '',
+      locationRank:new FormControl({value:this.locationRank(), disabled:this.profileData.Value.LocationRankValuesLock}),
       dayOfTheWeekPreference: this.patchDayOfTheWeekPreference(),
-      dayOfTheWeekRank: '',
+      dayOfTheWeekRank:new FormControl({value:this.dayOfTheWeekRank(), disabled:this.profileData.Value.DayOfTheWeekRankValuesLock}),
       timeOfTheDayPreference: this.patchTimeOfTheDayPreference(),
-      timeOfTheDayRank: '',
+      timeOfTheDayRank: new FormControl({value:this.timeOfTheDayRank(), disabled:this.profileData.Value.DayOfTheWeekRankValuesLock}),
       daysYouCantHavePractice: this.patchDaysYouCantHavePractice(),
       timeYouCantHavePractice: this.patchTimeYouCantHavePractice()
 
     })
 
     var x = await setInterval(() => {
-      console.log(this.preferenceForm.value);
+       console.log(this.preferenceForm.value.dayOfTheWeekRank);
+       this.selecteddayOfTheWeekRank=this.preferenceForm.value.dayOfTheWeekRank;  
+       this.selectedtimeOfTheDayRank=this.preferenceForm.value.timeOfTheDayRank; 
+       this.selectedDaysNotPractices=this.preferenceForm.value.daysYouCantHavePractice;  
+       this.selectedTimeNotPractices=this.preferenceForm.value.timeYouCantHavePractice; 
+       console.log(this.selectedDaysNotPractices);  
+       console.log(this.selectedTimeNotPractices);  
       clearInterval(x);
     }, 1000);    
     
 
   }
 
+  locationRank(){
+    for(var i=0; i<this.profileData.Value.LocationRankValues.length; ++i){   
+       if(this.profileData.Value.LocationRankValues[i].Selected)
+       return this.profileData.Value.LocationRankValues[i].RankId;
+      }
+
+  }
+  dayOfTheWeekRank(){
+    for(var i=0; i<this.profileData.Value.DayOfTheWeekRankValues.length; ++i){   
+       if(this.profileData.Value.DayOfTheWeekRankValues[i].Selected)
+       return this.profileData.Value.DayOfTheWeekRankValues[i].RankId;
+    }
+
+  }
+  timeOfTheDayRank(){
+    for(var i=0; i<this.profileData.Value.TimeOfDayRankValues.length; ++i){   
+       if(this.profileData.Value.TimeOfDayRankValues[i].Selected)
+       return this.profileData.Value.TimeOfDayRankValues[i].RankId;
+      }
+
+  }
+  
   patchLocationPreference(){
     let arr = new FormArray([]);
+    for(var i=0; i<this.profileData.Value.LocationPreferenceValues.length;++i){
+      arr.push(this.fb.group({
+        LocationId:this.profileData.Value.LocationPreferenceValues[i].LocationId,
+        LocationName:this.profileData.Value.LocationPreferenceValues[i].LocationName,
+        Selected:this.profileData.Value.LocationPreferenceValues[i].Selected
+      }))
+    }
     return arr;
   }
 
@@ -254,7 +299,7 @@ export class CoachProfileComponent implements OnInit {
 
   patchTimeOfTheDayPreference(){
     let arr = new FormArray([]);
-    for(var i=0; i<this.profileData.Value.TimeOfDayPreferenceValues.length;++i){
+    for(var i=0; i<this.profileData.Value.TimeOfDayPreferenceValues.length;++i){      
       arr.push(this.fb.group({
         TimeId:this.profileData.Value.TimeOfDayPreferenceValues[i].TimeId,
         TimeName:this.profileData.Value.TimeOfDayPreferenceValues[i].Time,
@@ -267,164 +312,256 @@ export class CoachProfileComponent implements OnInit {
   patchDaysYouCantHavePractice(){
     let arr = new FormArray([],ArrayValidators.maxLength(3));
     for(var i=0; i<this.profileData.Value.DaysYouCannotHavePracticeValues.length;++i){
+      if(this.profileData.Value.DaysYouCannotHavePracticeValues[i].Selected==true){
+        this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice+1;
+      }
       arr.push(this.fb.group({
         DayId:this.profileData.Value.DaysYouCannotHavePracticeValues[i].DayId,
         DayName:this.profileData.Value.DaysYouCannotHavePracticeValues[i].DayName,
         Selected:this.profileData.Value.DaysYouCannotHavePracticeValues[i].Selected
       }))
     }
-    //arr.setValidators(minLengthError);
     return arr;
   }
 
   patchTimeYouCantHavePractice(){
     let arr = new FormArray([],ArrayValidators.maxLength(3));
     for(var i=0; i<this.profileData.Value.TimeYouCannotHavePracticeValues.length;++i){
+      if(this.profileData.Value.TimeYouCannotHavePracticeValues[i].Selected==true){
+        this.countpatchTimeYouCantHavePractice=this.countpatchTimeYouCantHavePractice+1;
+      }
       arr.push(this.fb.group({
         TimeId:this.profileData.Value.TimeYouCannotHavePracticeValues[i].TimeId,
         TimeName:this.profileData.Value.TimeYouCannotHavePracticeValues[i].Time,
         Selected:this.profileData.Value.TimeYouCannotHavePracticeValues[i].Selected
       }))
     }
-    //arr.setValidators(minLengthError);
     return arr;
   }
 
-  locationPreference: number[] = []
-
-  preferenceChange(e: any, locationId:number){
-    if(e.currentTarget.checked){
-      this.locationPreference.push(locationId);
-      
-    }
-    else{
-      this.locationPreference = this.locationPreference.filter(item =>  item !== locationId);
-    }
-
-    console.log(this.locationPreference);
-
-  }
+ 
 
   onSubmit(){
-    
+    this.dataRequest = true;
+     var CoachDetails={
+      Address:'',
+      AssignedDayOfWeek:'',
+      AssignedFacility:'',
+      AssignedTimeOfDay:'',
+      CoachName:'',
+      DateFingerPrinted:'',
+      DayOfTheWeekPreferenceValues:this.preferenceForm.get('dayOfTheWeekPreference').value,
+      DayOfTheWeekPreferenceValuesLock:'',
+      DayOfTheWeekRankValues:this.profileData.Value.DayOfTheWeekRankValues,
+      DayOfTheWeekRankValuesLock:'',
+      DaysYouCannotHavePracticeValues:'',
+      DaysYouCannotHavePracticeValuesLock:'',
+      Email:this.personalDetailsForm.get('email').value,
+      HomePhone:'',
+      LocationPreferenceValues:this.preferenceForm.get('locationPreference').value,
+      LocationPreferenceValuesLock:'',
+      LocationRankValues:this.profileData.Value.LocationRankValues,
+      LocationRankValuesLock:'',
+      MobilePhone:'',
+      ShirtSizeLock:'',
+      ShirtSizeValue:this.profileData.Value.ShirtSizeValue,
+      TeamId:'',
+      TeamName:'',
+      TimeOfDayPreferenceValues:this.preferenceForm.get('timeOfTheDayPreference').value,
+      TimeOfDayPreferenceValuesLock:'',
+      TimeOfDayRankValues:this.profileData.Value.TimeOfDayRankValues,  
+      TimeOfDayRankValuesLock:'',
+      TimeYouCannotHavePracticeValues:'',
+      TimeYouCannotHavePracticeValuesLock:'',
+      TimeslotName:'',
+      VolunteerId:'',
+      VolunteerSeasonalId:'',
+      WorkPhone:''
+    };
+    console.log(CoachDetails);
+    //return false;
+    this.coachService.saveProfileData(CoachDetails)
+      .subscribe((res) => {
+        res = JSON.parse(res["_body"]);
+        console.log(res);
+        this.dataRequest = false;
+        this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
+      });
   }
 
   //Event Handling
+  preferenceChange(e:any, id:number){ 
+    (<FormArray>this.preferenceForm.get('locationPreference')).controls.forEach((group) => {
+      let dayIdControl = group.get('LocationId') as FormControl;  
+      let selectedControl = group.get('Selected') as FormControl;           
+      if (dayIdControl.value == id) {
+        if(e.currentTarget.checked){
+          selectedControl.setValue(true);
+        }else{
+          selectedControl.setValue(false);   
+        }          
+      }         
+    });   
+}
+
   dayOfTheWeekPreferenceChange(e:any, id:number){  
     if(e.currentTarget.checked){
-      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');      
       (<FormArray>this.preferenceForm.get('dayOfTheWeekPreference')).controls.forEach((group) => {
         let dayIdControl = group.get('DayId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
+        let selectedControl = group.get('Selected') as FormControl;           
         if (dayIdControl.value == id) {
-          console.log("Disable" + dayIdControl.value);
-          
-          selectedControl.setValue(false);
-          selectedControl.disable();
-          group.updateValueAndValidity();
-          group.disable();        
+          if(e.currentTarget.checked){
+            selectedControl.setValue(true);
+          }else{
+            selectedControl.setValue(false);
+          }     
         }
          
       });
-    }
-    // else{
-    //   (<FormArray>this.preferenceForm.get('dayOfTheWeekPreference')).controls.forEach((group) => {
-    //     let dayIdControl = group.get('DayId') as FormControl;    
-        
-        
-    //     if (dayIdControl.value == id) {
-    //       console.log("Enable" + dayIdControl.value);   
-    //       group.enable();        
-    //     }
-    //   });
-    // }
-
+    }    
   }
 
-  daysYouCantHavePracticeChange(e:any, id:number){
-    if(e.currentTarget.checked){
-      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');
-
-      
-      (<FormArray>this.preferenceForm.get('dayOfTheWeekPreference')).controls.forEach((group) => {
-        let dayIdControl = group.get('DayId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
-        if (dayIdControl.value == id) {
-          console.log("Disable" + dayIdControl.value);
-          selectedControl.setValue(false);
-          selectedControl.disable();
-          group.disable();        
-        }
-         
-      });
-    }
-    // else{
-    //   (<FormArray>this.preferenceForm.get('dayOfTheWeekPreference')).controls.forEach((group) => {
-    //     let dayIdControl = group.get('DayId') as FormControl;    
-        
-        
-    //     if (dayIdControl.value == id) {
-    //       console.log("Enable" + dayIdControl.value);   
-    //       group.enable();        
-    //     }
-    //   });
-    // }
-
-    console.log("Form Valid?"+this.preferenceForm.valid);
-
-  }
-
-  
-  // timeOfTheDayPreference
-  // timeYouCantHavePractice
-
-  timeOfTheDayPreferenceChange(e:any, id:number){
-    if(e.currentTarget.checked){
-      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');
-
-      
-      (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
-        let timeIdControl = group.get('TimeId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
-        if (timeIdControl.value == id) {
-          console.log("Disable" + timeIdControl.value);
-          selectedControl.setValue(false);
-          selectedControl.disable();
-          group.disable();        
-        }
-         
-      });
-    }
-  }
-  
-  timeYouCantHavePracticeChange(e:any, id:number){
-    if(e.currentTarget.checked){
-      //const control = <FormArray>this.preferenceForm.get('daysYouCantHavePractice');
-
-      
+  timeOfTheDayPreferenceChange(e:any, id:number){  
       (<FormArray>this.preferenceForm.get('timeOfTheDayPreference')).controls.forEach((group) => {
         let timeIdControl = group.get('TimeId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;    
-       
+        let selectedControl = group.get('Selected') as FormControl;           
         if (timeIdControl.value == id) {
-          console.log("Disable" + timeIdControl.value);
-          selectedControl.setValue(false);
-          selectedControl.disable();
-          group.disable();        
-        }
-         
+          if(e.currentTarget.checked){
+            selectedControl.setValue(true);
+          }else{
+            selectedControl.setValue(false);  
+          }    
+        }         
+      });  
+  }
+  
+ 
+  //countpatchTimeYouCantHavePractice:number;
+
+  daysYouCantHavePracticeChange(e:any, id:number){
+    if(this.countpatchDaysYouCantHavePractice<3){
+      (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
+        let dayIdControl = group.get('DayId') as FormControl;  
+        let selectedControl = group.get('Selected') as FormControl;           
+        if (dayIdControl.value == id) {
+          if(e.currentTarget.checked){
+            this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice+1;
+            selectedControl.setValue(true);
+          }else{
+            this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice-1;
+            selectedControl.setValue(false);   
+          } 
+          this.selectedDaysNotPractices=this.preferenceForm.get('daysYouCantHavePractice').value;         
+        }         
       });
+    }else{
+      (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
+        let dayIdControl = group.get('DayId') as FormControl;  
+        let selectedControl = group.get('Selected') as FormControl;           
+        if (dayIdControl.value == id) {
+          if(e.currentTarget.checked){
+            selectedControl.setValue(false);                 
+          }
+          this.errormsg='You can select max 3 Days you CANNOT have practice.';
+          this.errormethod(this.errormsg);
+                
+        }                                        
+      });
+      console.log(this.selectedDaysNotPractices);
+      this.preferenceForm.patchValue({
+          daysYouCantHavePractice:this.selectedDaysNotPractices
+        });      
     }
-
-    
-
+     
   }
 
+
+  timeYouCantHavePracticeChange(e:any, id:number){
+    (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
+      let dayIdControl = group.get('TimeId') as FormControl;  
+      let selectedControl = group.get('Selected') as FormControl;           
+      if (dayIdControl.value == id) {
+        if(e.currentTarget.checked){
+          selectedControl.setValue(true);
+        }else{
+          selectedControl.setValue(false);   
+        }          
+      }         
+    }); 
+  }
+
+  changeshirtSize(event:any){
+    for(var i=0; i<this.profileData.Value.ShirtSizeValue.length; ++i){   
+      if(this.profileData.Value.ShirtSizeValue[i].SizeId==event){
+        this.profileData.Value.ShirtSizeValue[i].Selected=true;
+      }else{
+        this.profileData.Value.ShirtSizeValue[i].Selected=false;
+      }    
+    }
+  }
+
+  changelocationRank(event:any){
+    for(var i=0; i<this.profileData.Value.LocationRankValues.length; ++i){   
+      if(this.profileData.Value.LocationRankValues[i].RankId==event){
+        this.profileData.Value.LocationRankValues[i].Selected=true;
+      }else{
+        this.profileData.Value.LocationRankValues[i].Selected=false;
+      }    
+    }
+  }
+
+  changedayOfTheWeekRank(event:any){
+    for(var i=0; i<this.profileData.Value.TimeOfDayRankValues.length; ++i){
+        if(this.profileData.Value.TimeOfDayRankValues[i].RankId==event.target.value){
+          if(this.profileData.Value.TimeOfDayRankValues[i].Selected==true){
+            this.errormsg='Day of week rank and Time of day rank cannot be same';
+            this.errormethod(this.errormsg);
+            this.preferenceForm.patchValue({
+             dayOfTheWeekRank:this.selecteddayOfTheWeekRank
+            });
+            return false;
+          }else{
+            for(var i=0; i<this.profileData.Value.DayOfTheWeekRankValues.length; ++i){   
+              if(this.profileData.Value.DayOfTheWeekRankValues[i].RankId==event.target.value){
+                this.profileData.Value.DayOfTheWeekRankValues[i].Selected=true;
+                this.selecteddayOfTheWeekRank=event.target.value;
+              }else{
+                this.profileData.Value.DayOfTheWeekRankValues[i].Selected=false;
+              }    
+            }
+          }
+        }               
+    }
+  }
+
+  changetimeOfTheDayRank(event:any){
+    for(var i=0; i<this.profileData.Value.DayOfTheWeekRankValues.length; ++i){
+      if(this.profileData.Value.DayOfTheWeekRankValues[i].RankId==event.target.value){
+        if(this.profileData.Value.DayOfTheWeekRankValues[i].Selected==true){
+          this.errormsg='Day of week rank and Time of day rank cannot be same';
+          this.errormethod(this.errormsg);
+          this.preferenceForm.patchValue({
+            timeOfTheDayRank:this.selectedtimeOfTheDayRank
+          });
+          return false;
+        }else{
+          for(var i=0; i<this.profileData.Value.TimeOfDayRankValues.length; ++i){   
+            if(this.profileData.Value.TimeOfDayRankValues[i].RankId==event.target.value){
+              this.profileData.Value.TimeOfDayRankValues[i].Selected=true;
+              this.selecteddayOfTheWeekRank=event.target.value;
+            }else{
+              this.profileData.Value.TimeOfDayRankValues[i].Selected=false;
+            }    
+          }
+        }
+      }               
+  }
+
+}
   
-
-
-
+  errormethod(msg:any){
+      this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.bsModalRef.content.closeBtnName = 'Close';
+      this.bsModalRef.content.errorMsg = msg;
+  }
 }

@@ -187,6 +187,15 @@ export class CoachService {
     .pipe(map((res)=>res.json()))
     
   }
-
+  
+  saveProfileData(requestedData):Observable<any>{
+    var CoachProfileModel = new CoachProfileRequest();
+    CoachProfileModel.UserID = this.dss.userId;
+    CoachProfileModel.SessionKey = this.dss.sessionKey;
+    CoachProfileModel.RequestedData = JSON.stringify(requestedData);
+    var body = JSON.stringify(CoachProfileModel);
+    console.log(body);
+    return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave',body, this.postRequestOptions).pipe(map((res)=>res.json()))
+  }
   
 }
