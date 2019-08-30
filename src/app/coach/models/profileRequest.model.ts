@@ -11,4 +11,5 @@ export class RequestedData{
     SeasonId: number;
     VolunteerSeasonalId: number;
     VolunteerId: number;
+    TeamId:number;
 }

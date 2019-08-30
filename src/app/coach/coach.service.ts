@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
 })
 
 export class CoachService {
-
+  TeamId;
   dataChanged:boolean;
   serviceError:boolean;
   reportRequest:boolean;
@@ -48,6 +48,23 @@ export class CoachService {
 
   postRequestOptions;
   headerOptions;
+  timeoutError: boolean;
+ 
+  
+  getcoachProfileData():Observable<any>{
+      var getCoachModel = new CoachProfileRequest();
+      getCoachModel.UserID = this.dss.userId;
+      getCoachModel.SessionKey = this.dss.sessionKey;
+      getCoachModel.RequestedData = JSON.stringify({
+        LeagueId: this.dss.leagueId,
+        SeasonId: this.dss.seasonId,
+        VolunteerSeasonalId:this.dss.VolunteerSeasonalId,
+        VolunteerId:this.dss.VolunteerId
+      });
+    var body = JSON.stringify(getCoachModel);
+    console.log(body)
+    return this.http.post(Constants.apiURL +'/api/CoachTeam', body, this.postRequestOptions);
+  }
 
   getCoach(): Observable<CoachProfileResponse>{
     var getCoachModel = new CoachProfileRequest();
@@ -58,9 +75,7 @@ export class CoachService {
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
       VolunteerId:this.dss.VolunteerId
-
     })
-
     var body = JSON.stringify(getCoachModel);
     return this.http.post(Constants.apiURL+'/api/CoachDetails', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
@@ -73,7 +88,8 @@ export class CoachService {
       getCoachReportData.SessionKey = this.dss.sessionKey;
       getCoachReportData.RequestedData = JSON.stringify({
           SeasonId: this.dss.seasonId,
-          VolunteerSeasonalId: this.dss.VolunteerSeasonalId
+          VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
+          TeamId:this.dss.TeamId
       })
       var body = JSON.stringify(getCoachReportData);
       console.log(body);
@@ -112,7 +128,6 @@ export class CoachService {
       ParentsUserIds:this.recipentparentId
     });
     var body = JSON.stringify(emailModel);
-    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendText', body, this.postRequestOptions);
   }
 
@@ -139,17 +154,7 @@ export class CoachService {
       method: RequestMethod.Post,
       headers: headerOptions
     });
-    //console.log(body);
     return this.http.post(Constants.apiURL + '/api/CoachReportGamesSave', body, requestOptions)
-  }
-
-  timeoutError: boolean;
-  private handleError(error: any) {
-    if (error instanceof TimeoutError) {
-      this.timeoutError = true;
-    }
-    this.serviceError = true;
-    this.reportRequest = false;
   }
 
   getcoachCalenderData(): Observable<any>{
@@ -160,10 +165,9 @@ export class CoachService {
       LeagueId: this.dss.leagueId,
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
-      VolunteerId:this.dss.VolunteerId
-
-    })
-    
+      VolunteerId:this.dss.VolunteerId,
+      TeamId:this.dss.TeamId
+    })    
     var body = JSON.stringify(getCoachCalenderModel);
     return this.http.post(Constants.apiURL+'/api/CoachCalendar', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
@@ -178,7 +182,8 @@ export class CoachService {
       LeagueId: this.dss.leagueId,
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
-      VolunteerId:this.dss.VolunteerId
+      VolunteerId:this.dss.VolunteerId,
+      TeamId:this.dss.TeamId
 
     })    
     var body = JSON.stringify(getCoachTeamInfoModel);
@@ -193,9 +198,20 @@ export class CoachService {
     CoachProfileModel.UserID = this.dss.userId;
     CoachProfileModel.SessionKey = this.dss.sessionKey;
     CoachProfileModel.RequestedData = JSON.stringify(requestedData);
+    //console.log(CoachProfileModel.RequestedData);
     var body = JSON.stringify(CoachProfileModel);
     console.log(body);
-    return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave',body, this.postRequestOptions).pipe(map((res)=>res.json()))
+    return this.http.post(Constants.apiURL + '/api/CoachDetailsSave',body, this.postRequestOptions).pipe(map((res)=>res.json()))
+  }
+
+
+
+  private handleError(error: any) {
+    if (error instanceof TimeoutError) {
+      this.timeoutError = true;
+    }
+    this.serviceError = true;
+    this.reportRequest = false;
   }
   
 }

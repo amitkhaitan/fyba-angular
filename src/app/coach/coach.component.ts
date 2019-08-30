@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataSharingService } from './../data-sharing.service';
 import { CoachService }  from './coach.service';
 import { Router } from '@angular/router';
+import {CoachTeamList} from './models/CoachTeamList.interface';
 
 @Component({
   selector: 'app-coach',
@@ -17,6 +18,9 @@ export class CoachComponent implements OnInit {
   game_icon: string;
   report_icon: string;
   officiating: string;
+  dataRequest:boolean;
+  coachData: JSON;
+  public coachSection: CoachTeamList = null;
   constructor(public dss: DataSharingService, 
     private coachService: CoachService,
     private router: Router) {
@@ -31,8 +35,32 @@ export class CoachComponent implements OnInit {
 
   ngOnInit() {
     this.headerImg = 'coach_header_img';
-    this.dss.currentRoute = 'coach';
-    this.router.navigate(["/coach/profile"]);
+    this.dataRequest=true;
+    this.getcoachProfileData().then(() => {
+      this.dss.currentRoute = 'coach';
+    });
+  }
 
+  async getcoachProfileData(){
+    await this.coachService.getcoachProfileData().subscribe((res)=>{
+       this.coachSection=JSON.parse(res['_body']);
+       console.log(this.coachSection);
+       if (this.TeamList != null) this.coachData = this.TeamList[0];
+       this.dss.TeamId = this.coachData["TeamId"];
+       this.dataRequest = false;
+       this.router.navigate(["/coach/profile"]);
+    });
+
+  }
+
+  get TeamList() {
+    return this.coachSection.Value[0]['coachTeamList'];
+  }
+
+  async filterCoachTeam(id: number) {    
+    this.coachData = await this.TeamList.filter((item) => item.TeamId == id);
+    this.coachData = this.coachData[0];
+    this.dss.TeamId = await id; 
+    this.router.navigate(["/coach/profile"]);     
   }
 }

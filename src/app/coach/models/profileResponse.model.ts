@@ -43,6 +43,8 @@ export interface Value{
     TimeOfDayPreferenceValuesLock:boolean;
     TimeOfDayRankValuesLock:boolean;
     TimeYouCannotHavePracticeValuesLock:boolean;
+    VolunteerId:number;
+    VolunteerSeasonalId:number;
     
 }
 

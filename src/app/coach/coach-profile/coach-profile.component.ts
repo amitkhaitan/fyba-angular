@@ -186,7 +186,6 @@ export class CoachProfileComponent implements OnInit {
         this.countpatchTimeYouCantHavePractice=0;    
         this.generateDetailsForm();
         this.generatePracticePreferenceForm();
-        //console.log(this.preferenceForm.value);
         this.dataRequest = false;
       },
       (error)=>{
@@ -202,15 +201,13 @@ export class CoachProfileComponent implements OnInit {
 
 
   async generateDetailsForm(){
-
     this.personalDetailsForm = await this.fb.group({
       coachName:this.profileData.Value.CoachName,
       email: this.profileData.Value.Email,
       shirtSize: new FormControl({value:this.initShirtSize(),disabled:this.disableShirtSize }),   
-      snacksField: ''
+      snacksField: '',
     })
     var x = await setInterval(() => {
-      //console.log(this.personalDetailsForm.value);
       clearInterval(x);
     }, 1000);    
     
@@ -238,13 +235,10 @@ export class CoachProfileComponent implements OnInit {
     })
 
     var x = await setInterval(() => {
-       console.log(this.preferenceForm.value.dayOfTheWeekRank);
        this.selecteddayOfTheWeekRank=this.preferenceForm.value.dayOfTheWeekRank;  
        this.selectedtimeOfTheDayRank=this.preferenceForm.value.timeOfTheDayRank; 
        this.selectedDaysNotPractices=this.preferenceForm.value.daysYouCantHavePractice;  
        this.selectedTimeNotPractices=this.preferenceForm.value.timeYouCantHavePractice; 
-       console.log(this.selectedDaysNotPractices);  
-       console.log(this.selectedTimeNotPractices);  
       clearInterval(x);
     }, 1000);    
     
@@ -351,39 +345,37 @@ export class CoachProfileComponent implements OnInit {
       CoachName:'',
       DateFingerPrinted:'',
       DayOfTheWeekPreferenceValues:this.preferenceForm.get('dayOfTheWeekPreference').value,
-      DayOfTheWeekPreferenceValuesLock:'',
+      DayOfTheWeekPreferenceValuesLock:this.profileData.Value.DayOfTheWeekPreferenceValuesLock,
       DayOfTheWeekRankValues:this.profileData.Value.DayOfTheWeekRankValues,
-      DayOfTheWeekRankValuesLock:'',
-      DaysYouCannotHavePracticeValues:'',
-      DaysYouCannotHavePracticeValuesLock:'',
+      DayOfTheWeekRankValuesLock:this.profileData.Value.DayOfTheWeekRankValuesLock,
+      DaysYouCannotHavePracticeValues:this.preferenceForm.get('daysYouCantHavePractice').value,
+      DaysYouCannotHavePracticeValuesLock:this.profileData.Value.DaysYouCannotHavePracticeValuesLock,
       Email:this.personalDetailsForm.get('email').value,
       HomePhone:'',
       LocationPreferenceValues:this.preferenceForm.get('locationPreference').value,
-      LocationPreferenceValuesLock:'',
+      LocationPreferenceValuesLock:this.profileData.Value.LocationPreferenceValuesLock,
       LocationRankValues:this.profileData.Value.LocationRankValues,
-      LocationRankValuesLock:'',
+      LocationRankValuesLock:this.profileData.Value.LocationRankValuesLock,
       MobilePhone:'',
-      ShirtSizeLock:'',
+      ShirtSizeLock:this.profileData.Value.ShirtSizeLock,
       ShirtSizeValue:this.profileData.Value.ShirtSizeValue,
       TeamId:'',
       TeamName:'',
       TimeOfDayPreferenceValues:this.preferenceForm.get('timeOfTheDayPreference').value,
-      TimeOfDayPreferenceValuesLock:'',
+      TimeOfDayPreferenceValuesLock:this.profileData.Value.TimeOfDayPreferenceValuesLock,
       TimeOfDayRankValues:this.profileData.Value.TimeOfDayRankValues,  
-      TimeOfDayRankValuesLock:'',
-      TimeYouCannotHavePracticeValues:'',
-      TimeYouCannotHavePracticeValuesLock:'',
+      TimeOfDayRankValuesLock:this.profileData.Value.TimeOfDayRankValuesLock,
+      TimeYouCannotHavePracticeValues:this.preferenceForm.get('timeYouCantHavePractice').value,
+      TimeYouCannotHavePracticeValuesLock:this.profileData.Value.TimeYouCannotHavePracticeValuesLock,
       TimeslotName:'',
-      VolunteerId:'',
-      VolunteerSeasonalId:'',
+      VolunteerId:this.profileData.Value.VolunteerId,
+      VolunteerSeasonalId:this.profileData.Value.VolunteerSeasonalId,
       WorkPhone:''
     };
-    console.log(CoachDetails);
-    //return false;
+    
     this.coachService.saveProfileData(CoachDetails)
-      .subscribe((res) => {
+      .subscribe((res) => {        
         res = JSON.parse(res["_body"]);
-        console.log(res);
         this.dataRequest = false;
         this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
       });
@@ -435,9 +427,6 @@ export class CoachProfileComponent implements OnInit {
       });  
   }
   
- 
-  //countpatchTimeYouCantHavePractice:number;
-
   daysYouCantHavePracticeChange(e:any, id:number){
     if(this.countpatchDaysYouCantHavePractice<3){
       (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
@@ -462,15 +451,16 @@ export class CoachProfileComponent implements OnInit {
           if(e.currentTarget.checked){
             selectedControl.setValue(false);                 
           }
+          this.preferenceForm.patchValue({
+            daysYouCantHavePractice:this.selectedDaysNotPractices
+          });  
           this.errormsg='You can select max 3 Days you CANNOT have practice.';
           this.errormethod(this.errormsg);
                 
         }                                        
       });
       console.log(this.selectedDaysNotPractices);
-      this.preferenceForm.patchValue({
-          daysYouCantHavePractice:this.selectedDaysNotPractices
-        });      
+          
     }
      
   }

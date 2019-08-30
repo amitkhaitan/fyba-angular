@@ -33,4 +33,5 @@ export class DataSharingService {
   isCoach:boolean = null;
   isOfficial:boolean = null;
   isPlayer:boolean = null;
+  TeamId:number=null;
 }

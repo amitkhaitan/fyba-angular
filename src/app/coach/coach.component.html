@@ -1,5 +1,6 @@
 <app-header [topImage]="headerImg"></app-header>
 
+
 <!-- <div class="parentBG">
   <div class="container">
     <div class="row official_header_img_paddNone">
@@ -10,16 +11,29 @@
               >(6B) Morning Hawks</span
             >
           </li>
-          <li>
-            <img [src]="game2" src="images/game2.png" alt="Game 2" /><span
-              >(1/2G) Daisies</span
-            >
-          </li>
+          
         </ul>
       </div>
     </div>
   </div>
 </div> -->
+
+<div *ngIf="coachSection!=null" class="parentBG">
+    <div class="container">
+      <div class="row official_header_img_paddNone">
+        <div class="col-lg-12 col-md-12">
+          <ul class="parentCoach">
+            <li *ngFor="let team of TeamList" (click)="filterCoachTeam(team.TeamId)"
+              [ngClass]="coachData.TeamId == team.TeamId ? 'active' : ''">
+              <img style="height:30px; width:30px;border-radius: 50%;" src={{team.TeamPhoto}} />
+              <span>{{team.TeamName}}  <br class="breakWord" />
+                {{team.Division}} </span>
+            </li>  
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!----div class="game_select_bg">
 	<div class="container">
@@ -74,4 +88,4 @@
 </div>
 
 <router-outlet></router-outlet>
-
+<app-fybaloader *ngIf="dataRequest"></app-fybaloader>
