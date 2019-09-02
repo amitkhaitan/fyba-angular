@@ -44,6 +44,7 @@ export class CoachCalendarComponent implements OnInit {
 
   }
   coachCalender(){
+    
     this.coachService.getcoachCalenderData().subscribe((res) => {    
       this.dataRequest = false;   
       var response = res; 

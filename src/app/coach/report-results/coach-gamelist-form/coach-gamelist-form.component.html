@@ -64,21 +64,21 @@
                   <th width="13%">
                     NP
                     <div class="tooltip_abc">
-                      <img class="info_icon" src="../../assets/images/info-icon.png" />
+                      <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon" />
                       <span class="tooltiptext tooltip-top">Not Present</span>
                     </div>
                   </th>
                   <th width="13%">
                     PON
                     <div class="tooltip_abc">
-                      <img class="info_icon" src="../../assets/images/info-icon.png" />
+                      <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon" />
                       <span class="tooltiptext tooltip-top">Player Of Note</span>
                     </div>
                   </th>
                   <th width="11%">
                     PTS
                     <div class="tooltip_abc">
-                      <img class="info_icon" src="../../assets/images/info-icon.png" />
+                      <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon"/>
                       <span class="tooltiptext tooltip-top">Points Scored</span>
                     </div>
                   </th>
@@ -125,21 +125,21 @@
                       <th width="13%">
                         NP
                         <div class="tooltip_abc">
-                          <img class="info_icon" src="../../assets/images/info-icon.png" />
+                          <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon"/>
                           <span class="tooltiptext tooltip-top">Not Present</span>
                         </div>
                       </th>
                       <th width="13%">
                         PON
                         <div class="tooltip_abc">
-                          <img class="info_icon" src="../../assets/images/info-icon.png" />
+                          <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon"/>
                           <span class="tooltiptext tooltip-top">Player Of Note</span>
                         </div>
                       </th>
                       <th width="11%">
                         PTS
                         <div class="tooltip_abc">
-                          <img class="info_icon" src="../../assets/images/info-icon.png" />
+                          <img class="info_icon" src="../../assets/images/info-icon.png" alt="info_icon"/>
                           <span class="tooltiptext tooltip-top">Points Scored</span>
                         </div>
                       </th>
@@ -201,7 +201,7 @@
             <ng-container *ngIf="TempScoreSheets.length > 0">
               <li *ngFor="let child of TempScoreSheets;
                    let tempSSIndex = index">
-                <img [src]="child" />
+                <img [src]="child" alt="child" />
                 <span (click)="deleteImage(tempSSIndex)" class="glyphicon glyphicon-remove-circle"
                   aria-hidden="true"></span>
               </li>

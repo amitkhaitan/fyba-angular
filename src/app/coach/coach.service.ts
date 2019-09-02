@@ -111,7 +111,7 @@ export class CoachService {
       LeagueId: this.dss.leagueId
     });
     var body = JSON.stringify(emailModel);
-      //console.log(body);
+      console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
@@ -128,6 +128,7 @@ export class CoachService {
       ParentsUserIds:this.recipentparentId
     });
     var body = JSON.stringify(emailModel);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendText', body, this.postRequestOptions);
   }
 

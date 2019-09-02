@@ -25,7 +25,7 @@
           <ul class="parentCoach">
             <li *ngFor="let team of TeamList" (click)="filterCoachTeam(team.TeamId)"
               [ngClass]="coachData.TeamId == team.TeamId ? 'active' : ''">
-              <img style="height:30px; width:30px;border-radius: 50%;" src={{team.TeamPhoto}} />
+              <img style="height:30px; width:30px;border-radius: 50%;" src={{team.TeamPhoto}} alt="Photo" />
               <span>{{team.TeamName}}  <br class="breakWord" />
                 {{team.Division}} </span>
             </li>  

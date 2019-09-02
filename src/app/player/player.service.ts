@@ -49,7 +49,7 @@ export class PlayerService {
       SeasonId: this.dss.seasonId
     });
     var body = JSON.stringify(getPlayerModel);
-    //console.log(body);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/Player', body, this.postRequestOptions);
   }
 

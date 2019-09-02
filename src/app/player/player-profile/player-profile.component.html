@@ -90,7 +90,8 @@
                                 <strong>Texting Option:</strong>
                               </div>
                               <div class="col-md-8 col-sm-8 col-xs-8 paddTop4 paddLeft5">
-                                <angular2-multiselect [data]="textingoption" [settings]="settings" formControlName="textingoption">
+                                <angular2-multiselect [data]="textingoption" [settings]="settings"
+                                  formControlName="textingoption">
                                 </angular2-multiselect>
                               </div>
                               <div class="clearfix"></div>
@@ -132,13 +133,14 @@
           </ngb-panel>
 
 
-          <ngb-panel>
+          <ngb-panel >
             <ng-template ngbPanelTitle>
               <div class="HeadCollapse">
                 <h2 class="paidHead">Registration Status</h2>
               </div>
             </ng-template>
-            <ng-template ngbPanelContent>
+            <ng-container *ngIf="registrationStatus.length > 0; else blockregistration">
+              <ng-template ngbPanelContent>
               <ngb-accordion>
                 <ngb-panel *ngFor="let status of registrationStatus">
                   <ng-template ngbPanelTitle>
@@ -149,7 +151,7 @@
                   <ng-template ngbPanelContent>
                     <div class="data_module bgBlue">
                       <div class="fms_time marginleftNone wordBreak">
-                       
+
                         <div class="row-fluid signupPosition">
                           <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                             <strong>Registration Status:</strong>
@@ -210,6 +212,11 @@
                 </ngb-panel>
               </ngb-accordion>
             </ng-template>
+          </ng-container>
+            
+            <ng-template #blockregistration >
+                No data found!
+            </ng-template>
           </ngb-panel>
 
           <ngb-panel>
@@ -234,7 +241,7 @@
                       <td>{{transcHist.Action}}</td>
                       <td>{{transcHist.Value}}</td>
                     </tr>
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -247,17 +254,19 @@
                 <h2 class="paidHead">Apparel</h2>
               </div>
             </ng-template>
-            <ng-template ngbPanelContent >
-              <div class="data_module bgBlue" >
+            <ng-template ngbPanelContent>
+              <div class="data_module bgBlue">
                 <div class="fms_time marginleftNone wordBreak">
                   <div class="row-fluid signupPosition borderTopNone">
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                       <strong>Short Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown width130" formControlName="ShortSizeId"  (change)="changeShortSize($event)">                 
-                        <option *ngFor="let ShirtSize of ShirtSizeValue" value="{{ShirtSize.id}}" [selected]="apparel.ShortSizeId == ShirtSize.id">
-                          {{ShirtSize.itemName}}</option>                         
+                      <select class="my-dropdown width130" formControlName="ShortSizeId"
+                        (change)="changeShortSize($event)">
+                        <option *ngFor="let ShirtSize of ShirtSizeValue" value="{{ShirtSize.id}}"
+                          [selected]="apparel.ShortSizeId == ShirtSize.id">
+                          {{ShirtSize.itemName}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc2" alt="lock" />
                     </div>
@@ -269,9 +278,11 @@
                       <strong>Jersey Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown width130"  formControlName="JerseySizeId" (change)="changeJersySize($event)">                 
-                        <option *ngFor="let ShirtSize of ShirtSizeValue" value="{{ShirtSize.id}}" [selected]="apparel.JerseySizeId == ShirtSize.id">
-                          {{ShirtSize.itemName}}</option>                         
+                      <select class="my-dropdown width130" formControlName="JerseySizeId"
+                        (change)="changeJersySize($event)">
+                        <option *ngFor="let ShirtSize of ShirtSizeValue" value="{{ShirtSize.id}}"
+                          [selected]="apparel.JerseySizeId == ShirtSize.id">
+                          {{ShirtSize.itemName}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc2" alt="lock" />
                     </div>
@@ -284,7 +295,7 @@
 
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                     {{apparel.AssignedJersey}}
+                      {{apparel.AssignedJersey}}
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -294,11 +305,13 @@
                       <strong>Jersey # Request (1st choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" formControlName="RequestedJersey1" (change)="changeRequestedJersey1($event)">       
-                        <option *ngFor="let number of numbers1" value="{{number}}"  [selected]="apparel.RequestedJersey1 == number">
+                      <select class="my-dropdown" formControlName="RequestedJersey1"
+                        (change)="changeRequestedJersey1($event)">
+                        <option *ngFor="let number of numbers1" value="{{number}}"
+                          [selected]="apparel.RequestedJersey1 == number">
                           {{number}}</option>
                       </select>
-                      <img class="lock" [src]="currentSrc1" alt="lock"  />
+                      <img class="lock" [src]="currentSrc1" alt="lock" />
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -308,8 +321,10 @@
                       <strong>Jersey # Request (2nd choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" formControlName="RequestedJersey2"  (change)="changeRequestedJersey2($event)" >                 
-                        <option *ngFor="let number of numbers2" value="{{number}}"  [selected]="apparel.RequestedJersey2 == number">
+                      <select class="my-dropdown" formControlName="RequestedJersey2"
+                        (change)="changeRequestedJersey2($event)">
+                        <option *ngFor="let number of numbers2" value="{{number}}"
+                          [selected]="apparel.RequestedJersey2 == number">
                           {{number}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc2" alt="lock" />
@@ -327,12 +342,15 @@
         <div id="submitDiv" style="text-align:center">
           <button (click)="onSubmit()" [disabled]="profileForm.invalid || !profileForm.touched"
             class="btn btn-success">Save</button>
-           
+
         </div>
       </div>
     </div>
   </form>
 </div>
+
+
+
 
 <!-- <div *ngIf="initialFetchError" #serverError>
     <div class="noRecords">

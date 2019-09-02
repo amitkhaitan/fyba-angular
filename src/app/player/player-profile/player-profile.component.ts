@@ -28,7 +28,6 @@ export class PlayerProfileComponent implements OnInit {
 
   fetchingData: boolean;
   profileForm;
-
   dropdownList = [];
   dropdownSettings = {};
   numbers1 = [];
@@ -180,7 +179,7 @@ export class PlayerProfileComponent implements OnInit {
             this.jersysizeSrc=this.img2;
             
           }
-
+         
           this.profileForm = this.fb.group({
             ParentInfo: this.initProfileDetailsArray(),        
             AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),

@@ -21,10 +21,12 @@
                                   {{ item.GameName }}
                                   <img class="report_status"
                                      *ngIf="item.IsScoreFilled"
-                                     src="assets/images/tick.png">
+                                     src="assets/images/tick.png"
+                                     alt="tick">
                                   <img class="report_status"
                                      *ngIf="!item.IsScoreFilled"
-                                     src="assets/images/error.png">
+                                     src="assets/images/error.png"
+                                     alt="error">
                                </div>
                                <div class="customSpan">
                                   <span class="">
