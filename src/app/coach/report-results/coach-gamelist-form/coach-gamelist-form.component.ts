@@ -1146,6 +1146,7 @@ export class CoachGamelistFormComponent implements OnInit {
       var x = JSON.parse(res['_body']);
       if (x.Status==true) { 
       downLoadUrl = x['Value'].AbsoluteUrl;
+      console.log(downLoadUrl);
       this.downloadRequest = false;
       window.location.href = downLoadUrl;
       }else{

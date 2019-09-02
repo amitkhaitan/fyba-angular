@@ -11,7 +11,7 @@ import {CoachTeamList} from './models/CoachTeamList.interface';
 })
 export class CoachComponent implements OnInit {
   headerImg: string;
-  calender_icon: string;
+  calendar_icon: string;
   game1: string;
   game2: string;
   team_icon: string;
@@ -24,7 +24,7 @@ export class CoachComponent implements OnInit {
   constructor(public dss: DataSharingService, 
     private coachService: CoachService,
     private router: Router) {
-    this.calender_icon = './assets/images/calender_icon.png';
+    this.calendar_icon = './assets/images/calendar_icon.png';
     this.game1 = './assets/images/game1.png';
     this.game2 = './assets/images/game2.png';
     this.team_icon = './assets/images/team_icon.png';

@@ -670,10 +670,10 @@ div {
     width: 20px;
     margin: 3px 5px;
     display: block;}
-   ul.dateCalender{list-style:none; margin:0px; padding:0px; margin-top:10px;}
-   ul.dateCalender li{display:inline-block; width:100%; padding:14px 0;}
-   ul.dateCalender li span{color:#999999; font-size:12px; float:left;}
-   ul.dateCalender li div{border-top:1px solid #cccccc;margin-top: 8px;width: calc(100% - 55px);float: right;margin-left: 15px; position:relative; height: 23px;}
+   ul.dateCalendar{list-style:none; margin:0px; padding:0px; margin-top:10px;}
+   ul.dateCalendar li{display:inline-block; width:100%; padding:14px 0;}
+   ul.dateCalendar li span{color:#999999; font-size:12px; float:left;}
+   ul.dateCalendar li div{border-top:1px solid #cccccc;margin-top: 8px;width: calc(100% - 55px);float: right;margin-left: 15px; position:relative; height: 23px;}
    .slideDate .glyphicon{font-size:12px;}
    .practiceSchedule{position:absolute; top:-14px; left:50%; transform:translateX(-50%); text-align:center; background:#3c98db; padding:5px 10px; color:#ffffff !important; width:90%;cursor: grab;
     cursor: -moz-grab;
@@ -682,12 +682,12 @@ div {
    .bgBlueColor span{background: #ffffff;}
    .bgBlueColor span:nth-child(1){ transform:rotate(45deg);}
    .bgBlueColor span:nth-child(2){ transform:rotate(135deg);position: relative;top: -6px;}
-   ul.infoCalenderEvent{list-style:none; margin:0px; padding:0px; margin-top:20px;}
-   ul.infoCalenderEvent li{display:inline-block; width:100%; padding:8px 0;}
-   ul.infoCalenderEvent li .infotext{width: calc(100% - 55px); float:left;}
-   ul.infoCalenderEvent li .infotext h4{margin:0px;word-wrap: break-word;font-size: 16px;color:#333333;}
-   ul.infoCalenderEvent li .infotext p{color:#999999; font-size:13px;}
-   ul.infoCalenderEvent li span.glyphicon{font-size: 18px;float: left;margin-right: 30px; color:#888888;}
+   ul.infoCalendarEvent{list-style:none; margin:0px; padding:0px; margin-top:20px;}
+   ul.infoCalendarEvent li{display:inline-block; width:100%; padding:8px 0;}
+   ul.infoCalendarEvent li .infotext{width: calc(100% - 55px); float:left;}
+   ul.infoCalendarEvent li .infotext h4{margin:0px;word-wrap: break-word;font-size: 16px;color:#333333;}
+   ul.infoCalendarEvent li .infotext p{color:#999999; font-size:13px;}
+   ul.infoCalendarEvent li span.glyphicon{font-size: 18px;float: left;margin-right: 30px; color:#888888;}
    .groupImg img{max-width:100%;}
    .width70{width:70%; margin:5px 0;}
    ul.groupListing{background:#ebf4fb; margin:0px; padding:10px 0; display:inline-block; width:100%; list-style:none;}
