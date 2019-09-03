@@ -466,7 +466,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    //console.log(body);
+    console.log(body);
 
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
@@ -525,7 +525,7 @@ export class OfficialService {
   postReportMsg: string;
   postReportStatus: boolean;
   postReportData(gameListObj: any) {
-    //console.log(gameListObj);
+    console.log(gameListObj);
     var trailingUrl;
     if (gameListObj.OfficiatingPositionId == 3) {
       trailingUrl = '/api/savereportgames';

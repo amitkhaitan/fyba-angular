@@ -21,6 +21,7 @@
       </ng-container>
       <p>Notes:</p>
       <textarea formControlName="note" class="textareaIncident"></textarea>
+      <div class="clearfix"></div>
       <div class="footerBtnIncident">
         <button [disabled]="!editIncidentForm.valid || dependentDropdownId==0" class="btn btn-success" type="submit">
           SAVE

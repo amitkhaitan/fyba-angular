@@ -146,47 +146,47 @@ export class PlayerProfileComponent implements OnInit {
       if (this.playerService.profileData) {        
         if (this.playerService.profileData.Value.apparel) {
           if(this.playerService.profileData.Value.apparel.RequestedJersey1Lock==true){
-            this.currentSrc1 = this.img1;
+            this.currentSrc1 = this.img2;
             if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
               //this.numbers1[0] = 'N/A';
             }
           }else{
-            this.currentSrc1 = this.img2;
+            this.currentSrc1 = this.img1;
             if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
              // this.numbers1[0] = 'Select..';
             }
           }
           if(this.playerService.profileData.Value.apparel.RequestedJersey2Lock==true){
-            this.currentSrc2 = this.img1;
+            this.currentSrc2 = this.img2;
             if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
               //this.numbers2[0] = 'N/A';
             }
           }else{
-            this.currentSrc2 = this.img2;
+            this.currentSrc2 = this.img1;
             if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
               //this.numbers2[0] = 'Select..';
             }
           }
 
           if(this.playerService.profileData.Value.apparel.ShortSizeLock==true){
-            this.shortsizeSrc=this.img1;
-          }else{
             this.shortsizeSrc=this.img2;
+          }else{
+            this.shortsizeSrc=this.img1;
           }
           if(this.playerService.profileData.Value.apparel.JerseySizeLock==true){
-            this.jersysizeSrc=this.img1;
-          }else{
             this.jersysizeSrc=this.img2;
+          }else{
+            this.jersysizeSrc=this.img1;
             
           }
          
           this.profileForm = this.fb.group({
             ParentInfo: this.initProfileDetailsArray(),        
             AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
-            JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:this.apparel.JerseySizeLock}),
-            RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:this.apparel.RequestedJersey1Lock}),
-            RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:this.apparel.RequestedJersey2Lock}),
-            ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:this.apparel.ShortSizeLock}),
+            JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:(this.apparel.JerseySizeLock)==true ? false :true}),
+            RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:(this.apparel.RequestedJersey1Lock)==true ? false :true}),
+            RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:(this.apparel.RequestedJersey2Lock)==true ? false :true}),
+            ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:(this.apparel.ShortSizeLock)==true ? false :true}),
             AssignedJerseyLock: this.apparel.AssignedJerseyLock,
             JerseySizeLock:this.apparel.JerseySizeLock,
             RequestedJersey1Lock:this.apparel.RequestedJersey1Lock,

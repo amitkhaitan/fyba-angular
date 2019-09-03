@@ -19,6 +19,10 @@ body{
 
   /*@media screen and (orientation: portrait) {
   }*/
+
+  @media only screen and (min-width: 480px) and (max-width: 1080px) and (orientation: landscape){
+  .incidentBox{max-height: 280px;overflow: auto;}
+}
   
 
 @font-face {
@@ -34,7 +38,7 @@ body{
    .teamRosterPadd .card-body {padding: 0px !important;border: 0px !important;}
    .teamInfoTab .card-body input[type="checkbox"]{height: 20px;width: 20px;margin: 0;}
    .customLI{padding-top:0px !important;background:#2ecc71 !important;border:0px !important;width:100px !important; height:100px !important; margin-right:20px !important;border:1px solid #000 !important;}
-   .customLI span{left: 50%;top: 50%;transform: translateX(-50%) translateY(-50%); font-size:14px !important; text-transform: uppercase;} 
+   .customLI span{left: 50%;top: 50%;transform: translateX(-50%) translateY(-50%); font-size:11px !important; text-transform: uppercase;} 
    .leftReportDate{float:left; width:75%; text-align:left;padding-top: 0px; margin-right:5%;}
     .leftReportDate100{float:left; width:100%; text-align:left;padding-top: 0px; margin-right:5%;}
     .rightReportDate{float:right; width:100%; text-align:right; margin-left:0px;}
@@ -49,7 +53,7 @@ body{
     -o-transform: translateX(-50%) translateY(-50%) !important;left: 50%;top: 50%;width: 90%; max-width: 500px;}
 
    .btn-grey{background-color: #ddd;}
-   .rightGameAvailable{font-size:16px;padding-top: 3px;}
+   .rightGameAvailable{font-size:14px;padding-top: 3px;}
    .tapDiv{background:#fff; padding:0x; padding-bottom: 35px; border-radius:4px;  left:15px; right:15px; z-index: 1; bottom:15px;}
    .tapDiv > div > img{position:absolute; top:50%; transform:translateY(-50%);}
    .tapDiv p{width:calc(100% - 40px); float:left; font-size:12px; margin-bottom:0px; margin-left:35px;}
@@ -141,13 +145,13 @@ div {
    .card-header{padding:0px;border: 1px solid #bbc9da;margin-top: 6px; 
     background-color: #ededed;}
    .card{border:0px;}
-   .card .btn-link{color:#000000; font-weight:bold; padding:0px; font-size:16px; width: 100%; text-align:left;}
+   .card .btn-link{color:#000000; font-weight:bold; padding:0px; font-size:14px; width: 100%; text-align:left;}
    .card-body{border:1px solid #bbc9da; border-top:0px; padding:10px;} 
    #filter .card-body{background: #e1efd8;}
    .btn-link.focus, .btn-link:hover, .btn-link:focus {
     text-decoration: none;
    }
-   .fontSize12 .col-md-4, .small_font .fontSize12 .col-md-8{font-size:16px !important;}
+   .fontSize12 .col-md-4, .small_font .fontSize12 .col-md-8{font-size:14px !important;}
 
    .fontSize12 .accordion .accordion .card-header {
     border: 1px solid #bbc9da;
@@ -198,7 +202,7 @@ div {
    .topBg{background:#000000;}
    .add_to_home a{background-color:#b03d26; padding:5px 15px; margin:10px 0; display:inline-block; color:#ffffff;}
    .add_to_home a:hover, .add_to_home a:focus{color:#ffffff; text-decoration:none;}
-   .logo_text a{color:#ffffff; font-size:40px; margin-left: -8px; font-weight:bold; letter-spacing:1px;}
+   .logo_text a{color:#ffffff; font-size:34px; margin-left: -8px; font-weight:bold; letter-spacing:1px;}
    .logo_text a:hover, .logo_text a:focus{color:#ffffff; text-decoration:none;}
    .img_profile img{height:30px; width:30px; border:0px; border-radius:50%; cursor:pointer; margin-top: 40%;}
    .bg_logo{background-color:#011a9a; padding:15px 0;}
@@ -208,7 +212,7 @@ div {
    ul.tab_main li{float:left; text-align:center; margin:15px 0; cursor:pointer;}
    ul.tab_main li:first-child{border-left:0px;}
    ul.tab_main li{color:#828282; display:block; border-left:1px solid #dddddd;}
-   ul.tab_main li span{display:block; padding-top:5px; font-size:18px; font-weight:normal;}
+   ul.tab_main li span{display:block; padding-top:5px; font-size:16px; font-weight:normal;}
    ul.tab_main li a{color:#828282;}
    .bg_img_style{ height:67px; width:67px; background-position:center;background-repeat: no-repeat;background-size: contain; margin:0px auto;}
    .player_img{background-image:url("./assets/images/player_icon.png");}
@@ -231,7 +235,7 @@ div {
    ul.game_select li:first-child{border-left:0px;}
    ul.game_select li.active{color:#ffffff; text-decoration:none;}
    ul.game_select li.active a img, ul.game_select li.active a > span{opacity:1; font-weight: bold;}
-   ul.game_select li span{display:block; font-size:18px; font-weight:normal; padding-top:5px;opacity: 0.5;}
+   ul.game_select li span{display:block; font-size:16px; font-weight:normal; padding-top:5px;opacity: 0.5;}
    .official_header_img{background-image:url("./assets/images/official_header_img.jpg");height:365px; background-position:center 20%;background-repeat: no-repeat;background-size: cover; /*position:relative;*/}
    .coach_header_img{background-image:url("./assets/images/coach_header_img.jpg");height:365px; background-position:center 20%;background-repeat: no-repeat;background-size: cover;}
    .player_header_img{background-image:url("./assets/images/player_header_img.jpg");height:365px; background-position:center 20%;background-repeat: no-repeat;background-size: cover;}
@@ -303,7 +307,7 @@ div {
    .filter_module{background:#ededed; border:1px solid #bbc9da; padding:10px 20px; box-shadow:0 0 10px #cccccc; margin-top:20px;}
    .data_module{/*background:#ededed; border:1px solid #bbc9da; box-shadow:0 0 10px #cccccc;*/ /*padding:10px 0px;*/ margin-top:0px;}
    /*.data_module{/*background:#ededed; border:1px solid #bbc9da; box-shadow:0 0 10px #cccccc; padding:10px 0px; margin-top:10px;}*/
-   .filter_module h2, .data_module h2{margin-top:0px; font-size:18px; font-weight:bold; cursor:pointer; margin-bottom:0px; display: inline-block;width: calc(100% - 16px);line-height: 24px; margin-left:0px; color:#000; position:relative;}
+   .filter_module h2, .data_module h2{margin-top:0px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:0px; display: inline-block;width: calc(100% - 16px);line-height: 24px; margin-left:0px; color:#000; position:relative;}
    .filter_div label{margin-top:5px;}
    .filter_div{margin-top:0px; display:inline-block; width:100%;}
    .marginTop10{margin-top:10px;}
@@ -313,7 +317,7 @@ div {
    
    
    .marginBottom10{margin-bottom:10px;}
-   .data_module h3{font-size:18px; color:#000000; margin-top:10px; font-weight:normal; font-style: italic;}
+   .data_module h3{font-size:16px; color:#000000; margin-top:10px; font-weight:normal; font-style: italic;}
    .marginLeft20{margin-left:20px !important;}
    .Leftmargin20{margin-left:0px !important;}
    .marginLeft30{margin-left:30px !important;}
@@ -323,17 +327,18 @@ div {
    ul.teamList{list-style:none; padding:0px; margin:0px;}
    ul.teamList li{background:#3c98db; border-radius:10px; margin:10px 0; cursor:pointer;}
    ul.teamList li:first-child{margin-top:20px;}
-   ul.teamList li h3{color:#ffffff; font-size:18px; padding:10px; margin:0px; font-weight:bold;}
-   .signupPosition{font-size:16px; margin-top:5px;}
-   a.signupRedBtn{background:#ff0000; padding:3px 12px; color:#ffffff; border-radius:0px; font-size:14px;}
+   ul.teamList li h3{color:#ffffff; font-size:16px; padding:10px; margin:0px; font-weight:bold;}
+   .signupPosition{font-size:14px; margin-top:5px;}
+   .signupPosition input[type="email"]{width:100%;}
+   a.signupRedBtn{background:#ff0000; padding:3px 12px; color:#ffffff; border-radius:0px; font-size:11px;}
    a.signupRedBtn:hover, a.signupRedBtn:focus{color:#ffffff; text-decoration:none;}
-   a.cancelSignupBtn{background:#FFD700; padding:3px 12px; color:#000000; border-radius:0px; font-size:14px;}
-   a.canNotCancelSignupBtn{background:#bfbfbf; padding:3px 12px; color:#000000; border-radius:0px; font-size:14px;}
+   a.cancelSignupBtn{background:#FFD700; padding:3px 12px; color:#000000; border-radius:0px; font-size:11px;}
+   a.canNotCancelSignupBtn{background:#bfbfbf; padding:3px 12px; color:#000000; border-radius:0px; font-size:11px;}
    .paddTop4{padding-top:4px;}
-   
-   .matchInfo{font-size:14px; margin-left:40px; margin-top:10px; line-height:20px; font-weight:normal;}
+   .report_status{height:17px;}
+   .matchInfo{font-size:11px; margin-left:40px; margin-top:10px; line-height:20px; font-weight:normal;}
    .matchInfo span{color:#fffb85; text-decoration:underline;}
-   .matchInfo_selectGame{font-size:14px; margin-left:20px; margin-top:10px; line-height:20px; font-weight:normal;}
+   .matchInfo_selectGame{font-size:13px; margin-left:20px; margin-top:10px; line-height:20px; font-weight:normal;}
    .matchInfo_selectGame span{color:#b1b1b1;}
    .matchInfo_selectGame div{color:#b1b1b1; word-break: break-all;}
    
@@ -453,9 +458,9 @@ div {
    =============================== */
        
    ul.reportlist{list-style:none; margin:0px; padding:0px;}
-   ul.reportlist li{background:#1e31ae; color:#ffffff; padding:5px 10px; font-size:16px; font-weight:bold;}    
+   ul.reportlist li{background:#1e31ae; color:#ffffff; padding:5px 10px; font-size:14px; font-weight:bold;}    
    .bgGrey{background:#ffffff; padding:10px 0px;}  
-   .bgGrey .col-md-2{font-size:16px;}
+   .bgGrey .col-md-2{font-size:14px;}
    table.scoreTable{border-collapse:collapse;}
    table.scoreTable tr td{padding:8px 4px; background:#ffffff; border:1px solid #cccccc; text-align:center;}
    table.scoreTable tr th{padding:8px 4px; background:#ededed; border:1px solid #cccccc; text-align:center; color:#333333;}
@@ -528,7 +533,7 @@ div {
         background: #1e31ae;
     }
 
-    .RLStyle{font-size:32px; font-weight: bold;}
+    .RLStyle{font-size:26px; font-weight: bold;}
     
     ul.addList li.preFilledDiv{float: left;
         width: 100px;
@@ -652,8 +657,8 @@ div {
    
    .newsfeedBox ul li{display:block; padding:12px 0; display:inline-block; width:100%;}
    .newsfeedBox ul li:first-child{padding-top:0px;}
-   .newsfeedBox ul h4{font-size:14px; color:#3c98db; text-decoration:underline; font-weight:bold; display:inline-block; margin-top:0px;}
-   .reminder{color:#000000; font-size:14px; font-weight:bold;}
+   .newsfeedBox ul h4{font-size:11px; color:#3c98db; text-decoration:underline; font-weight:bold; display:inline-block; margin-top:0px;}
+   .reminder{color:#000000; font-size:11px; font-weight:bold;}
    .dateNewsfeed{color:#999999; font-size:11px; float:right; margin-top:5px;}
    .newsfeed_img{float:left; width:40px; height:40px; border-radius:100%; margin-right:10px;}
    .rightBottomLink{display: block;text-align: right;}
@@ -719,9 +724,9 @@ div {
   
    .logo_main img{max-width:100%; height:50px; margin-top: 3px;}
    .bg_img_style{width:40px; height:40px;}
-   ul.tab_main li span{font-size:16px;}
+   ul.tab_main li span{font-size:14px;}
    ul.game_select li img{height:22px;}
-   ul.game_select li span{font-size:15px;}
+   ul.game_select li span{font-size:13px;}
    .notification_tip{font-size:10px !important; padding:1px 5px 1px 4px !important;}
    .select_pos{margin-left: -20px;}
    .report_pos{margin-left: -15px;}
@@ -733,7 +738,7 @@ div {
    .signIn_btn{width:80%;display: inline-block; height: 35px;line-height: 36px;}
    .bgGrey .col-md-2{text-align:center; margin-bottom:5px;}
    .inputfull input[type="text"]{width:100%;}
-   .overflowAuto{overflow:hidden;}
+   .overflowAuto{overflow:auto;}
    /*.widthTable{width:500px;}*/
    .tooltip_abc {
        top:0px;
@@ -744,7 +749,7 @@ div {
    .official_header_img_paddNone .col-md-12{padding-left:0px !important; padding-right:0px !important;}
    .breakWord{display:block;}
   
-   .data_module h3{font-size:15px;}
+   .data_module h3{font-size:13px;}
    ul.addList li{float:left; width:60px; margin-left:0px;height: 60px;
    line-height: 60px;
    font-size: 12px;}
@@ -766,15 +771,15 @@ div {
     width:60px;
     height:100%;
    } 
-   h3{font-size:16px !important;}
-   ul.paymentdates li{font-size:16px;}
-   ul.teamList li h3{font-size:16px !important;}
-   .amountPaid{font-size:15px;}
+   h3{font-size:14px !important;}
+   ul.paymentdates li{font-size:14px;}
+   ul.teamList li h3{font-size:14px !important;}
+   .amountPaid{font-size:13px;}
    .wordLimit{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
    ul.width20Game li span{font-size:11px; padding:5px;}
    ul.width20Game li span.notification_tip{right: -20px;font-size: 9px !important;}
-   .accordion .accordion .card .btn-link{font-size:14px !important;}
-   .signupPosition .col-xs-6{font-size:15px;}
+   
+   .signupPosition .col-xs-6{font-size:13px;}
    
    }
    
@@ -786,10 +791,10 @@ div {
    }
    
    @media only screen and (max-width : 340px) {
-       h3{font-size:14px !important;}
-   ul.paymentdates li{font-size:14px;}
-   ul.teamList li h3{font-size:14px !important;}
-       .amountPaid{font-size:14px;}
+       h3{font-size:11px !important;}
+   ul.paymentdates li{font-size:11px;}
+   ul.teamList li h3{font-size:11px !important;}
+       .amountPaid{font-size:11px;}
        ul.addList li{font-size:11px;}
        table.scoreTable tr th{font-size:4vw;}
        table.scoreTable tr td{font-size:4vw;}
@@ -909,7 +914,7 @@ div {
    /*----- Multiselect CSS --*/
    
    .accordion .accordion .card-header{border:0px; background-color: #1e31ae;}
-   .accordion .accordion .card .btn-link{color:#ffffff;font-weight: bold;font-size: 18px;}
+   .accordion .accordion .card .btn-link{color:#ffffff;font-weight: bold;font-size: 15px;}
    .accordion .accordion .card-body{ background-color: #1e31ae; border:0px; padding-top:0px;}
    .accordion .accordion h3{color:#ffffff; margin-top: 0px;}
    .accordion .accordion h5{margin: 0px;}
@@ -936,8 +941,8 @@ div {
     line-height: 1;content: "\e252"; float:left;}
    
     .accordion .card .btn-link.collapsed .HeadCollapse:before{content: "\e250"; float:left;}
-    .card-body .btn-success{width:49%; background: #70ad47; margin-left:0px;  margin-right:1%; padding:5px 10px; font-size:16px; text-transform: uppercase; font-weight:bold;}
-    .card-body .btn-danger{width:49%; font-size:18px; margin-left:1%;  margin-right:0px; padding:5px 10px; text-transform: uppercase; font-weight:bold;}
+    .card-body .btn-success{width:49%; background: #70ad47; margin-left:0px;  margin-right:1%; padding:5px 10px; font-size:14px; text-transform: uppercase; font-weight:bold;}
+    .card-body .btn-danger{width:49%; font-size:14px; margin-left:1%;  margin-right:0px; padding:5px 10px; text-transform: uppercase; font-weight:bold;}
    
    .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus{outline:0px;}
    #filter-header{background-color: #c4e0b2 !important; padding:10px;}
@@ -1044,7 +1049,7 @@ div {
   .leftTable tr th, .leftTable tr td{text-align:left !important;color: #000;}
   .leftTable tr th{vertical-align: bottom;}
 
-  .header_img_text{font-size:32px; color:#fff; left:15px; top:10px; font-weight: bold; position: absolute; }
+  .header_img_text{font-size:26px; color:#fff; left:15px; top:10px; font-weight: bold; position: absolute; }
   .topheaderFixed{background-color:#000; padding:8px 0;}
 
   
@@ -1052,7 +1057,7 @@ div {
   .mobile_menu{width:25px; display:inline-block; cursor: pointer; position: relative;}
   .mobile_menu_div{display:none;background-color: #fff;padding:0px 10px; position: absolute; top:26px; left:-125px; z-index: 1; width:150px; border:2px solid #5B9BD5;}
   .mobile_menu_div ul{list-style:none; padding:0px; margin:0px;}
-  .mobile_menu_div ul li{display:block; color:#000; padding:8px 0; border-top:1px solid #5B9BD5; font-size:15px; text-align:left;}
+  .mobile_menu_div ul li{display:block; color:#000; padding:8px 0; border-top:1px solid #5B9BD5; font-size:13px; text-align:left;}
   .mobile_menu_div ul li:first-child{border-top:0px;}
 
   .fms_time .signupPosition:first-child{margin-top:0px;border-top:0px;}
@@ -1160,13 +1165,13 @@ div {
    /* ---- Start Small Font Css --- */
 
   @media only screen and (max-width : 991px) {    
-    .small_font .header_img_text{font-size:26px; margin: 0px 0px;}
-    .small_font .card .btn-link{font-size:14px;}
-    .small_font .card-body .btn-success{font-size:14px;padding: 5px 10px; margin-left:0px;}
-    .small_font .card-body .btn-danger{font-size:14px;padding: 5px 10px; margin-right:0px;}
-    .small_font h1.mainDate{font-size:18px; margin-top:15px;}
+    .small_font .header_img_text{font-size:24px; margin: 0px 0px;}
+    .small_font .card .btn-link{font-size:13px !important;}
+    .small_font .card-body .btn-success{font-size:11px;padding: 5px 10px; margin-left:0px;}
+    .small_font .card-body .btn-danger{font-size:11px;padding: 5px 10px; margin-right:0px;}
+    .small_font h1.mainDate{font-size:16px; margin-top:15px;}
     .small_font .filter_module h2, .small_font .data_module h2{font-size: 14px;}
-    .small_font ul.reportlist li{font-size:14px;}
+    .small_font ul.reportlist li{font-size:11px;}
     .small_font h3 {font-size: 14px !important;  margin-top:10px;}
     .small_font h2.paidHead{font-size: 14px;}
     .small_font .matchInfo2{font-size: 14px !important;}
@@ -1174,7 +1179,7 @@ div {
     .small_font .wordBreak .row-fluid .paddTop4 {word-wrap:break-word;}
     .small_font table.scoreTable tr th{font-size: 14px;}
     .small_font table.scoreTable tr td{font-size: 14px;}
-    .small_font .signupPosition{font-size:14px;}
+    .small_font .signupPosition{font-size:11px;}
     .small_font a.signupRedBtn{font-size:12px;}
     .small_font a.cancelSignupBtn{font-size:12px;}
     .small_font a.canNotCancelSignupBtn{font-size:12px;}
@@ -1182,20 +1187,20 @@ div {
     .small_font .noRecordsProfile{font-size: 14px;}
     .small_font h2.changePw{font-size: 18px !important; margin-top:0px; background-color:#fff; padding-bottom:10px;margin-bottom: 10px; border-bottom:1px solid #ccc;}
     .small_font .pwForm{font-size: 13px;}
-    .small_font .signupPosition .col-xs-6{font-size:14px;}
+    .small_font .signupPosition .col-xs-6{font-size:11px;}
     .small_font .logo_text a {font-size: 28px;}
-    .small_font .rightGameAvailable{font-size:14px;}
+    .small_font .rightGameAvailable{font-size:11px;}
     .small_font .HeadCollapse{padding:5px;}
     .small_font #filter-header{padding:5px;}
     .small_font .game_select_bg{padding: 10px 0;}
     .small_font .bg_logo{padding: 10px 0;}
     .small_font ul.addList li{margin-bottom: 10px;}
-    .small_font .bgColorMain button{font-size:14px !important;}
-    .small_font .pwChanged button{font-size:14px !important;}
+    .small_font .bgColorMain button{font-size:11px !important;}
+    .small_font .pwChanged button{font-size:11px !important;}
     .small_font .leftReportDate{line-height:20px;}
     .small_font .rightReportDate{line-height:20px;}
-    .small_font .asScorekeeper{font-size:14px !important;}
-    .small_font .staticStrip{font-size:14px !important;}
+    .small_font .asScorekeeper{font-size:11px !important;}
+    .small_font .staticStrip{font-size:11px !important;}
     .small_font .customLI{padding-top:0px !important;background:#2ecc71 !important;border:0px !important;width:60px; height:60px; margin-right:20px !important;border:1px solid #000 !important;}
     .small_font .customLI span{font-size:11px;}
     .small_font .font12{font-size: 12px}
@@ -1206,19 +1211,19 @@ div {
     .small_font table.leftTable > tbody > tr > td:nth-child(2) tr td{min-width:53px;}
     .small_font table.leftTable > tbody > tr > td:nth-child(2) tr td:first-child{min-width:90px;}
     .small_font ul.parentPlayer li span { font-size: 14px !important;}
-    .small_font table.teamInfoPage tr td{font-size:14px !important;}
-    .small_font .fontSize12 .col-md-4, .small_font .fontSize12 .col-md-8{font-size:14px !important;}
-    .small_font #submitDiv button {font-size:14px !important;}
-    .small_font .withdrawDiv button {font-size:14px !important;}
+    .small_font table.teamInfoPage tr td{font-size:11px !important;}
+    .small_font .fontSize12 .col-md-4, .small_font .fontSize12 .col-md-8{font-size:11px !important;}
+    .small_font #submitDiv button {font-size:11px !important;}
+    .small_font .withdrawDiv button {font-size:11px !important;}
     .small_font .composeHeading { font-size: 16px !important;}
     .small_font .img_profile img{height:20px; width:20px; border:0px; border-radius:50%; cursor:pointer; margin-top: 45%;}
     .small_font .logo_main img{max-width:100%; height:45px;}
     .small_font ul.game_select li span{font-size:13px;}
     .small_font table tr td, .small_font table tr th{font-size:12px !important;}
-    .small_font .blueBGHead{font-size:14px !important;}
-    .small_font table tr td .report_status{height:20px;}
-     
-    
+    .small_font .blueBGHead{font-size:11px !important;}
+    .small_font table tr td .report_status{height:17px;}
+    .small_font ul.parentCoach li span {font-size:13px !important;}
+    .small_font .matchInfo_selectGame{font-size:11px !important;}
     
 }
 
@@ -1226,5 +1231,6 @@ div {
 
   @media only screen and (max-width : 767px) {
     .small_font ul.parentPlayer li span { font-size: 11px !important;}
+    .blastbtn{width:70%;}
     }
 
