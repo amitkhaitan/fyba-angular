@@ -61,6 +61,7 @@ export class PlayerComponent implements OnInit {
   async getPlayerData() {
     await this.playerService.getPlayerData().subscribe((res) => {
       this.playerSection = JSON.parse(res['_body']);
+      console.log(this.playerSection);
       if (this.playerLists != null) this.playerData = this.playerLists[0];
       this.playerService.playerId = this.playerData["PlayerId"];
       
@@ -91,6 +92,7 @@ export class PlayerComponent implements OnInit {
       (res)=>{
        
         this.playerService.profileData = JSON.parse(res["_body"]);
+        console.log(this.playerService.profileData);
         this.dataRequest=false;
         this.router.navigate(["/player/profile"]);
       }

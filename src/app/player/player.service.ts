@@ -66,7 +66,7 @@ export class PlayerService {
         RoleId: this.dss.roleId
       });
       var body = JSON.stringify(getPlayerModel);
-      //console.log(body);
+      console.log(body);
       return this.http.post(Constants.apiURL + '/api/PlayerTeamInfo', body, this.postRequestOptions);
     }
   }
@@ -81,7 +81,7 @@ export class PlayerService {
       SeasonId: this.dss.seasonId
     });
     var body = JSON.stringify(getPlayerModel);
-    //console.log(body);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerDetails', body, this.postRequestOptions);
 
   }
@@ -101,6 +101,7 @@ export class PlayerService {
     });
 
     var body = JSON.stringify(emailModel);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
@@ -124,6 +125,7 @@ export class PlayerService {
       LeagueId: this.dss.leagueId
     })
     var body = JSON.stringify(withdrawModel);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerWithdraw', body, this.postRequestOptions);
   }
 
@@ -142,6 +144,7 @@ export class PlayerService {
     SeasonId: this.dss.seasonId
     });
     var body = JSON.stringify(standlingsModel);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/Standings', body, this.postRequestOptions);
 
   }
@@ -156,6 +159,7 @@ export class PlayerService {
       SeasonId: this.dss.seasonId
     });
     var body = JSON.stringify(calendarModel);
+    console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerCalendar', body, this.postRequestOptions);
 
   }

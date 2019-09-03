@@ -1129,6 +1129,7 @@ export class GamelistFormComponent implements OnInit {
       console.log(res);
       console.log(res['_body']);
       var x = JSON.parse(res['_body']);
+      console.log(x);
       downLoadUrl = x['Value'].AbsoluteUrl;
       this.downloadRequest = false;
       window.location.href = downLoadUrl;

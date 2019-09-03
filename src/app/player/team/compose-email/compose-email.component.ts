@@ -46,6 +46,7 @@ export class ComposeEmailComponent implements OnInit {
         (res) => {
           this.request = false;
           responseBody = JSON.parse(res["_body"]);
+          console.log(responseBody);
           this.playerService.emailFlag = false;
           this.modalRef = this.modalService.show(RequestStatusPopupComponent);
           this.modalRef.content.status = responseBody.Status;

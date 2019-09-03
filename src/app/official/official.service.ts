@@ -183,6 +183,7 @@ export class OfficialService {
     this.initialFilter.SessionKey = this.dss.sessionKey;
     this.initialFilter.UserID = JSON.stringify(this.dss.userId);
     var body = JSON.stringify(this.initialFilter);
+    console.log(body);
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
       method: RequestMethod.Post,
@@ -289,7 +290,8 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    console.log(JSON.stringify(this.finalFilter));
+    console.log(body);
+    //console.log(JSON.stringify(this.finalFilter));
 
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
@@ -539,7 +541,7 @@ export class OfficialService {
     this.finalFilter.UserID = this.dss.userId.toString();
     //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    console.log(JSON.stringify(this.finalFilter));
 
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
@@ -592,7 +594,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/GetPaid', body, this.postRequestOptions).pipe(
       timeout(60000),
@@ -613,7 +615,7 @@ export class OfficialService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    console.log(JSON.stringify(this.finalFilter));
 
     return this.http
       .post(Constants.apiURL + '/api/OfficiatingProfile', body, this.postRequestOptions)
@@ -636,7 +638,7 @@ export class OfficialService {
 
     //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/ftp', body, this.postRequestOptions).pipe(
       map((res) => <any>res.json()),
@@ -664,7 +666,7 @@ export class OfficialService {
 
     //console.log(this.finalFilter);
     var body = JSON.stringify(this.finalFilter);
-    //console.log(JSON.stringify(this.finalFilter));
+    console.log(JSON.stringify(this.finalFilter));
 
     return this.http.post(Constants.apiURL + '/api/ftp', body, requestOptions).pipe(
       map((res) => <any>res.json()),
