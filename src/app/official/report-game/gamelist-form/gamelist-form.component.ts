@@ -53,7 +53,7 @@ export class GamelistFormComponent implements OnInit {
 
   ngOnInit() {
     this.officialService.dataChanged = false;
-    //console.log(this.gameData);
+    console.log(this.gameData);
     this.incidentCount = this.gameData.IncidentReports.length;
     this.finalHomeScore = parseInt(this.gameData.HomeTeamScore);
     this.finalVisitingScore = parseInt(this.gameData.VisitingTeamScore);
@@ -467,17 +467,18 @@ export class GamelistFormComponent implements OnInit {
         let pointsControl = group.get('Points') as FormControl;
         notPresentControl.enable();
         pointsControl.enable();
-        //console.log(control.value);
+      
         if (notPresentControl.value) {
           group.disable();
           notPresentControl.enable();
           playerNoteControl.setValue(false);
+          console.log(playerNoteControl);
           //notPresentControl.enable();
           //playerNoteControl.disable();
         }
 
         if (playerNoteControl.value) {
-          //console.log(playerNoteControl.value);
+           console.log(playerNoteControl.value);
           playerNoteControl.enable();
         }
       });
