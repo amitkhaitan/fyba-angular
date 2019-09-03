@@ -23,7 +23,7 @@ export class CoachService {
   reportRequest:boolean;
   initialJson: string;
   emailFlag:boolean;
-  calenderData=null;
+  calendarData=null;
   teamInfoData=null;
   finalFilter = new FinalFilter();
   IncidentReports: IncidentReports[] = [];
@@ -112,7 +112,7 @@ export class CoachService {
       LeagueId: this.dss.leagueId
     });
     var body = JSON.stringify(emailModel);
-      //console.log(body);
+      console.log(body);
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
@@ -159,18 +159,18 @@ export class CoachService {
     return this.http.post(Constants.apiURL + '/api/CoachReportGamesSave', body, requestOptions)
   }
 
-  getcoachCalenderData(): Observable<any>{
-    var getCoachCalenderModel = new CoachProfileRequest();
-    getCoachCalenderModel.UserID = this.dss.userId;
-    getCoachCalenderModel.SessionKey = this.dss.sessionKey;
-    getCoachCalenderModel.RequestedData = JSON.stringify({
+  getcoachCalendarData(): Observable<any>{
+    var getCoachCalendarModel = new CoachProfileRequest();
+    getCoachCalendarModel.UserID = this.dss.userId;
+    getCoachCalendarModel.SessionKey = this.dss.sessionKey;
+    getCoachCalendarModel.RequestedData = JSON.stringify({
       LeagueId: this.dss.leagueId,
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
       VolunteerId:this.dss.VolunteerId,
       TeamId:this.dss.TeamId
     })    
-    var body = JSON.stringify(getCoachCalenderModel);
+    var body = JSON.stringify(getCoachCalendarModel);
     return this.http.post(Constants.apiURL+'/api/CoachCalendar', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
     

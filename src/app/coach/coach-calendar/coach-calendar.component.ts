@@ -40,28 +40,29 @@ export class CoachCalendarComponent implements OnInit {
     this.showpractices=true;
     this.showgames=true;
     this.showother=true;
-    this.coachCalender();
+    this.coachCalendar();
 
   }
-  coachCalender(){
-    this.coachService.getcoachCalenderData().subscribe((res) => {    
+  coachCalendar(){
+    
+    this.coachService.getcoachCalendarData().subscribe((res) => {    
       this.dataRequest = false;   
       var response = res; 
       console.log(response);    
       if (response.Status==true) {      
-        this.coachService.calenderData =response.Value;
-          if(this.coachService.calenderData.practices.length>0){
-            this.practices=this.coachService.calenderData.practices;
+        this.coachService.calendarData =response.Value;
+          if(this.coachService.calendarData.practices.length>0){
+            this.practices=this.coachService.calendarData.practices;
           }else{
             this.showpractices=false;
           }
-          if(this.coachService.calenderData.games.length>0){
-            this.games=this.coachService.calenderData.games;
+          if(this.coachService.calendarData.games.length>0){
+            this.games=this.coachService.calendarData.games;
           }else{
             this.showgames=false;
           }  
-          if(this.coachService.calenderData.other.length>0){
-            this.other=this.coachService.calenderData.other;
+          if(this.coachService.calendarData.other.length>0){
+            this.other=this.coachService.calendarData.other;
           }else{
             this.showother=false;
           }  

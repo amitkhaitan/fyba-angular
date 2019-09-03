@@ -8,7 +8,7 @@
         <ul class="parentPlayer">
           <li *ngFor="let player of playerLists" (click)="filterPlayer(player.PlayerId)"
             [ngClass]="playerData.PlayerId == player.PlayerId ? 'active' : ''">
-            <img style="height:30px; width:30px;border-radius: 50%;" src={{player.PlayerPhoto}} />
+            <img style="height:30px; width:30px;border-radius: 50%;" src={{player.PlayerPhoto}} alt="Photo" />
             <span>{{player.PlayerFirstName}}
               <br class="breakWord" />
               {{player.PlayerLastName}} ({{player.PlayerDivision}}) </span>
@@ -31,7 +31,7 @@
            routerLink="/player/calendar" routerLinkActive="active">
            <a >
               <!-- [ngClass]="{'active': playerService.emailFlag==true}" -->
-              <img src="assets/images/calender_icon.png" alt="Calender" /><span>Calendar</span>
+              <img src="assets/images/calendar_icon.png" alt="Calendar" /><span>Calendar</span>
             </a>
           </li>
 

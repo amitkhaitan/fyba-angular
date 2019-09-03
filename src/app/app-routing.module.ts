@@ -60,11 +60,13 @@ const routes: Routes = [
       },
       {
         path: 'teaminfo', 
-        component: CoachteamComponent
+        component: CoachteamComponent,
+        canDeactivate: [DeactivateGuard]
       },
       {
         path: 'reportresults', 
-        component: ReportResultsComponent
+        component: ReportResultsComponent,
+        canDeactivate: [DeactivateGuard],
       },
       {
         path: 'profile', 

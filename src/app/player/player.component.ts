@@ -15,7 +15,7 @@ import { LocationStrategy } from '@angular/common';
 export class PlayerComponent implements OnInit {
   //--Image Declarations
   headerImg: string;
-  calender_icon: string;
+  calendar_icon: string;
   team_icon: string;
   share_icon: string;
   report_icon: string;
@@ -33,7 +33,7 @@ export class PlayerComponent implements OnInit {
     public dss: DataSharingService,
     public location: LocationStrategy
   ) {
-    this.calender_icon = './assets/images/calender_icon.png';
+    this.calendar_icon = './assets/images/calendar_icon.png';
     this.team_icon = './assets/images/team-icon.png';
     this.share_icon = './assets/images/share-icon.png';
     this.report_icon = './assets/images/report_icon.png';

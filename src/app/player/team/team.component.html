@@ -30,7 +30,7 @@
                   <tbody>
                     <tr *ngFor="let leader of TeamLeaders">
                       <td class="text-center"><input [(ngModel)]=leader.selected [disabled]="leader.Email.length<=1" (change)="checkboxChange($event,leader.Email)" class="chkbox"  type="checkbox" /></td>
-                      <td class="leaderImg text-center"><img src={{leader.Photo}} /></td>
+                      <td class="leaderImg text-center"><img src={{leader.Photo}} alt="LeaderPhoto" /></td>
                       <td class="">{{leader.VolunteerName}} <br /><strong>{{leader.VolunteerPosition}}</strong></td>
                     </tr>
                     <tr>
@@ -75,7 +75,7 @@
                       </td>
 
                       <td class="text-center">
-                        <img style="height:30px;" src={{roster.Photo}} />
+                        <img style="height:30px;" src={{roster.Photo}} alt="Roster Photo" />
                       </td>
                       <td><strong>{{roster.PlayerName}}</strong> ({{roster.JerseyNumber}})</td>
                     </tr>

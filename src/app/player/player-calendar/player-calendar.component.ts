@@ -34,32 +34,32 @@ export class PlayerCalendarComponent implements OnInit {
   ngOnInit() {
     this.dataRequest=true;
     if(this.dss.DivisionId){
-      this.getplayerCalender();
+      this.getplayerCalendar();
       this.showpractices=true;
       this.showgames=true;
       this.showother=true;
     }
 
   }
-  getplayerCalender(){
-    this.playerService.getplayerCalender().subscribe((res) => {              
+  getplayerCalendar(){
+    this.playerService.getplayerCalendar().subscribe((res) => {              
         var response = JSON.parse(res["_body"]); 
         console.log(response); 
         this.dataRequest = false;          
         if(response.Status==true) { 
-          this.playerService.calenderData =response.Value;
-          if(this.playerService.calenderData.practices.length>0){
-            this.practices=this.playerService.calenderData.practices;
+          this.playerService.calendarData =response.Value;
+          if(this.playerService.calendarData.practices.length>0){
+            this.practices=this.playerService.calendarData.practices;
           }else{
             this.showpractices=false;
           }
-          if(this.playerService.calenderData.games.length>0){
-            this.games=this.playerService.calenderData.games;
+          if(this.playerService.calendarData.games.length>0){
+            this.games=this.playerService.calendarData.games;
           }else{
             this.showgames=false;
           }  
-          if(this.playerService.calenderData.other.length>0){
-            this.other=this.playerService.calenderData.other;
+          if(this.playerService.calendarData.other.length>0){
+            this.other=this.playerService.calendarData.other;
           }else{
             this.showother=false;
           }               
@@ -83,14 +83,14 @@ export class PlayerCalendarComponent implements OnInit {
   }
 
     // get practices(){
-    //   return this.playerService.calenderData.practices;
+    //   return this.playerService.calendarData.practices;
     // }
 
     // get games(){
-    //   return this.playerService.calenderData.games;
+    //   return this.playerService.calendarData.games;
     // }
 
     // get other(){
-    //   return this.playerService.calenderData.other;
+    //   return this.playerService.calendarData.other;
     // }
 }

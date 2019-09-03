@@ -57,10 +57,13 @@
                 <td>{{game.Location}}</td>
                 <td>{{game.Home_Score}} <img class="report_status"
                   *ngIf="game.Home_win==1"
-                  src="assets/images/tick.png"></td>
+                  src="assets/images/tick.png"
+                  alt="tick"></td>
                 <td>{{game.Visitor_Score}} <img class="report_status"
                   *ngIf="game.Visitor_win==1"
-                  src="assets/images/tick.png"></td>
+                  src="assets/images/tick.png"
+                  alt="tick"
+                  ></td>
                 <td>{{game.Snacks}}</td>
               </tr>
             </ng-container>
