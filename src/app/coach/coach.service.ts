@@ -77,6 +77,7 @@ export class CoachService {
       VolunteerId:this.dss.VolunteerId
     })
     var body = JSON.stringify(getCoachModel);
+    console.log(body);
     return this.http.post(Constants.apiURL+'/api/CoachDetails', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
     

@@ -244,7 +244,7 @@ export class CoachProfileComponent implements OnInit {
     
 
   }
-
+  
   locationRank(){
     for(var i=0; i<this.profileData.Value.LocationRankValues.length; ++i){   
        if(this.profileData.Value.LocationRankValues[i].Selected)
@@ -304,7 +304,7 @@ export class CoachProfileComponent implements OnInit {
   }
 
   patchDaysYouCantHavePractice(){
-    let arr = new FormArray([],ArrayValidators.maxLength(3));
+    let arr = new FormArray([]);
     for(var i=0; i<this.profileData.Value.DaysYouCannotHavePracticeValues.length;++i){
       if(this.profileData.Value.DaysYouCannotHavePracticeValues[i].Selected==true){
         this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice+1;
@@ -429,56 +429,94 @@ export class CoachProfileComponent implements OnInit {
   }
   
   daysYouCantHavePracticeChange(e:any, id:number){
-    if(this.countpatchDaysYouCantHavePractice<3){
-      (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
-        let dayIdControl = group.get('DayId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;           
-        if (dayIdControl.value == id) {
-          if(e.currentTarget.checked){
-            this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice+1;
-            selectedControl.setValue(true);
-          }else{
-            this.countpatchDaysYouCantHavePractice=this.countpatchDaysYouCantHavePractice-1;
-            selectedControl.setValue(false);   
-          } 
-          this.selectedDaysNotPractices=this.preferenceForm.get('daysYouCantHavePractice').value;         
-        }         
-      });
-    }else{
-      (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
-        let dayIdControl = group.get('DayId') as FormControl;  
-        let selectedControl = group.get('Selected') as FormControl;           
-        if (dayIdControl.value == id) {
-          if(e.currentTarget.checked){
-            selectedControl.setValue(false);                 
-          }
-          this.preferenceForm.patchValue({
-            daysYouCantHavePractice:this.selectedDaysNotPractices
-          });  
-          this.errormsg='You can select max 3 Days you CANNOT have practice.';
-          this.errormethod(this.errormsg);
-                
-        }                                        
-      });
-      console.log(this.selectedDaysNotPractices);
-          
+    if (e.currentTarget.checked) {
+      this.countpatchDaysYouCantHavePractice++;
+    } else {
+      this.countpatchDaysYouCantHavePractice--;
     }
+    
+    if (this.countpatchDaysYouCantHavePractice >= 3) {
+        
+      this.errormsg='You can select max 3 Days you CANNOT have practice.';
+      this.errormethod(this.errormsg);
+
+      (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).disable();
+       (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
+          let dayIdControl = group.get('DayId') as FormControl;  
+          let selectedControl = group.get('Selected') as FormControl;
+          if (dayIdControl.value == id) {
+            console.log(selectedControl);
+            if (selectedControl.value) {             
+              selectedControl.enable();
+            }
+          }else{
+            selectedControl.disable();
+          }          
+      }); 
+
+    }else if (this.countpatchDaysYouCantHavePractice <= 3) {
+            (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).enable();      
+            (<FormArray>this.preferenceForm.get('daysYouCantHavePractice')).controls.forEach((group) => {
+              let selectedControl = group.get('Selected') as FormControl;
+              if (selectedControl.value) {
+                selectedControl.setValue(true);
+              }
+            });
+        }        
+    // this.preferenceForm.patchValue({
+    //   daysYouCantHavePractice:this.selectedDaysNotPractices
+    // });          
      
   }
 
 
   timeYouCantHavePracticeChange(e:any, id:number){
-    (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
-      let dayIdControl = group.get('TimeId') as FormControl;  
-      let selectedControl = group.get('Selected') as FormControl;           
-      if (dayIdControl.value == id) {
-        if(e.currentTarget.checked){
-          selectedControl.setValue(true);
-        }else{
-          selectedControl.setValue(false);   
-        }          
-      }         
-    }); 
+    if (e.currentTarget.checked) {
+      this.countpatchTimeYouCantHavePractice++;
+    } else {
+      this.countpatchTimeYouCantHavePractice--;
+    }
+
+    if (this.countpatchTimeYouCantHavePractice >= 3) {
+        
+      this.errormsg='You can select max 3 Days you CANNOT have practice.';
+      this.errormethod(this.errormsg);
+
+      (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).disable();
+       (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
+          let dayIdControl = group.get('DayId') as FormControl;  
+          let selectedControl = group.get('Selected') as FormControl;
+          if (dayIdControl.value == id) {
+            
+            if (selectedControl.value) {             
+              selectedControl.enable();
+            }
+          }else{
+            selectedControl.disable();
+          }          
+      }); 
+
+    }else if (this.countpatchTimeYouCantHavePractice <= 3) {
+            (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).enable();      
+            (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
+              let selectedControl = group.get('Selected') as FormControl;
+              if (selectedControl.value) {
+                selectedControl.setValue(true);
+              }
+            });
+    }   
+
+    // (<FormArray>this.preferenceForm.get('timeYouCantHavePractice')).controls.forEach((group) => {
+    //   let dayIdControl = group.get('TimeId') as FormControl;  
+    //   let selectedControl = group.get('Selected') as FormControl;           
+    //   if (dayIdControl.value == id) {
+    //     if(e.currentTarget.checked){
+    //       selectedControl.setValue(true);
+    //     }else{
+    //       selectedControl.setValue(false);   
+    //     }          
+    //   }         
+    // }); 
   }
 
   changeshirtSize(event:any){
