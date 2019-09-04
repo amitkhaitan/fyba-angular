@@ -151,6 +151,7 @@ export class CoachService {
     this.finalFilter.SessionKey = this.dss.sessionKey;
     this.finalFilter.UserID = this.dss.userId.toString();
     var body = JSON.stringify(this.finalFilter);
+    console.log(body);
     var headerOptions = new Headers({ 'Content-Type': 'application/json' });
     var requestOptions = new RequestOptions({
       method: RequestMethod.Post,
@@ -171,6 +172,7 @@ export class CoachService {
       TeamId:this.dss.TeamId
     })    
     var body = JSON.stringify(getCoachCalendarModel);
+    console.log(body);
     return this.http.post(Constants.apiURL+'/api/CoachCalendar', body, this.postRequestOptions)
     .pipe(map((res)=>res.json()))
     

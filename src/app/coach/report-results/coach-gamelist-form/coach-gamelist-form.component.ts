@@ -754,7 +754,8 @@ export class CoachGamelistFormComponent implements OnInit {
                   .subscribe(
                     (res)=>{
                       this.downloadRequest=false;
-                      var responseBody = JSON.parse(res["_body"]);          
+                      var responseBody = JSON.parse(res["_body"]);  
+                      console.log(responseBody);        
                       if(responseBody.status){
                         this.bsModalRef = this.modalService.show(SuccessPopupComponent);
                         this.bsModalRef.content.status = responseBody.Status;
@@ -1144,6 +1145,7 @@ export class CoachGamelistFormComponent implements OnInit {
     var downLoadUrl;
     this.coachService.getPdfUrl(url).subscribe((res) => {
       var x = JSON.parse(res['_body']);
+      console.log(x);
       if (x.Status==true) { 
       downLoadUrl = x['Value'].AbsoluteUrl;
       console.log(downLoadUrl);

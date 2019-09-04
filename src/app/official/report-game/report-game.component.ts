@@ -52,7 +52,7 @@ export class ReportGameComponent {
     await this.officialService.getReportData().then(() => {
       
       this.officialService.initialJson = JSON.stringify(this.reportGameData);
-       //console.log(this.officialService);  
+       console.log(this.officialService);  
       if (this.officialService.serviceError) {
         this.modalRef = this.modalService.show(ErrorModalComponent);
         this.modalRef.content.closeBtnName = 'Close';

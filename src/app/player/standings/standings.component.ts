@@ -39,7 +39,7 @@ export class StandingsComponent implements OnInit {
     await this.playerService.getstandingsData().subscribe((res) => {    
       this.dataRequest = false;      
       var response = JSON.parse(res["_body"]); 
-      //console.log(response);          
+      console.log(response);          
       if (response.Status==true) {      
         this.playerService.standingsData =response.Value;  
       } else {

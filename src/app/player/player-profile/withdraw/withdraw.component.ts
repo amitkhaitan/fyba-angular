@@ -31,6 +31,7 @@ export class WithdrawComponent implements OnInit {
         this.loader=false; 
         console.log(JSON.parse(res["_body"]));
         var responseBody=JSON.parse(res["_body"]);
+        console.log(responseBody);
         this.bsModalRef = this.modalService.show(RequestStatusPopupComponent);
         this.bsModalRef.content.status = responseBody.Status;
         this.bsModalRef.content.popupTitle = responseBody.Message.PopupHeading;

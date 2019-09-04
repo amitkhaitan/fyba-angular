@@ -100,87 +100,87 @@ export class CoachProfileComponent implements OnInit {
         this.profileData = res;
          console.log(this.profileData.Value);
           if(this.profileData.Value.ShirtSizeLock==true){
-            this.currentSrc=this.img1;
-            this.disableShirtSize=true;
-            this.selectedclass='selectBG';
-          }else{
             this.currentSrc=this.img2;
             this.disableShirtSize=false;
             this.selectedclass='';
+          }else{
+            this.currentSrc=this.img1;
+            this.disableShirtSize=true;
+            this.selectedclass='selectBG';
           }
           if(this.profileData.Value.LocationRankValuesLock==true){
-            this.locRankSrc=this.img1;
-            this.disablelocRank=true;
-            this.locclass='selectBG';
-          }else{
             this.locRankSrc=this.img2;
             this.disablelocRank=false;
             this.locclass='';
+          }else{
+            this.locRankSrc=this.img1;
+            this.disablelocRank=true;
+            this.locclass='selectBG';
           }
           if(this.profileData.Value.DayOfTheWeekRankValuesLock==true){
-            this.dayRankSrc=this.img1;
-            this.disableDayRank=true;
-            this.Dayclass='selectBG';
-          }else{
             this.dayRankSrc=this.img2;
             this.disableDayRank=false;
             this.Dayclass='';
+          }else{
+            this.dayRankSrc=this.img1;
+            this.disableDayRank=true;
+            this.Dayclass='selectBG';
           }  
           if(this.profileData.Value.TimeOfDayRankValuesLock==true){
-            this.timeDayRankSrc=this.img1;
-            this.disableTimeDayRank=true;
-            this.TimeDayclass='selectBG';
-          }else{
             this.timeDayRankSrc=this.img2;
             this.disableTimeDayRank=false;
             this.TimeDayclass='';
+          }else{
+            this.timeDayRankSrc=this.img1;
+            this.disableTimeDayRank=true;
+            this.TimeDayclass='selectBG';
           }
           if(this.profileData.Value.LocationPreferenceValuesLock==true){
-            this.locPrefSrc=this.img1;
-            this.disablelocPref=true;
-            this.locPrefclass='selectBG';
-          }else{
             this.locPrefSrc=this.img2;
             this.disablelocPref=false;
             this.locPrefclass='';
+          }else{
+            this.locPrefSrc=this.img1;
+            this.disablelocPref=true;
+            this.locPrefclass='selectBG';
           }      
           if(this.profileData.Value.DayOfTheWeekPreferenceValuesLock==true){
-            this.weekPrefSrc=this.img1;
-            this.disableweekPref=true;
-            this.weekPrefclass='selectBG';
-          }else{
             this.weekPrefSrc=this.img2;
             this.disableweekPref=false;
             this.weekPrefclass='';
+          }else{
+            this.weekPrefSrc=this.img1;
+            this.disableweekPref=true;
+            this.weekPrefclass='selectBG';
           }
           if(this.profileData.Value.TimeOfDayPreferenceValuesLock==true){
-            this.timePrefSrc=this.img1;
-            this.disableTimePref=true;
-            this.TimePrefclass='selectBG';
-          }else{
             this.timePrefSrc=this.img2;
             this.disableTimePref=false;
             this.TimePrefclass='';
+          }else{
+            this.timePrefSrc=this.img1;
+            this.disableTimePref=true;
+            this.TimePrefclass='selectBG';
           }
 
           if(this.profileData.Value.DaysYouCannotHavePracticeValuesLock==true){
-            this.DayNotPracSrc=this.img1;
-            this.disableDayNotPrac=true;
-            this.DayNotPracclass='selectBG';
-          }else{
             this.DayNotPracSrc=this.img2;
             this.disableDayNotPrac=false;
             this.DayNotPracclass='';
+          }else{
+            this.DayNotPracSrc=this.img1;
+            this.disableDayNotPrac=true;
+            this.DayNotPracclass='selectBG';
           }
 
           if(this.profileData.Value.TimeYouCannotHavePracticeValuesLock==true){
-            this.TimeNotPracSrc=this.img1;
-            this.disableTimeNotPrac=true;
-            this.TimeNotPracclass='selectBG';
-          }else{
             this.TimeNotPracSrc=this.img2;
             this.disableTimeNotPrac=false;
             this.TimeNotPracclass='';
+          }else{
+            this.TimeNotPracSrc=this.img1;
+            this.disableTimeNotPrac=true;
+            this.TimeNotPracclass='selectBG';
           }
         this.countpatchDaysYouCantHavePractice=0;
         this.countpatchTimeYouCantHavePractice=0;    
@@ -224,11 +224,11 @@ export class CoachProfileComponent implements OnInit {
   async generatePracticePreferenceForm(){
     this.preferenceForm = await this.fb.group({
       locationPreference: this.patchLocationPreference(),
-      locationRank:new FormControl({value:this.locationRank(), disabled:this.profileData.Value.LocationRankValuesLock}),
+      locationRank:new FormControl({value:this.locationRank(), disabled:(this.profileData.Value.LocationRankValuesLock)==true ?false:true}),
       dayOfTheWeekPreference: this.patchDayOfTheWeekPreference(),
-      dayOfTheWeekRank:new FormControl({value:this.dayOfTheWeekRank(), disabled:this.profileData.Value.DayOfTheWeekRankValuesLock}),
+      dayOfTheWeekRank:new FormControl({value:this.dayOfTheWeekRank(), disabled:(this.profileData.Value.DayOfTheWeekRankValuesLock)==true?false:true}),
       timeOfTheDayPreference: this.patchTimeOfTheDayPreference(),
-      timeOfTheDayRank: new FormControl({value:this.timeOfTheDayRank(), disabled:this.profileData.Value.DayOfTheWeekRankValuesLock}),
+      timeOfTheDayRank: new FormControl({value:this.timeOfTheDayRank(), disabled:(this.profileData.Value.DayOfTheWeekRankValuesLock)==true?false:true}),
       daysYouCantHavePractice: this.patchDaysYouCantHavePractice(),
       timeYouCantHavePractice: this.patchTimeYouCantHavePractice()
 
@@ -345,28 +345,28 @@ export class CoachProfileComponent implements OnInit {
       CoachName:'',
       DateFingerPrinted:'',
       DayOfTheWeekPreferenceValues:this.preferenceForm.get('dayOfTheWeekPreference').value,
-      DayOfTheWeekPreferenceValuesLock:this.profileData.Value.DayOfTheWeekPreferenceValuesLock,
+      DayOfTheWeekPreferenceValuesLock:(this.profileData.Value.DayOfTheWeekPreferenceValuesLock)==true?false:true,
       DayOfTheWeekRankValues:this.profileData.Value.DayOfTheWeekRankValues,
-      DayOfTheWeekRankValuesLock:this.profileData.Value.DayOfTheWeekRankValuesLock,
+      DayOfTheWeekRankValuesLock:(this.profileData.Value.DayOfTheWeekRankValuesLock)==true?false:true,
       DaysYouCannotHavePracticeValues:this.preferenceForm.get('daysYouCantHavePractice').value,
-      DaysYouCannotHavePracticeValuesLock:this.profileData.Value.DaysYouCannotHavePracticeValuesLock,
+      DaysYouCannotHavePracticeValuesLock:(this.profileData.Value.DaysYouCannotHavePracticeValuesLock)==true?false:true,
       Email:this.personalDetailsForm.get('email').value,
       HomePhone:'',
       LocationPreferenceValues:this.preferenceForm.get('locationPreference').value,
-      LocationPreferenceValuesLock:this.profileData.Value.LocationPreferenceValuesLock,
+      LocationPreferenceValuesLock:(this.profileData.Value.LocationPreferenceValuesLock)==true?false:true,
       LocationRankValues:this.profileData.Value.LocationRankValues,
-      LocationRankValuesLock:this.profileData.Value.LocationRankValuesLock,
+      LocationRankValuesLock:(this.profileData.Value.LocationRankValuesLock)==true?false:true,
       MobilePhone:'',
-      ShirtSizeLock:this.profileData.Value.ShirtSizeLock,
+      ShirtSizeLock:(this.profileData.Value.ShirtSizeLock)==true?false:true,
       ShirtSizeValue:this.profileData.Value.ShirtSizeValue,
       TeamId:'',
       TeamName:'',
       TimeOfDayPreferenceValues:this.preferenceForm.get('timeOfTheDayPreference').value,
-      TimeOfDayPreferenceValuesLock:this.profileData.Value.TimeOfDayPreferenceValuesLock,
+      TimeOfDayPreferenceValuesLock:(this.profileData.Value.TimeOfDayPreferenceValuesLock)==true?false:true,
       TimeOfDayRankValues:this.profileData.Value.TimeOfDayRankValues,  
-      TimeOfDayRankValuesLock:this.profileData.Value.TimeOfDayRankValuesLock,
+      TimeOfDayRankValuesLock:(this.profileData.Value.TimeOfDayRankValuesLock)==true?false:true,
       TimeYouCannotHavePracticeValues:this.preferenceForm.get('timeYouCantHavePractice').value,
-      TimeYouCannotHavePracticeValuesLock:this.profileData.Value.TimeYouCannotHavePracticeValuesLock,
+      TimeYouCannotHavePracticeValuesLock:(this.profileData.Value.TimeYouCannotHavePracticeValuesLock)==true?false:true,
       TimeslotName:'',
       VolunteerId:this.profileData.Value.VolunteerId,
       VolunteerSeasonalId:this.profileData.Value.VolunteerSeasonalId,
@@ -375,7 +375,8 @@ export class CoachProfileComponent implements OnInit {
     
     this.coachService.saveProfileData(CoachDetails)
       .subscribe((res) => {        
-        res = JSON.parse(res["_body"]);
+        var response =res;
+        console.log(response);
         this.dataRequest = false;
         this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
       });
