@@ -226,7 +226,7 @@
                     <div *ngFor="let child of preferenceForm.controls.timeYouCantHavePractice['controls']; let i=index">
                       <ng-container [formGroupName]="i">
                         <input class="checkBoxClass {{TimeNotPracclass}}" type="checkbox" [value]="child.get('TimeId').value"
-                          (change)="timeYouCantHavePracticeChange($event, child.get('TimeId').value)" [disabled]="(disableTimeNotPrac==true)?true:(child.get('Selected').value==false)? true:false"
+                          (change)="timeYouCantHavePracticeChange($event, child.get('TimeId').value)" [disabled]="(disableTimeNotPrac==true)?true:(countpatchTimeYouCantHavePractice>=3)?(child.get('Selected').value==false)? true:false:false"
                           [checked]="child.get('Selected').value" />
                         <label> {{child.get('TimeName').value}}</label>
                       </ng-container>
