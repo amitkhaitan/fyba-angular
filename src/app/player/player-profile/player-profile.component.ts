@@ -135,7 +135,10 @@ export class PlayerProfileComponent implements OnInit {
     return this.profileSection.Value.ShirtSizeValue;
   }
 
-  
+  showApparel:boolean;
+  showTransaction:boolean;
+  showRegistration:boolean;
+  showParentInfo:boolean;
 
   ngOnInit() {
     this.settings = {
@@ -181,7 +184,7 @@ export class PlayerProfileComponent implements OnInit {
             this.jersysizeSrc=this.img1;
             
           }
-         
+          
           this.profileForm = this.fb.group({
             ParentInfo: this.initProfileDetailsArray(),        
             AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
@@ -194,7 +197,6 @@ export class PlayerProfileComponent implements OnInit {
             RequestedJersey1Lock:this.apparel.RequestedJersey1Lock,
             RequestedJersey2Lock:this.apparel.RequestedJersey2Lock,
             ShortSizeLock:this.apparel.ShortSizeLock,
-
 
           });
                    
