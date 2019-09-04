@@ -51,7 +51,7 @@ export class CoachService {
   timeoutError: boolean;
  
   
-  getcoachProfileData():Observable<any>{
+  GetCoachData():Observable<any>{
       var getCoachModel = new CoachProfileRequest();
       getCoachModel.UserID = this.dss.userId;
       getCoachModel.SessionKey = this.dss.sessionKey;
@@ -66,7 +66,7 @@ export class CoachService {
     return this.http.post(Constants.apiURL +'/api/CoachTeam', body, this.postRequestOptions);
   }
 
-  getCoach(): Observable<CoachProfileResponse>{
+  GetCoachProfileData(): Observable<CoachProfileResponse>{
     var getCoachModel = new CoachProfileRequest();
     getCoachModel.UserID = this.dss.userId;
     getCoachModel.SessionKey = this.dss.sessionKey;

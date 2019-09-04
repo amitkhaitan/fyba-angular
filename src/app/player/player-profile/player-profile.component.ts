@@ -9,6 +9,8 @@ import { DataSharingService } from './../../data-sharing.service';
 import { MatSnackBar } from '@angular/material';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import { throttleTime } from 'rxjs/operators';
+import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
+import { SuccessPopupComponent } from './../../official/report-game/success-popup/success-popup.component';
 //import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 // import { format } from 'path';
 // import { Observable, of, interval, Subscription, timer, pipe } from 'rxjs';
@@ -43,7 +45,7 @@ export class PlayerProfileComponent implements OnInit {
   subscription;
   timesRun;
   interval;
-  modalRef: BsModalRef;
+  bsModalRef: BsModalRef;
 
   constructor(public playerService: PlayerService,
     public router: Router, private fb: FormBuilder,
@@ -283,23 +285,35 @@ export class PlayerProfileComponent implements OnInit {
       textingOption:this.textingoption,
       transactionHistory:this.transactionHistory      
     };
-   
-    this.playerService.saveProfileData(playerDetails)
-      .subscribe((res) => {
-        res = JSON.parse(res["_body"]);
-        console.log(res);
-        this.fetchingData = false;
-        this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
-      });
+    this.saveProfileData(playerDetails);   
   }
   
+  saveProfileData(playerDetails:any){
+    this.playerService.saveProfileData(playerDetails)
+    .subscribe((res) => {
+      res = JSON.parse(res["_body"]);
+      if(res['Status']){
+        this.showSuccessfullpop(res['Status'],res['Message']['PopupHeading'],res['Message']['PopupMessage']);
+        this.router.navigate(["/coach/profile"]);
+      }else{
+        this.bsModalRef = this.modalService.show(ErrorModalComponent);
+        this.bsModalRef.content.closeBtnName = 'Close';
+        this.bsModalRef.content.errorTitle = res['Message']['PopupHeading'];
+        this.bsModalRef.content.errorMsg = res['Message']['PopupMessage'];
+        this.playerService.indicator.next(true);
+        this.bsModalRef.content.route = "/coach/profile";
+      }
+      this.fetchingData = false;
+      this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
+    });
+  }
   
 
   modalRed: BsModalRef;
   withdraw(playerId: number, status: JSON) {
-    this.modalRef = this.modalService.show(WithdrawComponent);
-    this.modalRef.content.playerId = playerId;
-    this.modalRef.content.details = status;
+    this.bsModalRef = this.modalService.show(WithdrawComponent);
+    this.bsModalRef.content.playerId = playerId;
+    this.bsModalRef.content.details = status;
   }
 
   changeShortSize(event:any) {
@@ -338,6 +352,25 @@ export class PlayerProfileComponent implements OnInit {
   get RequestedJersey2() {
     return this.profileForm.get('RequestedJersey2');
   }
+
+  errormethod(msg:any){
+    this.bsModalRef = this.modalService.show(ErrorModalComponent);
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.errorMsg = msg;
+}
+
+showSuccessfullpop(status,title,popmsg){
+  const initialState = {
+    status: status,
+    popupTitle: title,
+    popupMsg: popmsg
+  };
+
+  this.bsModalRef = this.modalService.show(
+    SuccessPopupComponent,
+    Object.assign({}, { class: 'customModalWidth75', initialState })
+  );
+}
  
 }
 

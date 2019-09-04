@@ -61,10 +61,10 @@ export class ReportResultsComponent{
         }         
       }, (err) => {
             this.initialFetchError = true;
-            this.errorMsg = err;
-            this.modalRef = this.modalService.show(ErrorModalComponent);
-            this.modalRef.content.closeBtnName = 'Close';
-            this.modalRef.content.errorMsg = err;
+            //this.errorMsg = err;
+            //this.modalRef = this.modalService.show(ErrorModalComponent);
+            //this.modalRef.content.closeBtnName = 'Close';
+            //this.modalRef.content.errorMsg = err;
       });
   }
 

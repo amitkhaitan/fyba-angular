@@ -43,8 +43,8 @@ export class CoachCalendarComponent implements OnInit {
     this.coachCalendar();
 
   }
-  coachCalendar(){
-    
+  
+  coachCalendar(){    
     this.coachService.getcoachCalendarData().subscribe((res) => {    
       this.dataRequest = false;   
       var response = res; 
@@ -53,16 +53,19 @@ export class CoachCalendarComponent implements OnInit {
         this.coachService.calendarData =response.Value;
           if(this.coachService.calendarData.practices.length>0){
             this.practices=this.coachService.calendarData.practices;
+            this.showpractices=true;
           }else{
             this.showpractices=false;
           }
           if(this.coachService.calendarData.games.length>0){
             this.games=this.coachService.calendarData.games;
+            this.showgames=true;
           }else{
             this.showgames=false;
           }  
           if(this.coachService.calendarData.other.length>0){
             this.other=this.coachService.calendarData.other;
+            this.showother=true;
           }else{
             this.showother=false;
           }  
@@ -75,10 +78,10 @@ export class CoachCalendarComponent implements OnInit {
       }         
     }, (err) => {
       this.initialFetchError = true;
-      this.errorMsg = err;
-      this.modalRef = this.modalService.show(ErrorModalComponent);
-      this.modalRef.content.closeBtnName = 'Close';
-      this.modalRef.content.errorMsg = err;
+      //this.errorMsg = err;
+      // this.modalRef = this.modalService.show(ErrorModalComponent);
+      // this.modalRef.content.closeBtnName = 'Close';
+      // this.modalRef.content.errorMsg = err;
       this.showpractices=false;
       this.showgames=false;
       this.showother=false;
