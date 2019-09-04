@@ -38,11 +38,13 @@ export class CoachteamComponent{
   constructor(public router: Router,
     public config: NgbAccordionConfig,
     private modalService: BsModalService,
+    public dss: DataSharingService,
     private coachService: CoachService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.dataRequest=true;
+    if(this.dss.TeamId){
+      this.dataRequest=true;
     this.showHealthCondition=true;
     this.showteamleadership=true;
     this.showTeamRoaster=true;
@@ -50,6 +52,8 @@ export class CoachteamComponent{
     this.Smssrc="./assets/images/sms-icon.png";
     this.coachTeamInfo();
     //this.getallemail();
+    }
+    
 
   }
 

@@ -36,11 +36,14 @@ export class CoachCalendarComponent implements OnInit {
     public modalService: BsModalService) { }
 
   ngOnInit() {
-    this.dataRequest=true;
+    if(this.dss.TeamId){
+      this.dataRequest=true;
     this.showpractices=true;
     this.showgames=true;
     this.showother=true;
     this.coachCalendar();
+    }
+    
 
   }
   

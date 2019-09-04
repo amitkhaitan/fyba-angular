@@ -50,10 +50,7 @@ const routes: Routes = [
   {
     path: 'coach', component: CoachComponent, canActivate: [AuthGuard],
     children: [
-      {
-        path: '', redirectTo: 'profile',
-        pathMatch: 'full'
-      },
+      
       {
         path: 'calendar', 
         component: CoachCalendarComponent,
