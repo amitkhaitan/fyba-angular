@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
 })
 
 export class CoachService {
-  TeamId;
+  teamId;
   dataChanged:boolean;
   serviceError:boolean;
   reportRequest:boolean;
@@ -169,7 +169,7 @@ export class CoachService {
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
       VolunteerId:this.dss.VolunteerId,
-      TeamId:this.dss.TeamId
+      TeamId:this.teamId
     })    
     var body = JSON.stringify(getCoachCalendarModel);
     console.log(body);

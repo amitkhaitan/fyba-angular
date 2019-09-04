@@ -43,8 +43,11 @@ export class ReportResultsComponent{
  
   
   ngOnInit() {
-    this.dataRequest=true;
-    this.CoachReportGameData();    
+    if(this.dss.TeamId){
+      this.dataRequest=true;
+    this.CoachReportGameData(); 
+    }
+       
   }
 
   async CoachReportGameData(){
