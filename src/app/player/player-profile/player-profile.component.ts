@@ -57,10 +57,12 @@ export class PlayerProfileComponent implements OnInit {
     this.img2 = "./assets/images/unlock.png"
     this.currentSrc1 = this.img1;
     this.currentSrc2 = this.img1;
-
+    var defaultValue = 0;
     for (var i = 1; i <= 100; i++) {
+     
       this.numbers1[i] = i;
       this.numbers2[i] = i;
+     
     }
 
   }
@@ -294,19 +296,19 @@ export class PlayerProfileComponent implements OnInit {
     this.playerService.saveProfileData(playerDetails)
     .subscribe((res) => {
       res = JSON.parse(res["_body"]);
+      this.fetchingData = false; 
       if(res['Status']){
         this.showSuccessfullpop(res['Status'],res['Message']['PopupHeading'],res['Message']['PopupMessage']);
-        this.router.navigate(["/coach/profile"]);
+        this.router.navigate(["/player/profile"]);
       }else{
         this.bsModalRef = this.modalService.show(ErrorModalComponent);
         this.bsModalRef.content.closeBtnName = 'Close';
         this.bsModalRef.content.errorTitle = res['Message']['PopupHeading'];
         this.bsModalRef.content.errorMsg = res['Message']['PopupMessage'];
         this.playerService.indicator.next(true);
-        this.bsModalRef.content.route = "/coach/profile";
+        this.bsModalRef.content.route = "/player/profile";
       }
-      this.fetchingData = false;
-      this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
+      
     });
   }
   

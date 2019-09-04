@@ -317,9 +317,9 @@
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
                       <select class="my-dropdown" formControlName="RequestedJersey1"
                         (change)="changeRequestedJersey1($event)">
-                        <option *ngFor="let number of numbers1" value="{{number}}"
-                          [selected]="apparel.RequestedJersey1 == number">
-                          {{number}}</option>
+                        <option *ngFor="let number of numbers1" value="{{number | number:'2.0-1'}}"
+                          [selected]="apparel.RequestedJersey1 ==  (number | number:'2.0-1')">
+                          {{number | number:'2.0-1'}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc1" alt="lock" />
                     </div>
@@ -333,9 +333,9 @@
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
                       <select class="my-dropdown" formControlName="RequestedJersey2"
                         (change)="changeRequestedJersey2($event)">
-                        <option *ngFor="let number of numbers2" value="{{number}}"
-                          [selected]="apparel.RequestedJersey2 == number">
-                          {{number}}</option>
+                        <option *ngFor="let number of numbers2" value="{{number | number:'2.0-1'}}"
+                          [selected]="apparel.RequestedJersey2 == (number | number:'2.0-1')">
+                          {{number | number:'2.0-1'}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc2" alt="lock" />
                     </div>
