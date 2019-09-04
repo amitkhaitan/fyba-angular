@@ -36,13 +36,13 @@ export class CoachComponent implements OnInit {
   ngOnInit() {
     this.headerImg = 'coach_header_img';
     this.dataRequest=true;
-    this.getcoachProfileData().then(() => {
+    this.GetCoachData().then(() => {
       this.dss.currentRoute = 'coach';
     });
   }
 
-  async getcoachProfileData(){
-    await this.coachService.getcoachProfileData().subscribe((res)=>{
+  async GetCoachData(){
+    await this.coachService.GetCoachData().subscribe((res)=>{
        this.coachSection=JSON.parse(res['_body']);
        console.log(this.coachSection);
        if (this.TeamList != null) this.coachData = this.TeamList[0];
@@ -61,6 +61,6 @@ export class CoachComponent implements OnInit {
     this.coachData = await this.TeamList.filter((item) => item.TeamId == id);
     this.coachData = this.coachData[0];
     this.dss.TeamId = await id; 
-    this.router.navigate(["/coach/profile"]);     
+    await this.router.navigate(["/coach/profile"]);     
   }
 }

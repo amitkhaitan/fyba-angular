@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 import { ErrorModalComponent } from './../../common/error-modal/error-modal.component';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { SuccessPopupComponent } from './../../official/report-game/success-popup/success-popup.component';
 
 @Component({
   selector: 'app-coach-profile',
@@ -93,112 +94,118 @@ export class CoachProfileComponent implements OnInit {
     }
     
   ngOnInit() {
-    this.dataRequest=true;    
-    this.coachService.getCoach()
-    .subscribe(
-      (res)=>{        
-        this.profileData = res;
-         console.log(this.profileData.Value);
-          if(this.profileData.Value.ShirtSizeLock==true){
-            this.currentSrc=this.img2;
-            this.disableShirtSize=false;
-            this.selectedclass='';
-          }else{
-            this.currentSrc=this.img1;
-            this.disableShirtSize=true;
-            this.selectedclass='selectBG';
-          }
-          if(this.profileData.Value.LocationRankValuesLock==true){
-            this.locRankSrc=this.img2;
-            this.disablelocRank=false;
-            this.locclass='';
-          }else{
-            this.locRankSrc=this.img1;
-            this.disablelocRank=true;
-            this.locclass='selectBG';
-          }
-          if(this.profileData.Value.DayOfTheWeekRankValuesLock==true){
-            this.dayRankSrc=this.img2;
-            this.disableDayRank=false;
-            this.Dayclass='';
-          }else{
-            this.dayRankSrc=this.img1;
-            this.disableDayRank=true;
-            this.Dayclass='selectBG';
-          }  
-          if(this.profileData.Value.TimeOfDayRankValuesLock==true){
-            this.timeDayRankSrc=this.img2;
-            this.disableTimeDayRank=false;
-            this.TimeDayclass='';
-          }else{
-            this.timeDayRankSrc=this.img1;
-            this.disableTimeDayRank=true;
-            this.TimeDayclass='selectBG';
-          }
-          if(this.profileData.Value.LocationPreferenceValuesLock==true){
-            this.locPrefSrc=this.img2;
-            this.disablelocPref=false;
-            this.locPrefclass='';
-          }else{
-            this.locPrefSrc=this.img1;
-            this.disablelocPref=true;
-            this.locPrefclass='selectBG';
-          }      
-          if(this.profileData.Value.DayOfTheWeekPreferenceValuesLock==true){
-            this.weekPrefSrc=this.img2;
-            this.disableweekPref=false;
-            this.weekPrefclass='';
-          }else{
-            this.weekPrefSrc=this.img1;
-            this.disableweekPref=true;
-            this.weekPrefclass='selectBG';
-          }
-          if(this.profileData.Value.TimeOfDayPreferenceValuesLock==true){
-            this.timePrefSrc=this.img2;
-            this.disableTimePref=false;
-            this.TimePrefclass='';
-          }else{
-            this.timePrefSrc=this.img1;
-            this.disableTimePref=true;
-            this.TimePrefclass='selectBG';
-          }
-
-          if(this.profileData.Value.DaysYouCannotHavePracticeValuesLock==true){
-            this.DayNotPracSrc=this.img2;
-            this.disableDayNotPrac=false;
-            this.DayNotPracclass='';
-          }else{
-            this.DayNotPracSrc=this.img1;
-            this.disableDayNotPrac=true;
-            this.DayNotPracclass='selectBG';
-          }
-
-          if(this.profileData.Value.TimeYouCannotHavePracticeValuesLock==true){
-            this.TimeNotPracSrc=this.img2;
-            this.disableTimeNotPrac=false;
-            this.TimeNotPracclass='';
-          }else{
-            this.TimeNotPracSrc=this.img1;
-            this.disableTimeNotPrac=true;
-            this.TimeNotPracclass='selectBG';
-          }
-        this.countpatchDaysYouCantHavePractice=0;
-        this.countpatchTimeYouCantHavePractice=0;    
-        this.generateDetailsForm();
-        this.generatePracticePreferenceForm();
-        this.dataRequest = false;
-      },
-      (error)=>{
-        this.dataRequest = false;   
-      }
-    )
+    this.dataRequest=true; 
+    this.GetCoachProfileData();   
+    
   }
 
   get CoachProfile(){
     return this.profileData.Value;
   }
-  
 
+  async GetCoachProfileData(){
+    await this.coachService.GetCoachProfileData().subscribe((res)=>
+    { 
+        if(res.Status==true){               
+            this.profileData = res;
+            console.log(this.profileData.Value);
+            if(this.profileData.Value.ShirtSizeLock==true){
+              this.currentSrc=this.img2;
+              this.disableShirtSize=false;
+              this.selectedclass='';
+            }else{
+              this.currentSrc=this.img1;
+              this.disableShirtSize=true;
+              this.selectedclass='selectBG';
+            }
+            if(this.profileData.Value.LocationRankValuesLock==true){
+              this.locRankSrc=this.img2;
+              this.disablelocRank=false;
+              this.locclass='';
+            }else{
+              this.locRankSrc=this.img1;
+              this.disablelocRank=true;
+              this.locclass='selectBG';
+            }
+            if(this.profileData.Value.DayOfTheWeekRankValuesLock==true){
+              this.dayRankSrc=this.img2;
+              this.disableDayRank=false;
+              this.Dayclass='';
+            }else{
+              this.dayRankSrc=this.img1;
+              this.disableDayRank=true;
+              this.Dayclass='selectBG';
+            }  
+            if(this.profileData.Value.TimeOfDayRankValuesLock==true){
+              this.timeDayRankSrc=this.img2;
+              this.disableTimeDayRank=false;
+              this.TimeDayclass='';
+            }else{
+              this.timeDayRankSrc=this.img1;
+              this.disableTimeDayRank=true;
+              this.TimeDayclass='selectBG';
+            }
+            if(this.profileData.Value.LocationPreferenceValuesLock==true){
+              this.locPrefSrc=this.img2;
+              this.disablelocPref=false;
+              this.locPrefclass='';
+            }else{
+              this.locPrefSrc=this.img1;
+              this.disablelocPref=true;
+              this.locPrefclass='selectBG';
+            }      
+            if(this.profileData.Value.DayOfTheWeekPreferenceValuesLock==true){
+              this.weekPrefSrc=this.img2;
+              this.disableweekPref=false;
+              this.weekPrefclass='';
+            }else{
+              this.weekPrefSrc=this.img1;
+              this.disableweekPref=true;
+              this.weekPrefclass='selectBG';
+            }
+            if(this.profileData.Value.TimeOfDayPreferenceValuesLock==true){
+              this.timePrefSrc=this.img2;
+              this.disableTimePref=false;
+              this.TimePrefclass='';
+            }else{
+              this.timePrefSrc=this.img1;
+              this.disableTimePref=true;
+              this.TimePrefclass='selectBG';
+            }
+
+            if(this.profileData.Value.DaysYouCannotHavePracticeValuesLock==true){
+              this.DayNotPracSrc=this.img2;
+              this.disableDayNotPrac=false;
+              this.DayNotPracclass='';
+            }else{
+              this.DayNotPracSrc=this.img1;
+              this.disableDayNotPrac=true;
+              this.DayNotPracclass='selectBG';
+            }
+
+            if(this.profileData.Value.TimeYouCannotHavePracticeValuesLock==true){
+              this.TimeNotPracSrc=this.img2;
+              this.disableTimeNotPrac=false;
+              this.TimeNotPracclass='';
+            }else{
+              this.TimeNotPracSrc=this.img1;
+              this.disableTimeNotPrac=true;
+              this.TimeNotPracclass='selectBG';
+            }
+          this.countpatchDaysYouCantHavePractice=0;
+          this.countpatchTimeYouCantHavePractice=0;    
+          this.generateDetailsForm();
+          this.generatePracticePreferenceForm();
+          this.dataRequest = false;
+        }else{
+          this.dataRequest = false;
+          this.bsModalRef = this.modalService.show(ErrorModalComponent);
+          this.bsModalRef.content.closeBtnName = 'Close';
+          this.bsModalRef.content.errorTitle = res.Message.PopupHeading;
+          this.bsModalRef.content.errorMsg = res.Message.PopupMessage;          
+        }
+      });
+  }
 
   async generateDetailsForm(){
     this.personalDetailsForm = await this.fb.group({
@@ -213,14 +220,6 @@ export class CoachProfileComponent implements OnInit {
     
   }
 
-  initShirtSize(){
-    for(var i=0; i<this.profileData.Value.ShirtSizeValue.length; ++i){   
-       if(this.profileData.Value.ShirtSizeValue[i].Selected)
-       return this.profileData.Value.ShirtSizeValue[i].SizeId;
-      }
-
-  }
-
   async generatePracticePreferenceForm(){
     this.preferenceForm = await this.fb.group({
       locationPreference: this.patchLocationPreference(),
@@ -233,7 +232,6 @@ export class CoachProfileComponent implements OnInit {
       timeYouCantHavePractice: this.patchTimeYouCantHavePractice()
 
     })
-
     var x = await setInterval(() => {
        this.selecteddayOfTheWeekRank=this.preferenceForm.value.dayOfTheWeekRank;  
        this.selectedtimeOfTheDayRank=this.preferenceForm.value.timeOfTheDayRank; 
@@ -241,10 +239,15 @@ export class CoachProfileComponent implements OnInit {
        this.selectedTimeNotPractices=this.preferenceForm.value.timeYouCantHavePractice; 
       clearInterval(x);
     }, 1000);    
-    
-
   }
-  
+
+  initShirtSize(){
+    for(var i=0; i<this.profileData.Value.ShirtSizeValue.length; ++i){   
+       if(this.profileData.Value.ShirtSizeValue[i].Selected)
+       return this.profileData.Value.ShirtSizeValue[i].SizeId;
+      }
+  }
+
   locationRank(){
     for(var i=0; i<this.profileData.Value.LocationRankValues.length; ++i){   
        if(this.profileData.Value.LocationRankValues[i].Selected)
@@ -252,6 +255,7 @@ export class CoachProfileComponent implements OnInit {
       }
 
   }
+
   dayOfTheWeekRank(){
     for(var i=0; i<this.profileData.Value.DayOfTheWeekRankValues.length; ++i){   
        if(this.profileData.Value.DayOfTheWeekRankValues[i].Selected)
@@ -259,6 +263,7 @@ export class CoachProfileComponent implements OnInit {
     }
 
   }
+
   timeOfTheDayRank(){
     for(var i=0; i<this.profileData.Value.TimeOfDayRankValues.length; ++i){   
        if(this.profileData.Value.TimeOfDayRankValues[i].Selected)
@@ -371,15 +376,31 @@ export class CoachProfileComponent implements OnInit {
       VolunteerId:this.profileData.Value.VolunteerId,
       VolunteerSeasonalId:this.profileData.Value.VolunteerSeasonalId,
       WorkPhone:''
-    };
-    
-    this.coachService.saveProfileData(CoachDetails)
-      .subscribe((res) => {        
-        var response =res;
-        console.log(response);
-        this.dataRequest = false;
-        this.snackbar.open(res.Message.PopupHeading, '', { duration: 3000 });        
-      });
+    };    
+    this.SaveCoachProfileData(CoachDetails);    
+  }
+
+  SaveCoachProfileData(CoachDetails){
+    this.coachService.saveProfileData(CoachDetails).subscribe((res) => {        
+      var response =res;
+      this.dataRequest = false;
+      if(response.Status){
+        this.showSuccessfullpop(response.Status,response.Message.PopupHeading,response.Message.PopupMessage);
+        this.router.navigate(["/coach/profile"]);
+      }else{
+        this.bsModalRef = this.modalService.show(ErrorModalComponent);
+        this.bsModalRef.content.closeBtnName = 'Close';
+        this.bsModalRef.content.errorTitle = response.Message.PopupHeading;
+        this.bsModalRef.content.errorMsg = response.Message.PopupMessage;
+        this.coachService.indicator.next(true);
+        this.bsModalRef.content.route = "/coach/profile";
+      }
+             
+    },(err) => {
+      this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.bsModalRef.content.closeBtnName = 'Close';
+      this.bsModalRef.content.errorMsg = err;        
+    });
   }
 
   //Event Handling
@@ -395,7 +416,7 @@ export class CoachProfileComponent implements OnInit {
         }          
       }         
     });   
-}
+  }
 
   dayOfTheWeekPreferenceChange(e:any, id:number){  
     if(e.currentTarget.checked){
@@ -587,5 +608,18 @@ export class CoachProfileComponent implements OnInit {
       this.bsModalRef = this.modalService.show(ErrorModalComponent);
       this.bsModalRef.content.closeBtnName = 'Close';
       this.bsModalRef.content.errorMsg = msg;
+  }
+
+  showSuccessfullpop(status,title,popmsg){
+    const initialState = {
+      status: status,
+      popupTitle: title,
+      popupMsg: popmsg
+    };
+
+    this.bsModalRef = this.modalService.show(
+      SuccessPopupComponent,
+      Object.assign({}, { class: 'customModalWidth75', initialState })
+    );
   }
 }

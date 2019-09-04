@@ -56,7 +56,8 @@ const routes: Routes = [
       },
       {
         path: 'calendar', 
-        component: CoachCalendarComponent
+        component: CoachCalendarComponent,
+        canDeactivate: [DeactivateGuard]
       },
       {
         path: 'teaminfo', 

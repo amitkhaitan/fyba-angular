@@ -89,18 +89,15 @@ coachTeamInfo(){
       }         
     }, (err) => {
       this.initialFetchError = true;
-      this.errorMsg = err;
-      this.modalRef = this.modalService.show(ErrorModalComponent);
-      this.modalRef.content.closeBtnName = 'Close';
-      this.modalRef.content.errorMsg = err;
+      // this.errorMsg = err;
+      // this.modalRef = this.modalService.show(ErrorModalComponent);
+      // this.modalRef.content.closeBtnName = 'Close';
+      // this.modalRef.content.errorMsg = err;
     });
   }
 
   sendEmail(type){
       this.getallemail();
-      //console.log( this.coachService.recepientemail);
-      //console.log(this.coachService.recipentparentId);
-      //console.log(this.coachService.recepientmobileno);
        this.router.navigate(["/coach/blastemail",{blasttype:type}]);
     
   }
