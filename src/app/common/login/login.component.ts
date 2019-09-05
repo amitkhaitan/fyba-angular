@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.delete('isOfficial');
         this.cookieService.delete('isPlayer');
         this.cookieService.delete('isCoach');
-        //console.log(res);
+        console.log(res);
         this.userData = res;
         if (!res['Status']) {
           this.loginRequest = false;

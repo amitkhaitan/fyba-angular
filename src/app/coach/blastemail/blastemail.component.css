@@ -3,3 +3,4 @@
 .customMargin{margin-bottom: 2%;}
 .btn-responsive {white-space: normal !important;word-wrap: break-word;}
 .blastIcon{height:36px}
+.textWrap{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}

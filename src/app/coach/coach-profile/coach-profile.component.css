@@ -11,3 +11,21 @@ label{
     height: 18px;
     width: 15px;
 }
+
+.marginLeftNone{
+    margin-left:0px !important
+}
+.lockCustom{
+    position:absolute;
+    right:0px;
+    top:10px;
+}
+
+.posRelative{
+    position:relative;
+}
+
+.pre_custom label{
+    vertical-align:middle;
+    width:calc(100% - 24px);
+}

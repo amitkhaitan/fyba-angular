@@ -10,3 +10,8 @@
 .blastbtn{background-color: #1e31ae; color:#ffffff; padding: 10px 15px; border-radius: 10px;}
 .coachemail{color:#4472c4 !important}
 .blueBGHead_health{background-color:red; padding:5px; color:#ffffff; font-size:14px; font-weight:bold}
+.marginLeft{margin-left: 5px;}
+
+@media only screen and (max-width : 767px) {
+    .marginLeft{margin-left: 0px;}
+}

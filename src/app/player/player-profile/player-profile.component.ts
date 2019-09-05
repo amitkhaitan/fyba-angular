@@ -136,6 +136,9 @@ export class PlayerProfileComponent implements OnInit {
   get ShirtSizeValue(){
     return this.profileSection.Value.ShirtSizeValue;
   }
+  get JerseySizeValue(){
+    return this.profileSection.Value.JerseySizeValue;
+  }
 
   showApparel:boolean;
   showTransaction:boolean;
@@ -154,25 +157,13 @@ export class PlayerProfileComponent implements OnInit {
         if (this.playerService.profileData.Value.apparel) {
           if(this.playerService.profileData.Value.apparel.RequestedJersey1Lock==true){
             this.currentSrc1 = this.img2;
-            if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
-              //this.numbers1[0] = 'N/A';
-            }
           }else{
             this.currentSrc1 = this.img1;
-            if(this.playerService.profileData.Value.apparel.RequestedJersey1==''){
-             // this.numbers1[0] = 'Select..';
-            }
           }
           if(this.playerService.profileData.Value.apparel.RequestedJersey2Lock==true){
             this.currentSrc2 = this.img2;
-            if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
-              //this.numbers2[0] = 'N/A';
-            }
           }else{
             this.currentSrc2 = this.img1;
-            if(this.playerService.profileData.Value.apparel.RequestedJersey2==''){
-              //this.numbers2[0] = 'Select..';
-            }
           }
 
           if(this.playerService.profileData.Value.apparel.ShortSizeLock==true){
@@ -191,8 +182,8 @@ export class PlayerProfileComponent implements OnInit {
             ParentInfo: this.initProfileDetailsArray(),        
             AssignedJersey:new FormControl({value:this.apparel.AssignedJersey}),
             JerseySizeId:new FormControl({value:this.apparel.JerseySizeId,disabled:(this.apparel.JerseySizeLock)==true ? false :true}),
-            RequestedJersey1:new FormControl({value:this.apparel.RequestedJersey1,disabled:(this.apparel.RequestedJersey1Lock)==true ? false :true}),
-            RequestedJersey2:new FormControl({value:this.apparel.RequestedJersey2,disabled:(this.apparel.RequestedJersey2Lock)==true ? false :true}),
+            RequestedJersey1Id:new FormControl({value:this.apparel.RequestedJersey1Id,disabled:(this.apparel.RequestedJersey1Lock)==true ? false :true}),
+            RequestedJersey2Id:new FormControl({value:this.apparel.RequestedJersey2Id,disabled:(this.apparel.RequestedJersey2Lock)==true ? false :true}),
             ShortSizeId:new FormControl({value:this.apparel.ShortSizeId,disabled:(this.apparel.ShortSizeLock)==true ? false :true}),
             AssignedJerseyLock: this.apparel.AssignedJerseyLock,
             JerseySizeLock:this.apparel.JerseySizeLock,
@@ -266,8 +257,8 @@ export class PlayerProfileComponent implements OnInit {
     var rd = {
       ShortSizeId:this.profileForm.get('ShortSizeId').value,
       JerseySizeId :this.profileForm.get('JerseySizeId').value,
-      RequestedJersey1:this.profileForm.get('RequestedJersey1').value,
-      RequestedJersey2:this.profileForm.get('RequestedJersey2').value,
+      RequestedJersey1Id:this.profileForm.get('RequestedJersey1Id').value,
+      RequestedJersey2Id:this.profileForm.get('RequestedJersey2Id').value,
       AssignedJerseyLock:this.profileForm.get('AssignedJerseyLock').value,
       JerseySizeLock:this.profileForm.get('JerseySizeLock').value,
       RequestedJersey1Lock:this.profileForm.get('RequestedJersey1Lock').value,
@@ -331,13 +322,13 @@ export class PlayerProfileComponent implements OnInit {
     })
   }
 
-  changeRequestedJersey1(event:any) {
-    this.RequestedJersey1.setValue(event.target.value, {
+  changeRequestedJersey1Id(event:any) {
+    this.RequestedJersey1Id.setValue(event.target.value, {
       onlySelf: true
     })
   }
-  changeRequestedJersey2(event:any) {
-    this.RequestedJersey2.setValue(event.target.value, {
+  changeRequestedJersey2Id(event:any) {
+    this.RequestedJersey2Id.setValue(event.target.value, {
       onlySelf: true
     })
   }
@@ -349,12 +340,12 @@ export class PlayerProfileComponent implements OnInit {
     return this.profileForm.get('JerseySizeId');
   }
 
-  get RequestedJersey1() {
-    return this.profileForm.get('RequestedJersey1');
+  get RequestedJersey1Id() {
+    return this.profileForm.get('RequestedJersey1Id');
   }
 
-  get RequestedJersey2() {
-    return this.profileForm.get('RequestedJersey2');
+  get RequestedJersey2Id() {
+    return this.profileForm.get('RequestedJersey2Id');
   }
 
   errormethod(msg:any){

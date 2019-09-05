@@ -738,7 +738,7 @@ export class CoachGamelistFormComponent implements OnInit {
     // await this.prepareDeletedScoreSheetsforSubmission();
     // await this.prepareDeletedIncidents();
     // await this.prepareFinalData();
-    this.downloadRequest=true;
+    // this.downloadRequest=true;
     if (
       this.form.get('IsVisitorForfeit').value == true ||
       this.form.get('IsHomeForfeit').value == true
@@ -845,6 +845,7 @@ export class CoachGamelistFormComponent implements OnInit {
         }
       } else {
         if (this.homePON == 0) {
+          
           const initialState = {
             popupTitle: 'Error',
             popupMsg: 'The players of note in Team ' + this.gameData.HomeTeam + ' can not be Zero.'
