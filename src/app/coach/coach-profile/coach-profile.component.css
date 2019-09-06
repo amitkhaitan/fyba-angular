@@ -7,7 +7,6 @@ label{
 }
 
 .lock {
-    margin-left: 15px;
     height: 18px;
     width: 15px;
 }
@@ -28,4 +27,9 @@ label{
 .pre_custom label{
     vertical-align:middle;
     width:calc(100% - 24px);
+}
+
+.lockDiv{
+    text-align:right;
+    padding-right:0px;
 }

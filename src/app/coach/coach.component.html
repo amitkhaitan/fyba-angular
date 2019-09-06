@@ -70,18 +70,19 @@
             </a>
           </li>
           <li class="tab-link" data-tab="tab2-3" routerLinkActive="active" routerLink="/coach/reportresults" >
-            <a >
+            <a>
+              <div class="imgRelative">
               <img [src]="game_icon" alt="Report_Results" />
               <span
                     class="notification_tip report_pos"
-                    *ngIf="dss.reportTagLabel > 0"
+                    *ngIf="dss.CoachReportResultCountTag > 0"
                   >
-                    {{ dss.reportTagLabel }}
+                    {{ dss.CoachReportResultCountTag }}
                   </span>
+                </div>
               <span>Report <br class="breakAll" />Results </span>
             </a>
           </li>
-          <!----li class="tab-link" data-tab="tab2-4"><div class="imgRelative"><img [src]="report_icon" alt="Report Icon" /><span class="notification_tip report_pos">20</span></div><span>Report <br class="breakWord" />Games</span></li-->
           <li class="tab-link current active" data-tab="tab2-5" routerLinkActive="active" routerLink="/coach/profile" >
             <a >
               <img [src]="officiating" alt="Profile" />

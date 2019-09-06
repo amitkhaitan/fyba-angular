@@ -313,7 +313,7 @@ div {
    .marginTop10{margin-top:10px;}
    a.btnFilter{background:#3c98db; padding:5px 10px; border-radius:5px; color:#ffffff; text-decoration:underline;}
    a.btnFilter:hover, a.btnFilter:focus{ color:#ffffff;}
-   h1{font-size:30px;margin-bottom: 0;margin-top: 12px;display: inline-block;width: 100%; position:relative;}
+   h1{font-size:26px;margin-bottom: 0;margin-top: 12px;display: inline-block;width: 100%; position:relative;}
    
    
    .marginBottom10{margin-bottom:10px;}
@@ -747,7 +747,7 @@ div {
    .player_header_img{height:200px; background-position:center center;}
    .coach_header_img{height:200px; background-position:center center;}
    .official_header_img_paddNone .col-md-12{padding-left:0px !important; padding-right:0px !important;}
-   .breakWord{display:block;}
+   .breakWord{display:none;}
   
    .data_module h3{font-size:13px;}
    ul.addList li{float:left; width:60px; margin-left:0px;height: 60px;

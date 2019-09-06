@@ -34,4 +34,5 @@ export class DataSharingService {
   isOfficial:boolean = null;
   isPlayer:boolean = null;
   TeamId:number=null;
+  CoachReportResultCountTag:number=null;
 }

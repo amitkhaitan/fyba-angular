@@ -19,6 +19,9 @@ export class TeamComponent implements OnInit {
   selectAll:boolean = false;
   teamInfo : Team =null;
   dataRequest:boolean;
+  interval;
+  timesRun;
+  fetchingData:Boolean;
   
 
   constructor(public playerService: PlayerService,
@@ -29,13 +32,13 @@ export class TeamComponent implements OnInit {
 
   }
 
-
-
   ngOnInit() {
     this.emails = [];
     this.rosterEmails = [];
-    //this.config.closeOthers = true;
     this.dataRequest=true;
+    //this.config.closeOthers = true;
+    this.interval = setInterval(() => {
+    this.timesRun += 1; 
     this.playerService.getTeamInfo()
     .subscribe(
       (res)=>{
@@ -54,6 +57,9 @@ export class TeamComponent implements OnInit {
        this.rosterEmails = [];
       }
      );
+      clearInterval(this.interval);
+      this.fetchingData = false;
+      }, 1000);  
 
   
   }

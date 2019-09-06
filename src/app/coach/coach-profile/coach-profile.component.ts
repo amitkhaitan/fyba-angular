@@ -79,6 +79,9 @@ export class CoachProfileComponent implements OnInit {
   countpatchTimeYouCantHavePractice:number;
   selectedDaysNotPractices:string;
   selectedTimeNotPractices:string;
+  timesRun;
+  interval;
+  fetchingData: boolean;
 
   constructor(private dss: DataSharingService, 
     private coachService: CoachService,
@@ -94,8 +97,16 @@ export class CoachProfileComponent implements OnInit {
     }
     
   ngOnInit() {
-    this.dataRequest=true; 
-    this.GetCoachProfileData();   
+    this.dataRequest=true;
+    this.interval = setInterval(() => {
+      this.timesRun += 1; 
+    this.GetCoachProfileData(); 
+  
+  clearInterval(this.interval);
+  this.fetchingData = false;
+
+
+    }, 2000);  
     
   }
 

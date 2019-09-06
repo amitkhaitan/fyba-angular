@@ -12,6 +12,7 @@ import {CoachTeamList} from './models/CoachTeamList.interface';
 export class CoachComponent implements OnInit {
   headerImg: string;
   calendar_icon: string;
+  profileData=null;
   game1: string;
   game2: string;
   team_icon: string;
@@ -47,8 +48,19 @@ export class CoachComponent implements OnInit {
        console.log(this.coachSection);
        if (this.TeamList != null) this.coachData = this.TeamList[0];
        this.dss.TeamId = this.coachData["TeamId"];
-       this.dataRequest = false;
-       this.router.navigate(["/coach/profile"]);
+
+       this.coachService.GetCoachProfileData().subscribe((res)=>{
+          if(res.Status==true){
+            this.profileData=res;
+            console.log(this.profileData.Value);
+            this.dss.CoachReportResultCountTag=this.profileData.Value.CoachReportResultCountTag;
+          }
+           this.dataRequest = false;
+           this.router.navigate(["/coach/profile"]);
+         }
+       )
+
+       
     });
 
   }
@@ -57,10 +69,21 @@ export class CoachComponent implements OnInit {
     return this.coachSection.Value[0]['coachTeamList'];
   }
 
-  async filterCoachTeam(id: number) {    
+  async filterCoachTeam(id: number) {  
+    this.dataRequest=true;  
     this.coachData = await this.TeamList.filter((item) => item.TeamId == id);
     this.coachData = this.coachData[0];
     this.dss.TeamId = await id; 
-    await this.router.navigate(["/coach/profile"]);     
+    console.log(this.dss.TeamId);
+    await this.coachService.GetCoachProfileData().subscribe(
+      (res)=>{
+        if(res.Status==true){
+          this.profileData=res;
+          this.dss.CoachReportResultCountTag=this.profileData.Value.CoachReportResultCountTag;
+        }
+        this.dataRequest=false;
+        this.router.navigate(["/coach/profile"]);
+      }
+    )     
   }
 }

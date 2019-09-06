@@ -23,6 +23,7 @@ export class CoachService {
   reportRequest:boolean;
   initialJson: string;
   emailFlag:boolean;
+  profileData=null;
   calendarData=null;
   teamInfoData=null;
   finalFilter = new FinalFilter();
@@ -74,7 +75,8 @@ export class CoachService {
       LeagueId: this.dss.leagueId,
       SeasonId: this.dss.seasonId,
       VolunteerSeasonalId: this.dss.VolunteerSeasonalId,
-      VolunteerId:this.dss.VolunteerId
+      VolunteerId:this.dss.VolunteerId,
+      TeamId:this.dss.TeamId
     })
     var body = JSON.stringify(getCoachModel);
     console.log(body);
