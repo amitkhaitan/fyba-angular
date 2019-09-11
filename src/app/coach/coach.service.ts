@@ -100,12 +100,12 @@ export class CoachService {
    
   }
 
-  sendEmail(subject,emailBody): Observable<any> {
+  sendEmail(subject,emailBody,recepientemail): Observable<any> {
     var emailModel = new IEmail();
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToEmailIds:this.recepientemail,
+      ToEmailIds:recepientemail,
       FromEmailId: this.dss.email,
       Subject: subject,
       Body: emailBody,
@@ -117,12 +117,12 @@ export class CoachService {
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
-  sendText(emailBody): Observable<any> {
+  sendText(emailBody,recepientmobileno): Observable<any> {
     var emailModel = new IEmail();
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToPhoneNumbers:this.recepientmobileno,
+      ToPhoneNumbers:recepientmobileno,
       BodyText: emailBody,
       PageType:'Coach',
       SeasonId: this.dss.seasonId,

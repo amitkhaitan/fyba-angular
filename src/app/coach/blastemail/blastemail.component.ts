@@ -9,7 +9,7 @@ import { DataSharingService } from './../../data-sharing.service';
 import { ValidationModalComponent } from './../../official/report-game/validation-modal/validation-modal.component';
 import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -31,11 +31,12 @@ export class BlastemailComponent {
   loader: boolean;
   popuptext:string;
   blasticon:string;
-  SendEmails:Array<string>;;
+  SendEmails:Array<string>;
   public fields: Object = {};
   public waterMark: string = '';
   public box : string = '';
-  public value: string[] = [];
+  public value:any = [];
+  public FinalEmail:any = [];
   public settings = {};
   constructor(private fb: FormBuilder,
     public modalService: BsModalService,
@@ -45,6 +46,10 @@ export class BlastemailComponent {
   }
 
   ngOnInit() {
+    this.settings = {
+      text: 'Select....',
+      classes: 'myclass custom-class'
+    };
     this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
     
     if(this.blastemailtext=='blast_email'){
@@ -52,9 +57,10 @@ export class BlastemailComponent {
         this.waterMark= 'Email ';    
         this.SendEmails=this.CoachService.teamInfoData.SendEmails;
         this.box= 'Box';
+        console.log(this.SendEmails);
         for(let i=1;i<=this.SendEmails.length;i++)
         {
-          this.value.push(i.toString());
+          this.value.push(i);
         }
         console.log(this.value);
         this.blastemailtype=true;
@@ -68,7 +74,7 @@ export class BlastemailComponent {
       this.SendEmails=this.CoachService.teamInfoData.SendTexts;
       for(let i=1;i<=this.SendEmails.length;i++)
         {
-          this.value.push(i.toString());
+          this.value.push(i);
         }
       this.blastemailtype=false;
       this.blasttext='TEXT';
@@ -78,14 +84,13 @@ export class BlastemailComponent {
     
     this.blastemailfrom=this.dss.name+'('+this.dss.email+')';
     this.emailForm = this.fb.group({
-      recepient: this.fb.control(this.blastemailto),
+      recepient: this.fb.control(this.value),
       subject:this.fb.control([]),
       body:this.fb.control([]),
       blasttype:this.fb.control(this.blasttext),
     })
 
   }
- 
   onSubmit() {
     this.loader = true;  
     if(this.emailForm.get('blasttype').value=='EMAIL'){
@@ -97,9 +102,16 @@ export class BlastemailComponent {
 
   SendBlastEmail(){
     var responseBody;
+    for(let i=0;i<(this.emailForm.get('recepient').value).length;i++)
+    {
+      if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
+      {
+        this.FinalEmail.push(this.SendEmails[i]['email'].replace(',', ';'));
+      }
+    }
     if(this.emailForm.get('subject').value.length>0 && this.emailForm.get('body').value.length>0){
 
-      this.CoachService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value)
+      this.CoachService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value,this.FinalEmail)
      .subscribe(
        (res) => {
          this.loader = false;
@@ -128,8 +140,16 @@ export class BlastemailComponent {
 
   SendBlastText(){
     var responseBody;
+    for(let i=0;i<(this.emailForm.get('recepient').value).length;i++)
+    {
+      if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
+      {
+
+        this.FinalEmail.push(this.SendEmails[i]['mobile'].replace(',', ';'));
+      }
+    }
     if(this.emailForm.get('body').value.length>0){
-      this.CoachService.sendText(this.emailForm.get('body').value)
+      this.CoachService.sendText(this.emailForm.get('body').value,this.FinalEmail)
      .subscribe(
        (res) => {
          this.loader = false;

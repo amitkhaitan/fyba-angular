@@ -2,15 +2,18 @@
   <div class="row">
     <div class="col-md-12">
       <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /> <strong> Send Blast {{blasttext |titlecase}}</strong></h2>
-      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit(emailForm)" class="form-horizontal">
         <div id="composeEmailDiv">
           <div class="form-group">
               <label class="col-sm-1 control-label">To:</label>
               <div class="col-sm-11">
                 <div id="multiselect-sample" class="form-control " class="control-section" >
                   <div class="heightAuto control-styles form-control textWrap">
-                      <ejs-multiselect  id='sample-list2' [value]='value'  [dataSource]='SendEmails' [mode]='box' [fields]='fields' [placeholder]='waterMark'></ejs-multiselect>
-                  </div>
+                      <ejs-multiselect  id='sample-list2' formControlName="recepient"  [dataSource]='SendEmails' [mode]='box' [fields]='fields' [placeholder]='waterMark'></ejs-multiselect>
+                      <!-- <angular2-multiselect [data]="SendEmails" [settings]="settings"
+                                  formControlName="recepient">
+                                </angular2-multiselect> -->
+                    </div>
                 </div>
               </div>
           </div>
