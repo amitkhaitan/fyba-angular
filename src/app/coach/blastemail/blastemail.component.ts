@@ -37,7 +37,6 @@ export class BlastemailComponent {
   public box : string = '';
   public value:any = [];
   public FinalEmail:any = [];
-  public settings = {};
   constructor(private fb: FormBuilder,
     public modalService: BsModalService,
     private router: Router,private route:ActivatedRoute,
@@ -46,10 +45,6 @@ export class BlastemailComponent {
   }
 
   ngOnInit() {
-    this.settings = {
-      text: 'Select....',
-      classes: 'myclass custom-class'
-    };
     this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
     
     if(this.blastemailtext=='blast_email'){
@@ -57,12 +52,10 @@ export class BlastemailComponent {
         this.waterMark= 'Email ';    
         this.SendEmails=this.CoachService.teamInfoData.SendEmails;
         this.box= 'Box';
-        console.log(this.SendEmails);
         for(let i=1;i<=this.SendEmails.length;i++)
         {
           this.value.push(i);
         }
-        console.log(this.value);
         this.blastemailtype=true;
         this.blasttext='EMAIL';
         this.blastemailto=this.CoachService.recepientemail;
@@ -106,12 +99,12 @@ export class BlastemailComponent {
     {
       if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
       {
-        this.FinalEmail.push(this.SendEmails[i]['email'].replace(',', ';'));
+        this.FinalEmail.push(this.SendEmails[i]['email'].split('(')[1].split(')')[0]);
       }
     }
     if(this.emailForm.get('subject').value.length>0 && this.emailForm.get('body').value.length>0){
 
-      this.CoachService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value,this.FinalEmail)
+      this.CoachService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value,this.FinalEmail.toString())
      .subscribe(
        (res) => {
          this.loader = false;
@@ -145,11 +138,11 @@ export class BlastemailComponent {
       if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
       {
 
-        this.FinalEmail.push(this.SendEmails[i]['mobile'].replace(',', ';'));
+        this.FinalEmail.push(this.SendEmails[i]['mobile'].split('(')[1].split(')')[0]);
       }
     }
     if(this.emailForm.get('body').value.length>0){
-      this.CoachService.sendText(this.emailForm.get('body').value,this.FinalEmail)
+      this.CoachService.sendText(this.emailForm.get('body').value,this.FinalEmail.toString())
      .subscribe(
        (res) => {
          this.loader = false;

@@ -43,8 +43,6 @@ export class CoachCalendarComponent implements OnInit {
     this.showother=true;
     this.coachCalendar();
     }
-    
-
   }
   
   coachCalendar(){    
