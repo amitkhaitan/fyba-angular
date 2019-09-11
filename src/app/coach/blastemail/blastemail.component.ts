@@ -31,7 +31,12 @@ export class BlastemailComponent {
   loader: boolean;
   popuptext:string;
   blasticon:string;
-  //postEmailBody: RequestedData;
+  SendEmails:Array<string>;;
+  public fields: Object = {};
+  public waterMark: string = '';
+  public box : string = '';
+  public value: string[] = [];
+  public settings = {};
   constructor(private fb: FormBuilder,
     public modalService: BsModalService,
     private router: Router,private route:ActivatedRoute,
@@ -41,12 +46,30 @@ export class BlastemailComponent {
 
   ngOnInit() {
     this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
+    
     if(this.blastemailtext=='blast_email'){
+        this.fields = { text: 'email', value: 'id' };
+        this.waterMark= 'Email ';    
+        this.SendEmails=this.CoachService.teamInfoData.SendEmails;
+        this.box= 'Box';
+        for(let i=1;i<=this.SendEmails.length;i++)
+        {
+          this.value.push(i.toString());
+        }
+        console.log(this.value);
         this.blastemailtype=true;
         this.blasttext='EMAIL';
         this.blastemailto=this.CoachService.recepientemail;
         this.blasticon="./assets/images/mail-icon-b.png";
     }else{
+      this.fields = { text: 'mobile', value: 'id' };
+      this.waterMark= 'PhoneNumber ';    
+      this.box= 'Box';
+      this.SendEmails=this.CoachService.teamInfoData.SendTexts;
+      for(let i=1;i<=this.SendEmails.length;i++)
+        {
+          this.value.push(i.toString());
+        }
       this.blastemailtype=false;
       this.blasttext='TEXT';
       this.blastemailto=this.CoachService.recepientmobileno;
@@ -137,6 +160,7 @@ export class BlastemailComponent {
       ValidationModalComponent,
       Object.assign({}, { class: 'customModalWidth75', initialState })
     );
+    this.loader = false;
   }
   
   cancel() {

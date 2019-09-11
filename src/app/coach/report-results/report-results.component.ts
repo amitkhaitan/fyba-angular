@@ -61,9 +61,11 @@ export class ReportResultsComponent{
         } else {
             this.modalRef = this.modalService.show(ErrorModalComponent);
             this.modalRef.content.closeBtnName = 'Close';
+            this.dataRequest=false;
         }         
       }, (err) => {
             this.initialFetchError = true;
+            this.dataRequest=false;
             //this.errorMsg = err;
             //this.modalRef = this.modalService.show(ErrorModalComponent);
             //this.modalRef.content.closeBtnName = 'Close';

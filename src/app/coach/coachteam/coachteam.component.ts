@@ -85,6 +85,7 @@ coachTeamInfo(){
           }       
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
+        this.dataRequest = false;
         this.modalRef.content.closeBtnName = 'Close';
         this.showteamleadership=false;
         this.showTeamRoaster=false;

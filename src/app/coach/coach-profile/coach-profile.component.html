@@ -56,13 +56,13 @@
                       <strong>Shirt Size:</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select formControlName="shirtSize" class={{selectedclass}}  (change)="changeshirtSize($event.target.value)" >
+                      <select class="width130 my-dropdown {{selectedclass}}" formControlName="shirtSize" (change)="changeshirtSize($event.target.value)" >
                         <option *ngFor="let item of profileData.Value.ShirtSizeValue" [value]="item.SizeId" 
                           [selected]="item.Selected==true" >
                           {{item.Size}}
                         </option>
                       </select>                      
-                      <img  class="lock" [src]="currentSrc" alt="lock" />
+                      <img  class="lock marginLeft10" [src]="currentSrc" alt="lock" />
                     </div>
                     <div class="clearfix"></div>
                   </div>
@@ -112,7 +112,7 @@
                     <strong>Location Rank</strong>
                   </div>
                   <div class="row-fluid col-md-4 col-sm-4 col-xs-6 paddLeft5">
-                    <select formControlName="locationRank" class="{{locclass}}" (change)="changelocationRank($event.target.value)">
+                    <select formControlName="locationRank" class="width130 my-dropdown {{locclass}}" (change)="changelocationRank($event.target.value)">
                       <option *ngFor="let item of profileData.Value.LocationRankValues" [value]="item.RankId"
                         [selected]="item.Selected">{{item.RankName}}</option>
                     </select>
@@ -149,7 +149,7 @@
                     <strong>Day of the Week Rank</strong>
                   </div>
                   <div class="row-fluid col-md-4 col-sm-4 col-xs-6 paddLeft5">
-                    <select formControlName="dayOfTheWeekRank" class={{Dayclass}}  (change)="changedayOfTheWeekRank($event)">
+                    <select formControlName="dayOfTheWeekRank" class="{{Dayclass}} width130 my-dropdown"  (change)="changedayOfTheWeekRank($event)">
                       <option *ngFor="let item of profileData.Value.DayOfTheWeekRankValues" [value]="item.RankId"
                         [selected]="item.Selected">{{item.RankName}}</option>
                     </select>                   
@@ -187,7 +187,7 @@
                     <strong>Time of the Day Rank</strong>
                   </div>
                   <div class="row-fluid col-md-4 col-sm-4 col-xs-6 paddLeft5">
-                    <select formControlName="timeOfTheDayRank" class="{{TimeDayclass}}" (change)="changetimeOfTheDayRank($event)">
+                    <select formControlName="timeOfTheDayRank" class="{{TimeDayclass}} width130 my-dropdown" (change)="changetimeOfTheDayRank($event)">
                       <option *ngFor="let time of profileData.Value.TimeOfDayRankValues" [value]="time.RankId"
                         [selected]="time.Selected==true">{{time.RankName}}</option>
                     </select>        

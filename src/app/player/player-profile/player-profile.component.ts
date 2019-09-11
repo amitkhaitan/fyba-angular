@@ -293,6 +293,7 @@ export class PlayerProfileComponent implements OnInit {
         this.router.navigate(["/player/profile"]);
       }else{
         this.bsModalRef = this.modalService.show(ErrorModalComponent);
+        this.fetchingData = false;
         this.bsModalRef.content.closeBtnName = 'Close';
         this.bsModalRef.content.errorTitle = res['Message']['PopupHeading'];
         this.bsModalRef.content.errorMsg = res['Message']['PopupMessage'];
@@ -351,6 +352,7 @@ export class PlayerProfileComponent implements OnInit {
   errormethod(msg:any){
     this.bsModalRef = this.modalService.show(ErrorModalComponent);
     this.bsModalRef.content.closeBtnName = 'Close';
+    this.fetchingData = false;
     this.bsModalRef.content.errorMsg = msg;
 }
 

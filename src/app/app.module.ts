@@ -62,7 +62,7 @@ import { CoachGamelistFormComponent } from './coach/report-results/coach-gamelis
 import { ShowCoachIncidentComponent } from './coach/report-results/show-coach-incident/show-coach-incident.component';
 import { ShowCoachNewIncidentComponent } from './coach/report-results/show-coach-new-incident/show-coach-new-incident.component';
 import { NewCoachIncidentComponent } from './coach/report-results/new-coach-incident/new-coach-incident.component';
-
+import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -115,6 +115,7 @@ import { NewCoachIncidentComponent } from './coach/report-results/new-coach-inci
     BrowserAnimationsModule,
     FormsModule,
     AngularMultiSelectModule,
+    MultiSelectModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
     BrowserModule,

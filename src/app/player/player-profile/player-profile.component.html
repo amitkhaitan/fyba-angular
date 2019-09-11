@@ -315,7 +315,7 @@
                       <strong>Jersey # Request (1st choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" formControlName="RequestedJersey1Id"
+                      <select class="width130 my-dropdown" formControlName="RequestedJersey1Id"
                         (change)="changeRequestedJersey1Id($event)">
                         <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}"
                           [selected]="apparel.RequestedJersey1Id == Jersey.id">
@@ -331,7 +331,7 @@
                       <strong>Jersey # Request (2nd choice):</strong>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
-                      <select class="my-dropdown" formControlName="RequestedJersey2Id"
+                      <select class="width130 my-dropdown" formControlName="RequestedJersey2Id"
                         (change)="changeRequestedJersey2Id($event)">
                         <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}"
                           [selected]="apparel.RequestedJersey2Id == Jersey.id">

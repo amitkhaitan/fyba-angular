@@ -30,7 +30,6 @@ export class CoachService {
   IncidentReports: IncidentReports[] = [];
   NewIncidents: IncidentReports[] = [];
   ModifiedIncidents: IncidentReports[] = [];
-
   recepientemailId: string;
   recepientemail:string;
   recepientmobileno:string;

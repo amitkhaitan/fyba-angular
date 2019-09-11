@@ -65,6 +65,7 @@ export class PlayerCalendarComponent implements OnInit {
           }               
         }else{
           this.modalRef = this.modalService.show(ErrorModalComponent);
+          this.dataRequest = false; 
           this.modalRef.content.closeBtnName = 'Close';
           this.showpractices=false;
           this.showgames=false;
@@ -74,6 +75,7 @@ export class PlayerCalendarComponent implements OnInit {
         this.initialFetchError = true;
         this.errorMsg = err;
         this.modalRef = this.modalService.show(ErrorModalComponent);
+        this.dataRequest = false; 
         this.modalRef.content.closeBtnName = 'Close';
         this.modalRef.content.errorMsg = err;
         this.showpractices=false;

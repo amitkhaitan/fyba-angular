@@ -97,16 +97,13 @@ export class CoachProfileComponent implements OnInit {
     }
     
   ngOnInit() {
+    if(this.dss.TeamId){
     this.dataRequest=true;
-    this.interval = setInterval(() => {
-      this.timesRun += 1; 
-    this.GetCoachProfileData(); 
-  
-  clearInterval(this.interval);
-  this.fetchingData = false;
-
-
-    }, 2000);  
+    this.GetCoachProfileData();   
+  }
+  else{
+    this.router.navigate(["/coach"]);
+  }
     
   }
 
@@ -400,6 +397,7 @@ export class CoachProfileComponent implements OnInit {
         this.router.navigate(["/coach/profile"]);
       }else{
         this.bsModalRef = this.modalService.show(ErrorModalComponent);
+        this.dataRequest = false;
         this.bsModalRef.content.closeBtnName = 'Close';
         this.bsModalRef.content.errorTitle = response.Message.PopupHeading;
         this.bsModalRef.content.errorMsg = response.Message.PopupMessage;
@@ -409,6 +407,7 @@ export class CoachProfileComponent implements OnInit {
              
     },(err) => {
       this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.dataRequest = false;
       this.bsModalRef.content.closeBtnName = 'Close';
       this.bsModalRef.content.errorMsg = err;        
     });
@@ -617,6 +616,7 @@ export class CoachProfileComponent implements OnInit {
   
   errormethod(msg:any){
       this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.dataRequest = false;
       this.bsModalRef.content.closeBtnName = 'Close';
       this.bsModalRef.content.errorMsg = msg;
   }

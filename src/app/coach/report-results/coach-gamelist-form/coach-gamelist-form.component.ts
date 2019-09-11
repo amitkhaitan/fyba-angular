@@ -1155,11 +1155,13 @@ export class CoachGamelistFormComponent implements OnInit {
       }else{
         this.bsModalRef = this.modalService.show(ErrorModalComponent);
         this.bsModalRef.content.closeBtnName = 'Close';
+        this.downloadRequest = false;
       }
     },(err) => {
       this.initialFetchError = true;
       this.errorMsg = err;
       this.bsModalRef = this.modalService.show(ErrorModalComponent);
+      this.downloadRequest = false;
       this.bsModalRef.content.closeBtnName = 'Close';
       this.bsModalRef.content.errorMsg = err;
       

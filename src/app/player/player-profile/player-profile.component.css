@@ -1,4 +1,4 @@
-.width130{width:130px !important;}
+
 
 select:disabled{
     background-color: rgb(235, 235, 228);
@@ -29,12 +29,7 @@ label {
     font-weight: unset;
   }
 
-  .my-dropdown{
-      margin-left: 6px;
-      height: 27px;
-      width: 60px;
-
-  }
+  
 
 
 
@@ -42,7 +37,6 @@ label {
 .mainPanel table tbody tr td{background-color:#ffffff; padding:5px; color:#000000; text-align:left; border:1px solid #dddddd;font-size:11px;}
 
 .lock {
-    margin-left: 15px;
-    height: 18px;
-    width: 15px;
+    margin-left: 10px;
+    height: 16px;
 }

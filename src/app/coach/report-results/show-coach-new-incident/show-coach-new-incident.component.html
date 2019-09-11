@@ -9,11 +9,11 @@
       <h4>{{today | date:'M/d/yy h:mm a'}}</h4>
       <!-- <h4>1/5/2019 4:23 PM</h4> -->
       <p>Incident Type:</p>
-      <select class="reportFacilities" formControlName="incidentType" (change)="incidentSelected()">
+      <select class="reportFacilities width130 my-dropdown" formControlName="incidentType" (change)="incidentSelected()">
         <option *ngFor="let item of allIncidentTypes" value="{{item.Item}}">{{item.Item}}</option>
       </select>
       <ng-container *ngIf="dependentIncidentDropdown">
-        <select *ngIf="dependentIncidentDropdown.length>0" formControlName="incidentSubDropDown" class="reportFacilities"
+        <select *ngIf="dependentIncidentDropdown.length>0" formControlName="incidentSubDropDown" class="reportFacilities width130 my-dropdown"
           (change)="dependentDropDownSelected()">
          
           <option *ngFor="let item of dependentIncidentDropdown" value={{item.Item}}>{{item.Item}}</option>

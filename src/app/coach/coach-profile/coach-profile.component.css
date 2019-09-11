@@ -7,8 +7,10 @@ label{
 }
 
 .lock {
-    height: 18px;
-    width: 15px;
+    height: 16px;
+}
+.marginLeft10{
+    margin-left:10px;
 }
 
 .marginLeftNone{

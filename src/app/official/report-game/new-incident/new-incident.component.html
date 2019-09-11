@@ -8,7 +8,7 @@
       <h4>{{today | date:'M/d/yy h:mm a'}}</h4>
       <!-- <h4>1/5/2019 4:23 PM</h4> -->
       <p>Incident Type:</p>
-      <select class="reportFacilities" 
+      <select class="reportFacilities width130 my-dropdown" 
       formControlName="incidentType" (change)="incidentSelected()">
       <option *ngFor="let item of incidentTypes" 
       value={{item.DependentDropdownName}}>{{item.Item}}</option>
@@ -18,7 +18,7 @@
           <!-- <option class="placeholder" selected disabled value="">Select 
             language</option> -->                        
 
-      <select *ngIf="depedentIncidentDropdown.length>0" 
+      <select class="width130 my-dropdown" *ngIf="depedentIncidentDropdown.length>0" 
         formControlName="incidentSubDropDown" 
         placeholder="Select..."
         (change)="dependentDropDownSelected()" class="reportFacilities" >

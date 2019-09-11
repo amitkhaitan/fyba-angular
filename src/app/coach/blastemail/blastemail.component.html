@@ -7,7 +7,11 @@
           <div class="form-group">
               <label class="col-sm-1 control-label">To:</label>
               <div class="col-sm-11">
-                <textarea class="form-control" formControlName="recepient" placeholder="To"></textarea>
+                <div id="multiselect-sample" class="form-control " class="control-section" >
+                  <div class="heightAuto control-styles form-control textWrap">
+                      <ejs-multiselect  id='sample-list2' [value]='value'  [dataSource]='SendEmails' [mode]='box' [fields]='fields' [placeholder]='waterMark'></ejs-multiselect>
+                  </div>
+                </div>
               </div>
           </div>
           <div class="clearfix"></div>
@@ -45,5 +49,7 @@
     </div>
   </div>
 </div>
+
+
 
 <app-fybaloader *ngIf="loader"></app-fybaloader>

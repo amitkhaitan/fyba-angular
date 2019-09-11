@@ -78,6 +78,7 @@ export class CoachCalendarComponent implements OnInit {
         this.showpractices=false;
         this.showgames=false;
         this.showother=false;
+        this.dataRequest = false;
       }         
     }, (err) => {
       this.initialFetchError = true;
@@ -86,6 +87,7 @@ export class CoachCalendarComponent implements OnInit {
       // this.modalRef.content.closeBtnName = 'Close';
       // this.modalRef.content.errorMsg = err;
       this.showpractices=false;
+      this.dataRequest = false;
       this.showgames=false;
       this.showother=false;
     });

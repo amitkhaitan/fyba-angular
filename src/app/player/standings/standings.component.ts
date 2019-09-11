@@ -44,11 +44,13 @@ export class StandingsComponent implements OnInit {
         this.playerService.standingsData =response.Value;  
       } else {
         this.modalRef = this.modalService.show(ErrorModalComponent);
+        this.dataRequest = false;
         this.modalRef.content.closeBtnName = 'Close';
       }         
     }, (err) => {
       this.initialFetchError = true;
       this.errorMsg = err;
+      this.dataRequest = false;
       this.modalRef = this.modalService.show(ErrorModalComponent);
       this.modalRef.content.closeBtnName = 'Close';
       this.modalRef.content.errorMsg = err;
