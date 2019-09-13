@@ -62,7 +62,7 @@ import { ShowCoachIncidentComponent } from './coach/report-results/show-coach-in
 import { ShowCoachNewIncidentComponent } from './coach/report-results/show-coach-new-incident/show-coach-new-incident.component';
 import { NewCoachIncidentComponent } from './coach/report-results/new-coach-incident/new-coach-incident.component';
 import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
-import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,7 +121,7 @@ import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor'
     HttpClientModule,
     AppRoutingModule,
     NotifierModule,
-    RichTextEditorAllModule,
+    CKEditorModule,
     MatSnackBarModule,
     NgbAccordionModule.forRoot(),
     NgbModalModule.forRoot(),

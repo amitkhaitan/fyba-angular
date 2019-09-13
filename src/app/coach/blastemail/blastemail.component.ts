@@ -8,7 +8,7 @@ import { DataSharingService } from './../../data-sharing.service';
 import { ValidationModalComponent } from './../../official/report-game/validation-modal/validation-modal.component';
 import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -17,6 +17,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./blastemail.component.css']
 })
 export class BlastemailComponent {
+  public Editor = ClassicEditor;
   recepient;
   blastemail:RequestedData;
   blastemailtext:string;

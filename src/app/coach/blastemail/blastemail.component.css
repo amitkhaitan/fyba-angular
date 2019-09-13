@@ -7,5 +7,4 @@
 .textWrap{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .heightAuto{height: auto}
 .btnBlast{margin-bottom:20px;text-align:center; width: 100%}
-.ql-editor {-webkit-user-select: text;}
-
+.e-contentr {-webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;}
