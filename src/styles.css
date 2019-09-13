@@ -90,12 +90,12 @@ body{
 
 
 
-div {
+/* div {
     -webkit-user-select: none; /* Safari 3.1+ */
-    -moz-user-select: none; /* Firefox 2+ */
-    -ms-user-select: none; /* IE 10+ */
-    user-select: none; /* Standard syntax */
-    }
+    /* -moz-user-select: none; Firefox 2+ */
+    /* -ms-user-select: none; IE 10+ */
+    /* user-select: none; Standard syntax */
+    /* } */ 
 
 .dropdown-list .select-all{display:none;}
 
@@ -714,6 +714,7 @@ div {
    
    @media only screen and (max-width : 767px) {
     
+    .blastIcon{height:22px !important;}
     .small_font ul.parentPlayer li span { font-size: 11px !important;}
     .blastbtn{width:47%; padding:5px !important; border-radius: 5px !important; margin-right:5px;}
     .blastbtn.btn-sm{font-size:10px !important;}

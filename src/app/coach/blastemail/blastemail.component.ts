@@ -9,8 +9,11 @@ import { ValidationModalComponent } from './../../official/report-game/validatio
 import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as $ from 'jquery';
 
-
+const { detect } = require('detect-browser');
+const browser = detect();
+declare var require: any;
 @Component({
   selector: 'app-blastemail',
   templateUrl: './blastemail.component.html',
@@ -43,6 +46,7 @@ export class BlastemailComponent {
     private CoachService: CoachService, private dss: DataSharingService) {
     
   }
+  
 
   ngOnInit() {
       this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');

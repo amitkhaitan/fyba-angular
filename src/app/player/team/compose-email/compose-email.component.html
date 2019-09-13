@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /><strong>Send Email</strong></h2>
+      <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /><strong> Send Email</strong></h2>
       <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="form-horizontal">
         <div id="">
             <div class="form-group">
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">Email:</label>
                 <div class="col-sm-11 ql-editor">
-                    <ckeditor [editor]="Editor" formControlName="body" ></ckeditor>
+                  <ckeditor [editor]="Editor"  formControlName="body" (ready)="onReady($event)" ></ckeditor>
                 </div>
             </div>
             <div class="clearfix"></div>
