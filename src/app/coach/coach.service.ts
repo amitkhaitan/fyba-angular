@@ -117,17 +117,17 @@ export class CoachService {
     return this.http.post(Constants.apiURL + '/api/SendMail', body, this.postRequestOptions);
   }
 
-  sendText(emailBody,recepientmobileno): Observable<any> {
+  sendText(emailBody,recipentplayerId,recepientmobileno): Observable<any> {
     var emailModel = new IEmail();
     emailModel.UserID = this.dss.userId;
     emailModel.SessionKey = this.dss.sessionKey;
     emailModel.RequestedData = JSON.stringify({
-      ToPhoneNumbers:recepientmobileno,
       BodyText: emailBody,
       PageType:'Coach',
       SeasonId: this.dss.seasonId,
       LeagueId: this.dss.leagueId,
-      ParentsUserIds:this.recipentparentId
+      PlayersUserIds:recipentplayerId,
+      ToPhoneNumbers:recepientmobileno,
     });
     var body = JSON.stringify(emailModel);
     console.log(body);

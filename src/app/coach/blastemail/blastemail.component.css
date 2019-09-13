@@ -1,3 +1,4 @@
+@import "~font-awesome/css/font-awesome.css";
  .btnMargin {font-weight: bold;margin-top: 5%;display: inline-block;margin-top: 15px;}
 :host ::ng-deep .ck-editor__editable_inline {min-height: 200px !important;}
 .customMargin{margin-bottom: 2%;}
@@ -5,3 +6,6 @@
 .blastIcon{height:36px}
 .textWrap{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .heightAuto{height: auto}
+.btnBlast{margin-bottom:20px;text-align:center; width: 100%}
+.ql-editor {-webkit-user-select: text;}
+

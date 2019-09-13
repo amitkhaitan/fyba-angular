@@ -48,7 +48,6 @@ import { GamelistFormComponent } from './official/report-game/gamelist-form/game
 import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
 import { TeamComponent } from './player/team/team.component';
 import { ComposeEmailComponent } from './player/team/compose-email/compose-email.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { RequestStatusPopupComponent } from './common/request-status-popup/request-status-popup.component';
 import { WithdrawComponent } from './player/player-profile/withdraw/withdraw.component';
 import { CoachProfileComponent } from './coach/coach-profile/coach-profile.component';
@@ -63,7 +62,7 @@ import { ShowCoachIncidentComponent } from './coach/report-results/show-coach-in
 import { ShowCoachNewIncidentComponent } from './coach/report-results/show-coach-new-incident/show-coach-new-incident.component';
 import { NewCoachIncidentComponent } from './coach/report-results/new-coach-incident/new-coach-incident.component';
 import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
-
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,8 +121,8 @@ import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
     HttpClientModule,
     AppRoutingModule,
     NotifierModule,
+    RichTextEditorAllModule,
     MatSnackBarModule,
-    CKEditorModule,
     NgbAccordionModule.forRoot(),
     NgbModalModule.forRoot(),
     ModalModule.forRoot(),

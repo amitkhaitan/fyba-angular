@@ -1,18 +1,16 @@
+<link href="../../../assets/css/material.css" rel="stylesheet" />
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /> <strong> Send Blast {{blasttext |titlecase}}</strong></h2>
-      <form [formGroup]="emailForm" (ngSubmit)="onSubmit(emailForm)" class="form-horizontal">
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="form-horizontal">
         <div id="composeEmailDiv">
           <div class="form-group">
               <label class="col-sm-1 control-label">To:</label>
               <div class="col-sm-11">
-                <div id="multiselect-sample" class="form-control " class="control-section" >
-                  <div class="heightAuto control-styles form-control textWrap">
+                <div id="multiselect-sample" class="form-control ql-editor" class="control-section" >
+                  <div class="heightAuto control-styles form-control textWrap ql-editor">
                       <ejs-multiselect  id='sample-list2' formControlName="recepient"  [dataSource]='SendEmails' [mode]='box' [fields]='fields' [placeholder]='waterMark'></ejs-multiselect>
-                      <!-- <angular2-multiselect [data]="SendEmails" [settings]="settings"
-                                  formControlName="recepient">
-                                </angular2-multiselect> -->
                     </div>
                 </div>
               </div>
@@ -33,7 +31,8 @@
           <div class="form-group"  *ngIf="blastemailtype">
               <label class="col-sm-1 control-label">Email:</label>
               <div class="col-sm-11">
-                  <ckeditor [editor]="Editor" formControlName="body" (ready)="onReady($event)"></ckeditor>
+                  <ejs-richtexteditor formControlName="body"></ejs-richtexteditor>
+                  <!-- <ckeditor  type="inline" formControlName="body"  (ready)="onReady($event)"></ckeditor> -->
               </div>
           </div>
           <div class="form-group"  *ngIf="!blastemailtype">
@@ -43,7 +42,7 @@
               </div>
           </div>
           <input class="form-control" formControlName="blasttype"  type="hidden"  />
-          <div style="text-align:center; width: 100%" class="center-block;">
+          <div class="center-block btnBlast">
             <button type="submit"  class="btn btn-success btnMargin btn-responsive">SEND {{blasttext}}</button>&nbsp;&nbsp;
             <button type="button" (click)="cancel()" class="btn btn-danger btnMargin btn-responsive">CANCEL</button>
           </div>
@@ -52,7 +51,6 @@
     </div>
   </div>
 </div>
-
 
 
 <app-fybaloader *ngIf="loader"></app-fybaloader>

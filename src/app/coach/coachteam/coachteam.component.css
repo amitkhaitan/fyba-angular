@@ -7,7 +7,7 @@
 .paddNoneTable tr > td:nth-child(3), .paddNoneTable tr > td:nth-child(4), .paddNoneTable tr > td:nth-child(5){padding:0px !important;}
 .mainPanel table tbody tr td tr:nth-child(2) td{border-top:1px solid #cccccc;}
 .blastCentre{text-align: center}
-.blastbtn{background-color: #1e31ae; color:#ffffff; padding: 10px 15px; border-radius: 10px;}
+.blastbtn{background-color: #4472C4; color:#ffffff; padding: 10px 15px; border-radius: 10px;}
 .coachemail{color:#4472c4 !important}
 .blueBGHead_health{background-color:red; padding:5px; color:#ffffff; font-size:14px; font-weight:bold}
 .marginLeft{margin-left: 5px;}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { FormGroup, FormArray, FormBuilder, FormControl} from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import { UploadAdapter } from './../../player/team/compose-email/uploadAdapter';
@@ -9,7 +8,7 @@ import { DataSharingService } from './../../data-sharing.service';
 import { ValidationModalComponent } from './../../official/report-game/validation-modal/validation-modal.component';
 import { RequestStatusPopupComponent } from './../../common/request-status-popup/request-status-popup.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgForm } from '@angular/forms';
+
 
 
 @Component({
@@ -25,13 +24,13 @@ export class BlastemailComponent {
   blasttext:string;
   blastemailto:string;
   blastemailfrom:string;
-  public Editor = ClassicEditor;
   emailForm: FormGroup;
   bsModalRef: BsModalRef;
   loader: boolean;
   popuptext:string;
   blasticon:string;
   SendEmails:Array<string>;
+  public data:string;
   public fields: Object = {};
   public waterMark: string = '';
   public box : string = '';
@@ -45,44 +44,45 @@ export class BlastemailComponent {
   }
 
   ngOnInit() {
-    this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
-    
-    if(this.blastemailtext=='blast_email'){
-        this.fields = { text: 'email', value: 'id' };
-        this.waterMark= 'Email ';    
-        this.SendEmails=this.CoachService.teamInfoData.SendEmails;
+      this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
+      //console.log(this.blastemailtext);
+      
+      if(this.blastemailtext=='blast_email'){
+          this.fields = { text: 'email', value: 'id' };
+          this.waterMark= 'Email ';    
+          this.SendEmails=this.CoachService.teamInfoData.SendEmails;
+          this.box= 'Box';
+          for(let i=1;i<=this.SendEmails.length;i++)
+          {
+            this.value.push(i);
+          }
+          this.blastemailtype=true;
+          this.blasttext='EMAIL';
+          this.blastemailto=this.CoachService.recepientemail;
+          this.blasticon="./assets/images/mail-icon-b.png";
+      }else{
+        this.fields = { text: 'mobile', value: 'id' };
+        this.waterMark= 'PhoneNumber ';    
         this.box= 'Box';
-        for(let i=1;i<=this.SendEmails.length;i++)
-        {
-          this.value.push(i);
-        }
-        this.blastemailtype=true;
-        this.blasttext='EMAIL';
-        this.blastemailto=this.CoachService.recepientemail;
-        this.blasticon="./assets/images/mail-icon-b.png";
-    }else{
-      this.fields = { text: 'mobile', value: 'id' };
-      this.waterMark= 'PhoneNumber ';    
-      this.box= 'Box';
-      this.SendEmails=this.CoachService.teamInfoData.SendTexts;
-      for(let i=1;i<=this.SendEmails.length;i++)
-        {
-          this.value.push(i);
-        }
-      this.blastemailtype=false;
-      this.blasttext='TEXT';
-      this.blastemailto=this.CoachService.recepientmobileno;
-      this.blasticon="./assets/images/sms-icon-b.png";
-    }
-    
-    this.blastemailfrom=this.dss.name+'('+this.dss.email+')';
-    this.emailForm = this.fb.group({
-      recepient: this.fb.control(this.value),
-      subject:this.fb.control([]),
-      body:this.fb.control([]),
-      blasttype:this.fb.control(this.blasttext),
-    })
-
+        this.SendEmails=this.CoachService.teamInfoData.SendTexts;
+        for(let i=0;i<this.SendEmails.length;i++)
+          {
+            this.value.push(this.SendEmails[i]['id']);
+          }
+        
+        this.blastemailtype=false;
+        this.blasttext='TEXT';
+        this.blastemailto=this.CoachService.recepientmobileno;
+        this.blasticon="./assets/images/sms-icon-b.png";
+      }
+      
+      this.blastemailfrom=this.dss.name+'('+this.dss.email+')';
+      this.emailForm = this.fb.group({
+        recepient: this.fb.control(this.value),
+        subject:this.fb.control([]),
+        body:this.fb.control([]),
+        blasttype:this.fb.control(this.blasttext),
+      })
   }
   onSubmit() {
     this.loader = true;  
@@ -137,12 +137,11 @@ export class BlastemailComponent {
     {
       if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
       {
-
         this.FinalEmail.push(this.SendEmails[i]['mobile'].split('(')[1].split(')')[0]);
       }
     }
-    if(this.emailForm.get('body').value.length>0){
-      this.CoachService.sendText(this.emailForm.get('body').value,this.FinalEmail.toString())
+   if(this.emailForm.get('body').value.length>0){
+      this.CoachService.sendText(this.emailForm.get('body').value,this.emailForm.get('recepient').value.toString(),this.FinalEmail.toString())
      .subscribe(
        (res) => {
          this.loader = false;
@@ -183,9 +182,9 @@ export class BlastemailComponent {
   }
 
   onReady(eventData) {
-    //console.log(eventData);
+    // console.log(eventData);
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
-      //console.log(btoa(loader.file));
+      // console.log(btoa(loader.file));
       return new UploadAdapter(loader);
     };
   }

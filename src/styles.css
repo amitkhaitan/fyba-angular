@@ -318,7 +318,7 @@ div {
    .filter_module h2, .data_module h2{margin-top:0px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:0px; display: inline-block;width: calc(100% - 16px);line-height: 24px; margin-left:0px; color:#000; position:relative;}
    .filter_div label{margin-top:5px;}
    .filter_div{margin-top:0px; display:inline-block; width:100%;}
-   .marginTop10{margin-top:10px;}
+   .marginTop10{margin-top:10px !important;}
    a.btnFilter{background:#3c98db; padding:5px 10px; border-radius:5px; color:#ffffff; text-decoration:underline;}
    a.btnFilter:hover, a.btnFilter:focus{ color:#ffffff;}
    h1{font-size:26px;margin-bottom: 0;margin-top: 12px;display: inline-block;width: 100%; position:relative;}
@@ -713,6 +713,12 @@ div {
    .slideDate .custom-dropdown select{font-size:12px;}
    
    @media only screen and (max-width : 767px) {
+    
+    .small_font ul.parentPlayer li span { font-size: 11px !important;}
+    .blastbtn{width:47%; padding:5px !important; border-radius: 5px !important; margin-right:5px;}
+    .blastbtn.btn-sm{font-size:10px !important;}
+    .blastbtn .mailIcon, .blastbtn .smsIcon{height:16px !important;}
+     .mobile_menu .glyphicon{margin-top: 5px !important;}
      .logo_login{margin-top: 20px;}
     .forgot_pass{text-align:right; margin-top:15px; margin-right: 10%;}
     .composeHeading { font-size: 18px;}
@@ -1232,12 +1238,10 @@ div {
     .small_font table tr td .report_status{height:17px;}
     .small_font ul.parentCoach li span {font-size:13px !important;}
     .small_font .matchInfo_selectGame{font-size:11px !important;}
+    .small_font ul.parentCoach li {min-height: 84px !important;}
     
 }
 
   /* ---- End Small Font Css --- */
 
-  @media only screen and (max-width : 767px) {
-    .small_font ul.parentPlayer li span { font-size: 11px !important;}
-    .blastbtn{width:70%;}
-    }
+ 

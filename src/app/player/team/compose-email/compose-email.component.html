@@ -1,16 +1,36 @@
+<link href="../../../../assets/css/material.css" rel="stylesheet" />
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="composeHeading"><strong>Send Email</strong></h2>
-      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-        <div id="composeEmailDiv" class="form-group">
-          <input class="form-control" formControlName="recepient" style="margin-bottom: 2%;" type="email"
-            placeholder="To" />
-          <input class="form-control" formControlName="subject" style="margin-bottom: 2%;" type="text"
-            placeholder="Subject" />
-          <ckeditor [editor]="Editor" formControlName="body" (ready)="onReady($event)"></ckeditor>
-          <div style="text-align:center; width: 100%" class="center-block;">
-            <button type="submit" class="btn btn-primary btnMargin btn-responsive">SEND</button>&nbsp;&nbsp;
+      <h2 class="composeHeading"><img class="blastIcon"  [src]="blasticon" alt="mail" /><strong>Send Email</strong></h2>
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+        <div id="">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">To:</label>
+                <div class="col-sm-11">
+                      <input class="form-control" formControlName="recepient" type="email"
+                      placeholder="To" />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Subject:</label>
+                <div class="col-sm-11">
+                    <input class="form-control" formControlName="subject" type="text"
+                    placeholder="Subject" />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Email:</label>
+                <div class="col-sm-11 ql-editor">
+                    <ejs-richtexteditor formControlName="body"></ejs-richtexteditor>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+          <div class="center-block btnBlast">
+            <button type="submit" class="btn btn-success btnMargin btn-responsive">SEND</button>&nbsp;&nbsp;
             <button type="button" (click)="cancel()" class="btn btn-danger btnMargin btn-responsive">CANCEL</button>
           </div>
         </div>

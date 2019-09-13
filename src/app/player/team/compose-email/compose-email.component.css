@@ -1,3 +1,4 @@
+
 #composeEmailDiv * :not(.btnMargin){
 display: block;
 width: 100%;
@@ -25,5 +26,7 @@ width: 100%;
     word-wrap: break-word;
     /* width: 12%; */
 }
+
+.btnBlast{margin-bottom:20px;text-align:center; width: 100%}
 
 

@@ -21,6 +21,7 @@ export class ComposeEmailComponent implements OnInit {
   public Editor = ClassicEditor;
   emailForm: FormGroup;
   postEmailBody: RequestedData;
+  blasticon="./assets/images/mail-icon-b.png";
   constructor(private fb: FormBuilder,
     public modalService: BsModalService,
     private router: Router,
