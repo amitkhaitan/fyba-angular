@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { DataSharingService } from './../data-sharing.service';
 import { delay } from 'rxjs/operators';
 import { LocationStrategy } from '@angular/common';
-
-
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ErrorModalComponent } from './../common/error-modal/error-modal.component';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -26,8 +26,12 @@ export class PlayerComponent implements OnInit {
 
   //--Variable Declarations
   dataRequest: boolean;
+  initialFetchError = null;
+  errorMsg: string;
+  modalRef: BsModalRef;
   public playerSection: IPlayerList = null;
   constructor(
+    public modalService: BsModalService,
     public playerService: PlayerService,
     public router: Router,
     public dss: DataSharingService,
@@ -72,6 +76,15 @@ export class PlayerComponent implements OnInit {
           this.dss.DivisionId = this.playerService.profileData.Value.playerInfo.DivisionId;
           this.dataRequest = false;
           this.router.navigate(["/player/profile"]);
+        }
+        , (err) => {
+          this.initialFetchError = true;
+          this.errorMsg = err;
+          this.modalRef = this.modalService.show(ErrorModalComponent);
+          this.dataRequest=false; 
+          this.modalRef.content.closeBtnName = 'Close';
+          this.modalRef.content.errorMsg = err;
+          
         }
       )      
     });  

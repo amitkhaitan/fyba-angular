@@ -214,7 +214,7 @@
                   </ngb-accordion>
                 </div>
                 <ng-template  #blockregistration >
-                    No data found!
+                    No Data Found !
                 </ng-template> 
             </ng-template>
           </ng-container>          
@@ -247,7 +247,7 @@
                   </ng-container>
                   <ng-template #elseBlocktransaction>
                       <tr>
-                        <td colspan="3">No data found</td>             
+                        <td colspan="3">No Transaction Found !</td>             
                       </tr> 
                   </ng-template>      
                   </tbody>
@@ -350,8 +350,8 @@
         </ngb-accordion>
         <div id="submitDiv" style="text-align:center">
           <button (click)="onSubmit()"
-          [disabled]="profileForm.invalid || !profileForm.touched"
             class="btn btn-success">Save</button>
+            <!-- [disabled]="profileForm.invalid || !profileForm.touched" -->
 
         </div>
       </div>

@@ -49,17 +49,19 @@ export class BlastemailComponent {
   
 
   ngOnInit() {
+    if(this.CoachService.teamInfoData !=null)
+    {
       this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
-      //console.log(this.blastemailtext);
+      console.log(this.blastemailtext);
       
       if(this.blastemailtext=='blast_email'){
           this.fields = { text: 'email', value: 'id' };
           this.waterMark= 'Email ';    
           this.SendEmails=this.CoachService.teamInfoData.SendEmails;
           this.box= 'Box';
-          for(let i=1;i<=this.SendEmails.length;i++)
+          for(let i=0;i<this.SendEmails.length;i++)
           {
-            this.value.push(i);
+            this.value.push(this.SendEmails[i]['id']);//getting id
           }
           this.blastemailtype=true;
           this.blasttext='EMAIL';
@@ -70,10 +72,12 @@ export class BlastemailComponent {
         this.waterMark= 'PhoneNumber ';    
         this.box= 'Box';
         this.SendEmails=this.CoachService.teamInfoData.SendTexts;
+        console.log(this.SendEmails[0]['id']);
         for(let i=0;i<this.SendEmails.length;i++)
           {
-            this.value.push(this.SendEmails[i]['id']);
+            this.value.push(this.SendEmails[i]['id']); // getting user ID
           }
+          console.log(this.value);
         
         this.blastemailtype=false;
         this.blasttext='TEXT';
@@ -88,6 +92,11 @@ export class BlastemailComponent {
         body:this.fb.control([]),
         blasttype:this.fb.control(this.blasttext),
       })
+    }
+    else{
+      this.router.navigate(["/coach/profile"]);
+    }
+      
   }
   onSubmit() {
     this.loader = true;  
@@ -100,6 +109,7 @@ export class BlastemailComponent {
 
   SendBlastEmail(){
     var responseBody;
+    console.log(this.emailForm.get('recepient').value[0]);
     for(let i=0;i<(this.emailForm.get('recepient').value).length;i++)
     {
       if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
@@ -107,6 +117,7 @@ export class BlastemailComponent {
         this.FinalEmail.push(this.SendEmails[i]['email'].split('(')[1].split(')')[0]);
       }
     }
+    console.log(this.FinalEmail);
     if(this.emailForm.get('subject').value.length>0 && this.emailForm.get('body').value.length>0){
 
       this.CoachService.sendEmail(this.emailForm.get('subject').value, this.emailForm.get('body').value,this.FinalEmail.toString())

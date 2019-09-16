@@ -153,7 +153,7 @@ export class PlayerService {
     var calendarModel = new GetPlayer();
     calendarModel.UserID = this.dss.userId;
     calendarModel.SessionKey = this.dss.sessionKey;
-    console.log(this.playerId);
+    //console.log(this.playerId);
     calendarModel.RequestedData = JSON.stringify({
       PlayerId: this.playerId,
       LeagueId: this.dss.leagueId,
