@@ -16,6 +16,7 @@ declare var require: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  toggle: boolean = false;
   modalRef: BsModalRef;
   iosStandalone;
   browserName;
@@ -87,9 +88,18 @@ export class HeaderComponent implements OnInit {
     //   //this.officialActive.nativeElement.classList.add('active');
     // }
   }
-  toggle: boolean = false;
+  
+  a:any;
   toggleMenu() {
     this.toggle = !this.toggle;
+    clearInterval(this.a);
+    this.a=setInterval(() => {
+      if(this.toggle==true)
+      {
+        this.toggle=false;
+      }
+    }, 4000);
+    
   }
 
   logout() {

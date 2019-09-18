@@ -63,6 +63,7 @@ export class BlastemailComponent {
           {
             this.value.push(this.SendEmails[i]['id']);//getting id
           }
+          console.log(this.value);
           this.blastemailtype=true;
           this.blasttext='EMAIL';
           this.blastemailto=this.CoachService.recepientemail;
@@ -112,7 +113,7 @@ export class BlastemailComponent {
     console.log(this.emailForm.get('recepient').value[0]);
     for(let i=0;i<(this.emailForm.get('recepient').value).length;i++)
     {
-      if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
+      if((this.emailForm.get('recepient').value).includes(this.SendEmails[i]['id']))
       {
         this.FinalEmail.push(this.SendEmails[i]['email'].split('(')[1].split(')')[0]);
       }
@@ -151,7 +152,7 @@ export class BlastemailComponent {
     var responseBody;
     for(let i=0;i<(this.emailForm.get('recepient').value).length;i++)
     {
-      if(this.SendEmails[i]['id']==(this.emailForm.get('recepient').value)[i])
+      if((this.emailForm.get('recepient').value).includes(this.SendEmails[i]['id']))
       {
         this.FinalEmail.push(this.SendEmails[i]['mobile'].split('(')[1].split(')')[0]);
       }
@@ -203,5 +204,8 @@ export class BlastemailComponent {
       // console.log(btoa(loader.file));
       return new UploadAdapter(loader);
     };
+  }
+  onChange(eventData){
+    console.log(this.emailForm.get('recepient').value);
   }
 }

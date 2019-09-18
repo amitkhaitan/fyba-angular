@@ -71,9 +71,8 @@
           <div (click)="toggleMenu()" class="mobile_menu">
             <!--<span></span> <span></span> <span></span>-->
             <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-            <div [ngStyle]="{ display: toggle ? 'block' : 'none' }" class="mobile_menu_div">
+            <div *ngIf='toggle' class="mobile_menu_div">
               <ul>
-
                 <li style="padding-bottom:0%">
                   <p (click)="toggleText()" *ngIf="dss.textSize == 'Small'">
                     Classic Layout
@@ -88,7 +87,7 @@
             </div>
           </div>
         </div>
-
+        
       </div>
     </div>
   </div>
