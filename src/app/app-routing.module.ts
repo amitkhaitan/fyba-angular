@@ -23,6 +23,7 @@ import { CoachCalendarComponent } from './coach/coach-calendar/coach-calendar.co
 import { ReportResultsComponent } from './coach/report-results/report-results.component';
 import { CoachteamComponent } from './coach/coachteam/coachteam.component';
 import { BlastemailComponent } from './coach/blastemail/blastemail.component';
+import { WithdrawComponent } from './player/player-profile/withdraw/withdraw.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -57,7 +58,7 @@ const routes: Routes = [
         canDeactivate: [DeactivateGuard]
       },
       {
-        path: 'teaminfo', 
+        path: 'team', 
         component: CoachteamComponent,
         canDeactivate: [DeactivateGuard]
       },
@@ -102,6 +103,10 @@ const routes: Routes = [
         path: 'compose-email', 
         component: ComposeEmailComponent
       },
+      {
+        path: 'withdraw', 
+        component: WithdrawComponent
+      }
     ]
   },
   { path: 'fybaloader', component: FybaloaderComponent },

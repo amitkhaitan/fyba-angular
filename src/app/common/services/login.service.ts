@@ -57,6 +57,7 @@ export class LoginService {
       method:RequestMethod.Post,
       headers:headerOptions
     });
+    console.log(userVar);
     return this.http.post(Constants.apiURL + "/api/Home", userVar, requestOptions)
     .pipe(map(
       (res) => <IUserData>res.json()

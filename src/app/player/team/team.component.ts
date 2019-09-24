@@ -36,9 +36,6 @@ export class TeamComponent implements OnInit {
     this.emails = [];
     this.rosterEmails = [];
     this.dataRequest=true;
-    //this.config.closeOthers = true;
-    this.interval = setInterval(() => {
-    this.timesRun += 1; 
     this.playerService.getTeamInfo()
     .subscribe(
       (res)=>{
@@ -57,11 +54,9 @@ export class TeamComponent implements OnInit {
        this.rosterEmails = [];
       }
      );
-      clearInterval(this.interval);
+      
       this.fetchingData = false;
-      }, 1000);  
-
-  
+      
   }
 
   ngAfterViewInit(){

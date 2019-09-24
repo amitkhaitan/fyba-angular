@@ -66,6 +66,14 @@ export class PlayerComponent implements OnInit {
     await this.playerService.getPlayerData().subscribe((res) => {
       this.playerSection = JSON.parse(res['_body']);
       console.log(this.playerSection);
+      if (this.playerSection.Error=='500'){
+        this.initialFetchError = true;
+        this.errorMsg = 'Service Error';
+        this.modalRef = this.modalService.show(ErrorModalComponent);
+        this.dataRequest=false; 
+        this.modalRef.content.closeBtnName = 'Close';
+        this.modalRef.content.errorMsg = 'Service Error';
+      }
       if (this.playerLists != null) this.playerData = this.playerLists[0];
       this.playerService.playerId = this.playerData["PlayerId"];
       
@@ -74,6 +82,7 @@ export class PlayerComponent implements OnInit {
           this.playerService.profileData = JSON.parse(res["_body"]);   
           console.log(this.playerService.profileData);        
           this.dss.DivisionId = this.playerService.profileData.Value.playerInfo.DivisionId;
+          this.dss.Division = this.playerService.profileData.Value.playerInfo.Division;         
           this.dataRequest = false;
           this.router.navigate(["/player/profile"]);
         }
@@ -106,6 +115,8 @@ export class PlayerComponent implements OnInit {
        
         this.playerService.profileData = JSON.parse(res["_body"]);
         console.log(this.playerService.profileData);
+        this.dss.DivisionId = this.playerService.profileData.Value.playerInfo.DivisionId;
+        this.dss.Division = this.playerService.profileData.Value.playerInfo.Division;      
         this.dataRequest=false;
         this.router.navigate(["/player/profile"]);
       }

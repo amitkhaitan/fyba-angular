@@ -52,7 +52,7 @@ export class BlastemailComponent {
     if(this.CoachService.teamInfoData !=null)
     {
       this.blastemailtext=this.route.snapshot.paramMap.get('blasttype');
-      console.log(this.blastemailtext);
+      //console.log(this.blastemailtext);
       
       if(this.blastemailtext=='blast_email'){
           this.fields = { text: 'email', value: 'id' };
@@ -73,12 +73,12 @@ export class BlastemailComponent {
         this.waterMark= 'PhoneNumber ';    
         this.box= 'Box';
         this.SendEmails=this.CoachService.teamInfoData.SendTexts;
-        console.log(this.SendEmails[0]['id']);
+        //console.log(this.SendEmails[0]['id']);
         for(let i=0;i<this.SendEmails.length;i++)
           {
             this.value.push(this.SendEmails[i]['id']); // getting user ID
           }
-          console.log(this.value);
+          //console.log(this.value);
         
         this.blastemailtype=false;
         this.blasttext='TEXT';
@@ -133,7 +133,7 @@ export class BlastemailComponent {
           this.bsModalRef.content.popupTitle = responseBody.Message.PopupHeading;
           this.bsModalRef.content.popupMsg = responseBody.Message.PopupMessage;
           this.CoachService.indicator.next(true);
-          this.bsModalRef.content.route = "/coach/teaminfo";          
+          this.bsModalRef.content.route = "/coach/team";          
        }
      )
     }else{
@@ -170,7 +170,7 @@ export class BlastemailComponent {
           this.bsModalRef.content.popupTitle = responseBody.Message.PopupHeading;
           this.bsModalRef.content.popupMsg = responseBody.Message.PopupMessage;
           this.CoachService.indicator.next(true);
-          this.bsModalRef.content.route = "/coach/teaminfo";          
+          this.bsModalRef.content.route = "/coach/team";          
        }
      )
     }else{      
@@ -195,7 +195,7 @@ export class BlastemailComponent {
   cancel() {
     this.CoachService.emailFlag = false;
     this.CoachService.indicator.next(true);
-    this.router.navigate(["coach/teaminfo"]);
+    this.router.navigate(["coach/team"]);
   }
 
   onReady(eventData) {

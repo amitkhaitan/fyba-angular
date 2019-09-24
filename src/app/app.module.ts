@@ -109,6 +109,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
   ],
   imports: [
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     HttpModule,
     BrowserModule,
     BrowserAnimationsModule,

@@ -6,7 +6,10 @@ body {
     display: block;
     font-weight: 500;
 }
-
+.my-Dropdown {
+    height: 27px;
+    width: 60px;
+}
 
 /* label{
     display: inline-block

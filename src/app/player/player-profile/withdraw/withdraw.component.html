@@ -1,51 +1,104 @@
+<div *ngIf="dataRequest">
+  <ng-container>
+    <form [formGroup]="withdrawForm">
+      <div class="modal-body">
+        <div class="container-fluid">
+          <ngb-accordion>
+            <ngb-panel>
+              <ng-template ngbPanelTitle>
+                <div class="HeadCollapse">
+                  <h2 class="paidHead" style="font-size:16px !important"> Withdrawal Information</h2>
+                </div>
 
-<ng-container *ngIf="details">
-<div class="modal-header padding10" style="background-color:red">
-  <h4 style="color:white" class="modal-title pull-left">Withdraw</h4>
-  <button type="button" class="close pull-right customClose" aria-label="Close" (click)="modalRef.hide()">
+              </ng-template>
+              <ng-template ngbPanelContent>
+                The FYBA issues refunds to players who withdraw from the league based on the date the withdrawal is
+                requested.
+                Requests received during the Early Refund Request period will granted a refund of amounts paid minus a
+                non-refundable fee of $10.00 (players who have made a school or AAU team will not be charged the
+                nonrefundable
+                fee). Requests received during the Late Refund request period will be granted a refund of amounts paid
+                minus
+                the non-refundable fee and the uniform fee (total of $40). No refunds will be given after Dec. 31st .
+                Players
+                wishing to withdraw from the league must do so through the league website. Withdrawal requests must be
+                received by the appropriate dates to qualify for a refund.
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
 
-    <span aria-hidden="true">&times;</span>
 
-  </button>
-</div>
-<div class="modal-body">
-  <div class="container-fluid">
-    <ngb-accordion>
-      <ngb-panel>
-        <ng-template ngbPanelTitle>
-          <div class="HeadCollapse">
-            <h2 class="paidHead" style="font-size:16px !important"> Withdrawal Information</h2>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Current Player Status:</strong>
           </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            {{withdrawdata.Status}}
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Registration Payment Method:</strong>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            {{withdrawdata.PaymentMode}}
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Refund Processing Date:</strong>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            {{withdrawdata.RefundRequestDate}}
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Refund Period:</strong>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            {{withdrawdata.RefundPeriod}}
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Withdrawal Reason:</strong>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            <select class="my-Dropdown width130" formControlName="WithdrawReason" [(ngModel)]="withdrawdata.WithdrawalReasonId" >
+              <option *ngFor="let Item of withdrawdd ; let i=index;" value="{{Item.WithdrawalReasonID}}">
+                <!-- [selected]="withdrawdata.WithdrawalReasonId==Item.WithdrawalReasonID" -->
+                {{Item.WithdrawalReason}}
+              </option>
+            </select>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="row-fluid signupPosition">
+          <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
+            <strong>Withdrawal Explaination:</strong>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+            <input type="text" formControlName="WithdrawalExplanation">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div style="text-align:center" class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="withdraw()">
+          WITHDRAW
+        </button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="cancel()">
+          CANCEL
+        </button>
 
-        </ng-template>
-        <ng-template ngbPanelContent>
-          The FYBA issues refunds to players who withdraw from the league based on the date the withdrawal is requested.
-          Requests received during the Early Refund Request period will granted a refund of amounts paid minus a
-          non-refundable fee of $10.00 (players who have made a school or AAU team will not be charged the nonrefundable
-          fee). Requests received during the Late Refund request period will be granted a refund of amounts paid minus
-          the non-refundable fee and the uniform fee (total of $40). No refunds will be given after Dec. 31st . Players
-          wishing to withdraw from the league must do so through the league website. Withdrawal requests must be
-          received by the appropriate dates to qualify for a refund.
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
-    <br/>
-    <label><b>Current Player Status:</b> {{details.Status}}</label>
-    <label><b>Registration Payment Method:</b>  {{details.PaymentMode}}</label>
-    <label><b>Refund Processing Date:</b>  </label>
-    <label><b>Refund Period:</b>  </label>
-    <label><b>Withdrawal Reason:</b>  </label>
-    <label><b>Withdrawal Explaination:</b></label>
-  </div>
+      </div>
+    </form>
+  </ng-container>
 </div>
-<div style="text-align:center" class="modal-footer">
-  <button type="button" class="btn btn-danger" (click)="withdraw()">
-    WITHDRAW
-  </button>&nbsp;
-  <button type="button" class="btn btn-primary" (click)="cancel()">
-    CANCEL
-  </button>
-
-</div>
-</ng-container>
 <app-fybaloader *ngIf="loader"></app-fybaloader>

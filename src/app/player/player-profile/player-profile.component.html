@@ -204,7 +204,7 @@
                             </div>
 
                             <div class="withdrawDiv" style="text-align:center">
-                              <button (click)="withdraw(status.PlayerId,status)" class="btn btn-danger">Withdraw</button>
+                              <button type="button" (click)="withdraw(status.PlayerId,status)" class="btn btn-danger">Withdraw</button>
                             </div>
 
                           </div>
@@ -214,7 +214,10 @@
                   </ngb-accordion>
                 </div>
                 <ng-template  #blockregistration >
-                    No Data Found !
+                  <div class="font-11">
+                    <strong>No Data Found !</strong>  
+                  </div>
+                   
                 </ng-template> 
             </ng-template>
           </ng-container>          
@@ -314,11 +317,22 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                       <strong>Jersey # Request (1st choice):</strong>
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                    <div *ngIf="apparel.RequestedJersey1Id != 0"class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
                       <select class="width130 my-dropdown" formControlName="RequestedJersey1Id"
                         (change)="changeRequestedJersey1Id($event)">
                         <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}"
                           [selected]="apparel.RequestedJersey1Id == Jersey.id">
+                          {{Jersey.number}}</option>
+                      </select>
+                      <img class="lock" [src]="currentSrc1" alt="lock" />
+                    </div>
+                    <div *ngIf="apparel.RequestedJersey1Id == 0" class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                      <select class="width130 my-dropdown" formControlName="RequestedJersey1Id"
+                        (change)="changeRequestedJersey1Id($event)">
+                        <option
+                          [selected]="true">
+                          N/A</option>
+                        <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}">
                           {{Jersey.number}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc1" alt="lock" />
@@ -330,11 +344,22 @@
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right paddRight5">
                       <strong>Jersey # Request (2nd choice):</strong>
                     </div>
-                    <div class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                    <div *ngIf="apparel.RequestedJersey2Id != 0" class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
                       <select class="width130 my-dropdown" formControlName="RequestedJersey2Id"
                         (change)="changeRequestedJersey2Id($event)">
                         <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}"
                           [selected]="apparel.RequestedJersey2Id == Jersey.id">
+                          {{Jersey.number}}</option>
+                      </select>
+                      <img class="lock" [src]="currentSrc2" alt="lock" />
+                    </div>
+                    <div *ngIf="apparel.RequestedJersey2Id == 0" class="col-md-8 col-sm-8 col-xs-8 paddLeft5">
+                      <select class="width130 my-dropdown" formControlName="RequestedJersey2Id"
+                        (change)="changeRequestedJersey2Id($event)">
+                        <option
+                          [selected]="true">
+                          N/A</option>
+                        <option *ngFor="let Jersey of JerseySizeValue" value="{{Jersey.id}}">
                           {{Jersey.number}}</option>
                       </select>
                       <img class="lock" [src]="currentSrc2" alt="lock" />

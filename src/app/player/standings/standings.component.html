@@ -3,7 +3,7 @@
   <div class="row paddingBottom50">
     <div class="col-lg-12">
         <div class="mainPanel marginTop30">
-            <h4 class="blueBGHead">(6B) DIVISION STANDINGS</h4>
+            <h4 class="blueBGHead">({{this.dss.Division}}) DIVISION STANDINGS</h4>
             <div class="table-responsive borderNone">
               <table cellspacing="0" cellpadding="0" border="0" width="100%">
               <thead>
@@ -17,7 +17,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let stand of standlings; let i = index">
+                <tr *ngFor="let stand of playerService.standingsData; let i = index">
                   <td>{{i+1}}</td>
                   <td>{{stand.Teamname}}</td>
                   <td>{{stand.Win}}</td>

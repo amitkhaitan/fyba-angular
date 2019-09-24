@@ -74,7 +74,7 @@ export class CoachComponent implements OnInit {
     this.coachData = await this.TeamList.filter((item) => item.TeamId == id);
     this.coachData = this.coachData[0];
     this.dss.TeamId = await id; 
-    console.log(this.dss.TeamId);
+   // console.log(this.dss.TeamId);
     await this.coachService.GetCoachProfileData().subscribe(
       (res)=>{
         if(res.Status==true){

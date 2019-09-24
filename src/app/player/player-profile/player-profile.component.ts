@@ -46,8 +46,9 @@ export class PlayerProfileComponent implements OnInit {
   timesRun;
   interval;
   bsModalRef: BsModalRef;
-
-  constructor(public playerService: PlayerService,
+  
+  constructor(
+    public dss:DataSharingService,public playerService: PlayerService,
     public router: Router, private fb: FormBuilder,
     private modalService: BsModalService,
     private config: NgbAccordionConfig,
@@ -198,7 +199,7 @@ export class PlayerProfileComponent implements OnInit {
         this.fetchingData = false;
       }
       
-    }, 2000);
+    }, 1000);
   
   }
 
@@ -306,10 +307,14 @@ export class PlayerProfileComponent implements OnInit {
   
 
   modalRed: BsModalRef;
-  withdraw(playerId: number, status: JSON) {
-    this.bsModalRef = this.modalService.show(WithdrawComponent);
-    this.bsModalRef.content.playerId = playerId;
-    this.bsModalRef.content.details = status;
+  withdraw(playerId) {
+
+    this.dss.playerId=playerId;
+    this.router.navigate(["/player/withdraw"]);
+
+    // this.bsModalRef = this.modalService.show(WithdrawComponent);
+    // this.bsModalRef.content.playerId = playerId;
+    // this.bsModalRef.content.details = status;
   }
 
   changeShortSize(event:any) {

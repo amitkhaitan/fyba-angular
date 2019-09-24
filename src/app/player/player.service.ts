@@ -114,6 +114,15 @@ export class PlayerService {
     console.log(body);
     return this.http.post(Constants.apiURL + '/api/PlayerDetailsSave',body, this.postRequestOptions);
   }
+  WithdrawData(requestedData):Observable<any>{
+    var saveProfileModel = new GetPlayer();
+    saveProfileModel.UserID = this.dss.userId;
+    saveProfileModel.SessionKey = this.dss.sessionKey;
+    saveProfileModel.RequestedData = JSON.stringify(requestedData);
+    var body = JSON.stringify(saveProfileModel);
+    console.log(body);
+    return this.http.post(Constants.apiURL + '/api/PlayerWithdrawSave',body, this.postRequestOptions);
+  }
 
   withdrawPlayer(playerId):Observable<any>{
     var withdrawModel = new GetPlayer();

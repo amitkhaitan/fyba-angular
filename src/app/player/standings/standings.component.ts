@@ -29,6 +29,7 @@ export class StandingsComponent implements OnInit {
    
   ngOnInit() {
     this.dataRequest=true;
+    
     if(this.dss.DivisionId){
       this.getstandingsData();
     }
@@ -36,7 +37,7 @@ export class StandingsComponent implements OnInit {
   }
 
   async getstandingsData() {
-    await this.playerService.getstandingsData().subscribe((res) => {    
+    await this.playerService.getstandingsData().subscribe((res) => {  
       this.dataRequest = false;      
       var response = JSON.parse(res["_body"]); 
       console.log(response);          
@@ -55,9 +56,5 @@ export class StandingsComponent implements OnInit {
       this.modalRef.content.closeBtnName = 'Close';
       this.modalRef.content.errorMsg = err;
     });
-  }
-
-  get standlings(){
-    return this.playerService.standingsData;
   }
 }

@@ -14,6 +14,7 @@ export class DataSharingService {
   jsonResult: JSON;
   loginFailed: boolean;
   userId: number = null;
+  playerId: number = null;
   reportTagLabel: number = null;
   sessionKey: string = null;
   officialSeasonId: string = null;
@@ -28,6 +29,7 @@ export class DataSharingService {
   VolunteerSeasonalId: string = null;
   VolunteerStatusId: string = null;
   DivisionId:number=null;
+  Division:string=null;
   isBackButtonClicked: boolean = null;
   currentRoute: string = null;
   isCoach:boolean = null;
